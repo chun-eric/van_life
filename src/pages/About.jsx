@@ -15,7 +15,7 @@ const About = () => {
 
       {/* Content Section */}
       <div className='max-w-[1280px] mx-auto px-8 md:py-8 my-4 '>
-        <h1 className='text-2xl md:text-4xl font-bold mb-6'>
+        <h1 className='text-2xl md:text-4xl font-bold mb-6 text-slate-950'>
           Don’t squeeze in a sedan when you could relax in a van.
         </h1>
         <p className='text-slate-950 mb-6 text-lg'>

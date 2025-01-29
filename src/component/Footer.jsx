@@ -3,7 +3,7 @@ const Footer = () => {
   const year = date.getFullYear();
 
   return (
-    <div className='bg-[#252525] w-full h-[120px] flex items-center justify-center'>
+    <div className='bg-[#252525] w-full h-[100px] flex items-center justify-center'>
       <div className=''>
         <h3 className='text-base  flex gap-4 text-gray-400 leading-6'>
           <span className=''>&copy; {year}</span>#VANLIFE
