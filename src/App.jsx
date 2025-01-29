@@ -1,12 +1,24 @@
-import { useState } from "react";
 import "./index.css";
-// import ReactDOM from "react-dom/client";
+import Navbar from "./component/Navbar";
+import Footer from "./component/Footer";
+import { Routes, Route } from "react-router-dom";
+import About from "./pages/About";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <>
-      <h1 className='text-3xl font-bold underline'>Hello world!</h1>
-    </>
+    <div className='min-h-screen flex flex-col'>
+      <Navbar />
+      <main className='flex-1'>
+        {" "}
+        {/* Added main wrapper */}
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
