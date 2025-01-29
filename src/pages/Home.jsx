@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import HeroBackground from "../assets/image-54.png";
 
@@ -16,7 +15,7 @@ const Home = () => {
             }}
           />
           {/* Dark Overlay */}
-          <div className='absolute inset-0 bg-black opacity-60' />
+          <div className='absolute inset-0 bg-black opacity-50' />
           <div className='mb-3 z-10 text-center flex flex-col gap-1 max-w-[800px]'>
             <h1 className='font-bold text-left sm:text-center text-4xl sm:text-5xl md:text-6xl lg:text-6xl mb-3 text-white  leading-wide'>
               You got the travel plans,

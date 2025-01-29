@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 
 const Navbar = () => {
   return (
-    <header className='bg-[#FFEAD0] w-full '>
+    <header className='bg-[#FFF7ED] w-full '>
       <div className='max-w-[1280px] mx-auto px-4 md:px-6'>
         <nav className=' h-[100px] flex items-center justify-between '>
           <Link to='/'>
