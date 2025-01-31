@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
@@ -11,22 +11,42 @@ const Navbar = () => {
           </Link>
 
           <div className='flex flex-row gap-4'>
-            <ul className='flex gap-8 list-none mr-4 '>
+            <ul className='flex gap-8 mr-4 list-none '>
               <li>
-                <Link
-                  to='/about'
-                  className='text-gray-800 font-semibold hover:underline '
+                <NavLink
+                  to='/host'
+                  className={({ isActive }) =>
+                    isActive
+                      ? "font-bold text-gray-800 underline"
+                      : "font-semibold text-gray-800 hover:underline hover:text-gray-600"
+                  }
                 >
-                  About
-                </Link>
+                  Host
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
+                  to='/about'
+                  className={({ isActive }) =>
+                    isActive
+                      ? "font-bold text-gray-800 underline hover:text-gray-600"
+                      : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
+                  }
+                >
+                  About
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to='/vans'
-                  className='text-gray-800 font-semibold hover:underline'
+                  className={({ isActive }) =>
+                    isActive
+                      ? "font-bold text-gray-800 underline"
+                      : "font-semibold text-gray-800 hover:underline hover:text-gray-600"
+                  }
                 >
                   Vans
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>
