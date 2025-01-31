@@ -50,3 +50,7 @@ Day #2
 - Added ``  hostId: "123"` random host key values pairs to link hosts with certain vans
 - List all the HostVans in the /host/vans. Use map, useEffect, useState
 - Created the /host/vans > HostVans.jsx css and styling
+- Styled the Shared UI portion of the HostVanDetail.jsx
+- Add CSS and Styling to the HostVanDetails page with NavLinks for Details, Pricing and Photos
+- Added type buttons in the VanDetails page
+-
