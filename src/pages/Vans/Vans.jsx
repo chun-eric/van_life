@@ -1,8 +1,18 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import "../../server.js";
 const Vans = () => {
   const [vans, setVans] = useState([]);
+
+  // URL search params
+  const [searchParams, setSearchParams] = useSearchParams();
+  const typeFilter = searchParams.get("type");
+  console.log(typeFilter);
+
+  // Filtered vans array based on url search type
+  const filteredVans = typeFilter
+    ? vans.filter((van) => van.type === typeFilter)
+    : vans;
 
   useEffect(() => {
     fetch("/api/vans")
@@ -25,19 +35,33 @@ const Vans = () => {
         <h1 className='mb-6 text-xl font-bold md:text-2xl'>
           Explore our van options 🚐
         </h1>
-        <div className='flex flex-wrap items-start gap-2 mb-4'>
-          {Object.keys(colorOptions).map((type) => (
+        <div className='flex flex-col flex-wrap items-center justify-between mb-4 xs:flex-row'>
+          <div className='flex flex-wrap w-full gap-2 xs:w-auto'>
+            {Object.keys(colorOptions).map((type) => (
+              <Link key={type} to={`?type=${type}`} className='no-underlines'>
+                <span
+                  className={`inline-block px-4 py-2 capitalize bg-[#ffead0] max-w-[100px] text-center  rounded text-black mr-2 cursor-pointer 
+              }`}
+                >
+                  {type}
+                </span>
+              </Link>
+            ))}
+          </div>
+          <Link
+            to='.'
+            className='flex w-full mt-4 ml-2 xs:ml-0 xs:w-auto xs:mt-0'
+          >
             <span
-              key={type}
-              className={`inline-block px-4 py-2 capitalize bg-[#ffead0] max-w-[100px] text-center  rounded text-black mr-2 cursor-pointer 
+              className={`inline-block  py-2 capitalize  w-full text-left  rounded text-black mr-2 cursor-pointer  underline
               }`}
             >
-              {type}
+              Clear filter
             </span>
-          ))}
+          </Link>
         </div>
         <div className='grid w-full grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3'>
-          {vans.map((van) => (
+          {filteredVans.map((van) => (
             // Van Card
             <Link
               to={`/vans/${van.id}`}

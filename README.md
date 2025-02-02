@@ -53,4 +53,29 @@ Day #2
 - Styled the Shared UI portion of the HostVanDetail.jsx
 - Add CSS and Styling to the HostVanDetails page with NavLinks for Details, Pricing and Photos
 - Added type buttons in the VanDetails page
+
+## Day #4
+
+- Adding Relative Routes/Links in our Top parent link containers
+- Changed NavLink to property = "."
+- This makes it easier for us whenever we need to change the top level parent route container links.
+- Back to all vans feature using ".." in Link to property to go back to all vans from vandetails page.
+- However using ".." will take us back to the parent route container which is "/host". This isnt what we want.
+  We want to go back to "/host/vans" just one level up the route path.
+- We solve this by adding relative="path" to our Link
+- Setting up Routes for the Hosts Details section, HostVanInfo, HostVanPricing, HostVanPhotos
+- Setting up nested routes in the App.jsx
+  ![alt text](image-1.png)
+- add new NavLinks in Details, Pricing, Photos in the HostVanDetails Page.
+- How do we get the data inside each one of the HostDetails section for Details, Pricing and Photos??
+- Solution: Outlet Context. This makes it easy for us to get information and pass it as props to an Outlet. That means any component that uses the Outlet can get access to this data.
+- pass a prop called context={van} van is the van object we fetched via the api
+- then on child routes we use the useOutletContext. We then destructure the {van } = useOutletContext();
+- We are now able to render the data get specific data to render
+- Adding a searchParams from react router dom into the query or search string to be able to either filter, sort or add pagination. In our case, we can filter wit hthe searchParams in the url string. Search params will read the parameters in the URL.
+- We added a filterVans method when a ?type=rugged or simple or luxury is in the url path
+- How can we now do this dynamically instaed of us typing in the query string? For instance how can we filter based on a filter button dropdown by type? First we can add a Link element
+- Added filter button links by Type in /vans
+- Added clear filter button as well in /vans.
+- If we want to clear the query pararmeter we can add in the Link to="" or to="." Both will work.
 -

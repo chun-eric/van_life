@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../server.js";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, Link, Outlet } from "react-router-dom";
 
 const HostVanDetail = () => {
   const [van, setVan] = useState([]);
@@ -25,7 +25,14 @@ const HostVanDetail = () => {
 
   console.log("this is the van", van);
   return (
-    <div className='w-full '>
+    <section className='w-full '>
+      <Link
+        to='..'
+        relative='path'
+        className='block my-8 text-black no-underline '
+      >
+        &larr; <span className='text-sm hover:underline'>Back to all vans</span>
+      </Link>
       <div className='flex flex-col w-full gap-4 p-5 bg-white'>
         <div className='flex flex-col items-center w-full gap-6 rounded-lg sm:flex-row'>
           <img
@@ -52,7 +59,7 @@ const HostVanDetail = () => {
         </div>
         <nav className='flex flex-wrap gap-10 mt-4 text-sm'>
           <NavLink
-            to={`/host/vans/${id}/details`}
+            to='.'
             end
             className={({ isActive }) =>
               isActive
@@ -63,7 +70,7 @@ const HostVanDetail = () => {
             Details
           </NavLink>
           <NavLink
-            to={`/host/vans/${id}/pricing`}
+            to='pricing'
             className={({ isActive }) =>
               isActive
                 ? "font-bold text-gray-800 underline hover:text-gray-600"
@@ -72,9 +79,8 @@ const HostVanDetail = () => {
           >
             Pricing
           </NavLink>
-
           <NavLink
-            to={`/host/vans/${id}/photos`}
+            to='photos'
             className={({ isActive }) =>
               isActive
                 ? "font-bold text-gray-800 underline hover:text-gray-600"
@@ -84,8 +90,9 @@ const HostVanDetail = () => {
             Photos
           </NavLink>
         </nav>
+        <Outlet context={{ van }} />
       </div>
-    </div>
+    </section>
   );
 };
 

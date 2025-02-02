@@ -10,7 +10,7 @@ const HostLayout = () => {
     <div className='max-w-[1280px] mx-auto px-6 mt-12 flex flex-col gap-8 flex-wrap'>
       <nav className='flex flex-wrap gap-12'>
         <NavLink
-          to='/host'
+          to='.'
           end
           className={({ isActive }) =>
             isActive
@@ -21,7 +21,7 @@ const HostLayout = () => {
           <Dashboard />
         </NavLink>
         <NavLink
-          to='/host/income'
+          to='income'
           className={({ isActive }) =>
             isActive
               ? "font-bold text-gray-800 underline hover:text-gray-600"
@@ -31,7 +31,7 @@ const HostLayout = () => {
           <Income />
         </NavLink>
         <NavLink
-          to='/host/vans'
+          to='vans'
           className={({ isActive }) =>
             isActive
               ? "font-bold text-gray-800 underline hover:text-gray-600"
@@ -41,7 +41,7 @@ const HostLayout = () => {
           Vans
         </NavLink>
         <NavLink
-          to='/host/reviews'
+          to='reviews'
           className={({ isActive }) =>
             isActive
               ? "font-bold text-gray-800 underline hover:text-gray-600"
