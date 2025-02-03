@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 import "../../server.js";
 
 const VanDetails = () => {
@@ -27,6 +27,14 @@ const VanDetails = () => {
   return (
     <div className='w-full px-4 sm:px-6'>
       <div className='max-w-[600px] mx-auto my-24'>
+        <Link
+          to='..'
+          relative='path'
+          className='block my-8 text-black no-underline '
+        >
+          &larr;{" "}
+          <span className='text-sm hover:underline'>Back to all vans</span>
+        </Link>
         {van ? (
           <div className='flex flex-col text-[#161616] gap-4'>
             <img src={van.imageUrl} className='mb-4 rounded' />

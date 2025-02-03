@@ -7,7 +7,6 @@ const Vans = () => {
   // URL search params
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFilter = searchParams.get("type");
-  console.log(typeFilter);
 
   // Filtered vans array based on url search type
   const filteredVans = typeFilter
@@ -20,14 +19,24 @@ const Vans = () => {
       .then((data) => setVans(data.vans));
   }, []);
 
-  console.log(vans);
-
   // color options
   const colorOptions = {
     simple: "#e17653",
     rugged: "#115E59",
     luxury: "#161616",
   };
+
+  function handleFilterChange(key, value) {
+    setSearchParams((prevParams) => {
+      if (value === null) {
+        prevParams.delete(key);
+      } else {
+        prevParams.set(key, value);
+      }
+
+      return prevParams;
+    });
+  }
 
   return (
     <div className='w-full px-4 sm:px-6 '>
@@ -38,33 +47,43 @@ const Vans = () => {
         <div className='flex flex-col flex-wrap items-center justify-between mb-4 xs:flex-row'>
           <div className='flex flex-wrap w-full gap-2 xs:w-auto'>
             {Object.keys(colorOptions).map((type) => (
-              <Link key={type} to={`?type=${type}`} className='no-underlines'>
+              <button
+                key={type}
+                className='no-underlines'
+                onClick={() => handleFilterChange("type", type)}
+              >
                 <span
-                  className={`inline-block px-4 py-2 capitalize bg-[#ffead0] max-w-[100px] text-center  rounded text-black mr-2 cursor-pointer 
-              }`}
+                  style={{
+                    backgroundColor:
+                      typeFilter === type ? colorOptions[type] : "#ffead0",
+                    color: typeFilter === type ? "white" : "black",
+                  }}
+                  className={`inline-block px-4 py-2 capitalize max-w-[100px] text-center rounded mr-2 cursor-pointer`}
                 >
                   {type}
                 </span>
-              </Link>
+              </button>
             ))}
           </div>
-          <Link
-            to='.'
-            className='flex w-full mt-4 ml-2 xs:ml-0 xs:w-auto xs:mt-0'
-          >
-            <span
-              className={`inline-block  py-2 capitalize  w-full text-left  rounded text-black mr-2 cursor-pointer  underline
-              }`}
+          {typeFilter && (
+            <button
+              onClick={() => handleFilterChange("type", null)}
+              className='flex w-full mt-4 ml-2 xs:ml-0 xs:w-auto xs:mt-0'
             >
-              Clear filter
-            </span>
-          </Link>
+              <span
+                className={`inline-block  py-2 capitalize  w-full text-left  rounded text-black mr-2 cursor-pointer  underline
+              }`}
+              >
+                Clear filter
+              </span>
+            </button>
+          )}
         </div>
         <div className='grid w-full grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3'>
           {filteredVans.map((van) => (
             // Van Card
             <Link
-              to={`/vans/${van.id}`}
+              to={van.id}
               key={van.id}
               aria-label={`View details for ${van.name}, 
                              priced at $${van.price} per day`}

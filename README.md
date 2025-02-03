@@ -78,4 +78,62 @@ Day #2
 - Added filter button links by Type in /vans
 - Added clear filter button as well in /vans.
 - If we want to clear the query pararmeter we can add in the Link to="" or to="." Both will work.
--
+- Refactored the filter buttons using the setSearchParams setter function.
+
+```
+
+ <div className='flex flex-wrap w-full gap-2 xs:w-auto'>
+            {Object.keys(colorOptions).map((type) => (
+              <button
+                key={type}
+                className='no-underlines'
+                onClick={() => setSearchParams({ type: type })}
+              >
+                <span
+                  className={`inline-block px-4 py-2 capitalize bg-[#ffead0] max-w-[100px] text-center  rounded text-black mr-2 cursor-pointer
+              }`}
+                >
+                  {type}
+                </span>
+              </button>
+            ))}
+          </div>
+
+```
+
+````<button
+            onClick={() => setSearchParams({})}
+            className='flex w-full mt-4 ml-2 xs:ml-0 xs:w-auto xs:mt-0'
+          >
+            <span
+              className={`inline-block  py-2 capitalize  w-full text-left  rounded text-black mr-2 cursor-pointer  underline
+              }`}
+            >
+              Clear filter
+            </span>
+          </button>
+          ```
+````
+
+- Merging Query Parameters...just started
+
+## Day #5
+
+- Merging search params with setSearchParams function. No idea here.
+- Conditionally rendering the clear filter button when typeFilter is true.
+- conditionally rendering background color and text color when type button is clicked.
+- ```<span
+                 style={{
+                   backgroundColor:
+                     typeFilter === type ? colorOptions[type] : "#ffead0",
+                   color: typeFilter === type ? "white" : "black",
+                 }}
+                 className={`inline-block px-4 py-2 capitalize max-w-[100px] text-center rounded mr-2 cursor-pointer`}
+               >
+                 {type}
+               </span>
+
+  ```
+
+- Adjusting some absolute paths with relative paths in /host/vans/id and /vans/id
+- Adding back to vans button in /vans/id. We can just copy the same one from /host/vans/id. However there is a problem for the user flow. When we click back to all vans, it loses all our filter options. This is okay for one filter but what if we were filtering for more than one option? How do we solve this?

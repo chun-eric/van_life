@@ -21,7 +21,7 @@ const HostVans = () => {
       <div className='flex flex-col flex-1 gap-5'>
         {vans.length > 0 ? (
           vans.map((van) => (
-            <Link to={`/host/vans/${van.id}`} key={van.id}>
+            <Link to={van.id} key={van.id}>
               <div className='flex flex-col gap-4 p-5 bg-white'>
                 <div className='flex flex-row items-center gap-6 rounded-lg'>
                   <img
