@@ -7,7 +7,6 @@ import "./server.js";
 import Vans from "./pages/Vans/Vans.jsx";
 import VanDetails from "./pages/Vans/VanDetails.jsx";
 import Layout from "./component/Layout.jsx";
-
 import Income from "./pages/Host/Income.jsx";
 import Reviews from "./pages/Host/Reviews.jsx";
 import HostLayout from "./component/HostLayout.jsx";
@@ -17,6 +16,7 @@ import HostVanDetail from "./pages/Host/HostVanDetail.jsx";
 import HostVanInfo from "./pages/Host/HostVanInfo.jsx";
 import HostVanPricing from "./pages/Host/HostVanPricing.jsx";
 import HostVanPhotos from "./pages/Host/HostVanPhotos.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 function App() {
   return (
@@ -43,6 +43,9 @@ function App() {
             </Route>
             <Route path='reviews' element={<Reviews />} />
           </Route>
+
+          {/* A catch all route - 404 page */}
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </div>

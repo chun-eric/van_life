@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import "../../server.js";
 
 const VanDetails = () => {
   const [van, setVan] = useState(null);
   const params = useParams();
+  const location = useLocation();
 
   // reg eturns id: "1"
-  console.log(params);
+  // console.log(params);
+  console.log(location);
 
   useEffect(() => {
     fetch(`/api/vans/${params.id}`)
@@ -28,12 +30,14 @@ const VanDetails = () => {
     <div className='w-full px-4 sm:px-6'>
       <div className='max-w-[600px] mx-auto my-24'>
         <Link
-          to='..'
+          to={`..${location.state?.search || ""}`}
           relative='path'
           className='block my-8 text-black no-underline '
         >
           &larr;{" "}
-          <span className='text-sm hover:underline'>Back to all vans</span>
+          <span className='text-sm hover:underline'>
+            Back to all {van?.type} vans
+          </span>
         </Link>
         {van ? (
           <div className='flex flex-col text-[#161616] gap-4'>

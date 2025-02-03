@@ -137,3 +137,24 @@ Day #2
 
 - Adjusting some absolute paths with relative paths in /host/vans/id and /vans/id
 - Adding back to vans button in /vans/id. We can just copy the same one from /host/vans/id. However there is a problem for the user flow. When we click back to all vans, it loses all our filter options. This is okay for one filter but what if we were filtering for more than one option? How do we solve this?
+- We can do this by using some Link state. We can pass a sate as prop with a value of object with key value pairs and then change it to a string. For example. ` state={{ search: searchParams.toString()}}`
+
+````<Link
+              // saves search params to url
+               state={{ search: `?${searchParams.toString()}` }}
+              to={van.id}
+              key={van.id}
+              aria-label={`View details for ${van.name},
+                             priced at $${van.price} per day`}
+            >```
+````
+
+- so we are passing a state through the Link but how do we receive the state in the child routes? useLocation.
+- we need to use it now ` const location = useLocation();`
+- the location is an object. ![alt text](image-2.png)
+- Now we can add the code to see if location.state exists then access its search key property otherwise it should return an empty string. ``  to={`..${location.state?.search || ""}`}``
+- Added `  <span className='text-sm hover:underline'>
+    Back to all {van?.type} vans
+  </span>` for better customization
+- Alternatively you can use the add another property like type: typeFilter and add it into the state prop state={{ search: `?${searchParams.toString()}, type: typeFilter` }} but i thought it wasnt necessary as we have access to the van object already, we can just use the van.type.
+- adding a 404 error page. We use something called a splat route or catch all route. 

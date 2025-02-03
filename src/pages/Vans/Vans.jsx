@@ -83,6 +83,8 @@ const Vans = () => {
           {filteredVans.map((van) => (
             // Van Card
             <Link
+              // saves search params to url
+              state={{ search: `?${searchParams.toString()}` }}
               to={van.id}
               key={van.id}
               aria-label={`View details for ${van.name}, 
