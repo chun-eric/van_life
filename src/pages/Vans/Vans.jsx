@@ -60,7 +60,9 @@ const Vans = () => {
     return (
       <div className='w-full px-4 sm:px-6 '>
         <div className='my-10 max-w-[1280px] mx-auto'>
-          <h1 className=''>Loading vans...</h1>
+          <h1 className='' aria-live='polite'>
+            Loading vans...
+          </h1>
         </div>
       </div>
     );
@@ -72,10 +74,12 @@ const Vans = () => {
       <div className='w-full px-4 sm:px-6'>
         <div className='my-10 max-w-[1280px] mx-auto'>
           <div className='p-4 text-red-500 border border-red-500 rounded'>
-            <h2 className='mb-2 text-xl font-bold'>Error Details:</h2>
-            <p>Message: {error.message}</p>
-            <p>Status: {error.status}</p>
-            <p>Status Text: {error.statusText}</p>
+            <h2 className='mb-2 text-xl font-bold' aria-live='assertive'>
+              Error Details:
+            </h2>
+            <p aria-live='assertive'>Message: {error.message}</p>
+            <p aria-live='assertive'>Status: {error.status}</p>
+            <p aria-live='assertive'>Status Text: {error.statusText}</p>
           </div>
         </div>
       </div>
