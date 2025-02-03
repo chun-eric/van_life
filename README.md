@@ -170,8 +170,8 @@ Day #2
 - now that some error handling has been used in the Vans page, the same error handling will have to be used in some of the other components. Thats a lot of repetitive code. The problem here is we are starting the fetch request before the component has been loaded. We are prematurely jumping to this route and starting a fetch request before the component has loaded. This is where React Server Components, Next JS or Remix can help in this. aka Data layer APIs
 - adding accessibility improvements by adding aria-live polite or assertive
 - Added Login Route to App.jsx
+- Styled Login Form
 
 ## Day #6
 
-- Added Login page and form
 - Add Protected Routes
