@@ -154,7 +154,17 @@ Day #2
 - the location is an object. ![alt text](image-2.png)
 - Now we can add the code to see if location.state exists then access its search key property otherwise it should return an empty string. ``  to={`..${location.state?.search || ""}`}``
 - Added `  <span className='text-sm hover:underline'>
-    Back to all {van?.type} vans
-  </span>` for better customization
+  Back to all {van?.type} vans
+</span>` for better customization
 - Alternatively you can use the add another property like type: typeFilter and add it into the state prop state={{ search: `?${searchParams.toString()}, type: typeFilter` }} but i thought it wasnt necessary as we have access to the van object already, we can just use the van.type.
-- adding a 404 error page. We use something called a splat route or catch all route. 
+- adding a 404 error page. We use something called a splat route or catch all route.
+- adding paths that are sad meaning, paths that are not working properly like fetching data, etc. What do we do in that situation? Error handling, loading states, form validation
+- Fixing some hygiene. Currently we have a lot of useEffect fetch requests in different parts of the page and this can cause a lot of problems. Maybe its a good time to use or create a specific utlitilty function for this in a separate component.
+- created a new getVans() in api.js to call all our vans.
+- setting loading states in react just for the vans page. We could do it for all the different sections. **Come back to this later**
+- How to better manage error handling? For now we can add some error handling in the getVans fetch function.
+- setting a loading and error states in the Vans page
+- Adding error and loading state in the async function loadvans
+- adding loading and error conditions before the return of our jsx
+- updating api.js to handle both error states for both response and data errors
+- now that some error handling has been used in the Vans page, the same error handling will have to be used in some of the other components. Thats a lot of repetitive code. The problem here is we are starting the fetch request before the component has been loaded. We are prematurely jumping to this route and starting a fetch request before the component has loaded. This is where React Server Components, Next JS or Remix can help in this. aka Data layer APIs

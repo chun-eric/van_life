@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import "../../server.js";
+import { getVans } from "../../api.js";
 const Vans = () => {
+  // all vans state
   const [vans, setVans] = useState([]);
-
   // URL search params
   const [searchParams, setSearchParams] = useSearchParams();
+  // loading state
+  const [loading, setLoading] = useState(false);
+  // error state
+  const [error, setError] = useState(null);
+
   const typeFilter = searchParams.get("type");
 
   // Filtered vans array based on url search type
@@ -14,9 +20,20 @@ const Vans = () => {
     : vans;
 
   useEffect(() => {
-    fetch("/api/vans")
-      .then((res) => res.json())
-      .then((data) => setVans(data.vans));
+    async function loadVans() {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await getVans();
+        setVans(data);
+      } catch (error) {
+        setError(error);
+        setVans([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadVans();
   }, []);
 
   // color options
@@ -36,6 +53,33 @@ const Vans = () => {
 
       return prevParams;
     });
+  }
+
+  // if loading
+  if (loading) {
+    return (
+      <div className='w-full px-4 sm:px-6 '>
+        <div className='my-10 max-w-[1280px] mx-auto'>
+          <h1 className=''>Loading vans...</h1>
+        </div>
+      </div>
+    );
+  }
+
+  // if error occurs
+  if (error) {
+    return (
+      <div className='w-full px-4 sm:px-6'>
+        <div className='my-10 max-w-[1280px] mx-auto'>
+          <div className='p-4 text-red-500 border border-red-500 rounded'>
+            <h2 className='mb-2 text-xl font-bold'>Error Details:</h2>
+            <p>Message: {error.message}</p>
+            <p>Status: {error.status}</p>
+            <p>Status Text: {error.statusText}</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
