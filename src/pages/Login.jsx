@@ -1,9 +1,34 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { loginUser } from "../api";
 
 const Login = () => {
   // setting state for form values
   const [formValues, setFormValues] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState("idle");
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // "b@b.com" as the username and "p123" as the password
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    setStatus("submitting");
+
+    loginUser(formValues)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+        setStatus("idle");
+      });
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -12,15 +37,27 @@ const Login = () => {
       ...prev,
       [name]: value,
     }));
-    console.log(formValues);
   }
+
   return (
     <div className=' max-w-[500px] mx-auto max-h-[500px] '>
       <div className='flex flex-col gap-4 px-6 py-12 mx-auto my-10 bg-white rounded-lg'>
+        {location.state?.message && (
+          <div className='bg-white rounded-lg mx-auto max-w-[500px] p-8 mt-4 shadow-sm'>
+            <h3 className='text-xl font-bold text-center text-black'>
+              {location.state.message}
+            </h3>
+          </div>
+        )}
         <h1 className='mb-3 text-2xl font-bold text-center text-black capitalize'>
           Sign in
         </h1>
-        <form action='' onSubmit={""} className='flex flex-col '>
+        {error?.message && (
+          <p className='bg-white rounded-lg mx-auto max-w-[500px] p-8 mt-4 shadow-sm text-center text-red-500'>
+            {error.message}
+          </p>
+        )}
+        <form action='' onSubmit={handleSubmit} className='flex flex-col '>
           <input
             type='email'
             name='email'
@@ -37,8 +74,11 @@ const Login = () => {
             value={formValues.password}
             className='border h-[40px] shadow-sm  rounded indent-[10px] outline-none py-6 placeholder-neutral-500 text-sm'
           />
-          <button className='py-3 mt-6 text-base font-semibold text-white bg-black rounded hover:bg-[#FF8C38] transition-colors duration-200 '>
-            Sign In
+          <button
+            disabled={status === "submitting"}
+            className={`py-3 mt-6 text-base font-semibold text-white bg-[#FF8C38] rounded hover:bg-[black] transition-colors duration-200 `}
+          >
+            {status === "submitting" ? "Signing in..." : "Sign in"}
           </button>
         </form>
       </div>

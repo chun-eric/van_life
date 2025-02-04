@@ -1,23 +1,32 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useLocation } from "react-router-dom";
-import "../../server.js";
+import { getVans } from "../../api.js";
 
 const VanDetails = () => {
   const [van, setVan] = useState(null);
-  const params = useParams();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
   const location = useLocation();
 
   // reg eturns id: "1"
-  // console.log(params);
+  // console.log(id);
   console.log(location);
 
   useEffect(() => {
-    fetch(`/api/vans/${params.id}`)
-      .then((res) => res.json())
-      .then((data) => setVan(data.vans));
-  }, [params.id]);
-
-  console.log(van);
+    async function loadVans() {
+      setLoading(true);
+      try {
+        const data = await getVans(id);
+        setVan(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadVans();
+  }, [id]);
 
   // color options
   const colorOptions = {
@@ -25,6 +34,37 @@ const VanDetails = () => {
     rugged: "#115E59",
     luxury: "#161616",
   };
+
+  // loading state
+  if (loading) {
+    return (
+      <div className='w-full px-4 sm:px-6 '>
+        <div className='my-10 max-w-[1280px] mx-auto'>
+          <h1 className='' aria-live='polite'>
+            Loading van details...
+          </h1>
+        </div>
+      </div>
+    );
+  }
+
+  // error state
+  if (error) {
+    return (
+      <div className='w-full px-4 sm:px-6'>
+        <div className='my-10 max-w-[1280px] mx-auto'>
+          <div className='p-4 text-red-500 border border-red-500 rounded'>
+            <h2 className='mb-2 text-xl font-bold' aria-live='assertive'>
+              Error Details:
+            </h2>
+            <p aria-live='assertive'>Message: {error.message}</p>
+            <p aria-live='assertive'>Status: {error.status}</p>
+            <p aria-live='assertive'>Status Text: {error.statusText}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='w-full px-4 sm:px-6'>

@@ -174,4 +174,23 @@ Day #2
 
 ## Day #6
 
-- Add Protected Routes
+- Add Protected Login Host Routes
+- Created a a new AuthRequired Layout that wraps all the Host Routes
+- Added Login image to the Navbar
+- So if you go to /host it will redirect to the /login page. However the user experience isnt great
+- Adding a custom message using the state prop and passing in a message in the Navigate component in AuthRequired.
+- Back in the Login.jsx page we use the useLocation hook to receive the state. `  const location = useLocation();`
+- we need to check if location.state.message exists and if it does printout the message
+- ````{location.state?.message && (
+          <div className='bg-white rounded-lg mx-auto max-w-[500px] p-8 mt-4 shadow-sm'>
+            <h3 className='text-xl font-bold text-center text-black'>
+              {location.state.message}
+            </h3>
+          </div>
+        )}```
+  ````
+
+- In our api.js added loginUser function and getHostVans async functions to fetch data.
+- Updated the server file for login post
+- Adding loading and error states with try catch block in useEffect in VanDetails, Vans, HostVans, HostVanDetails
+- From the input data from our login page we can use that info in the loginUser function

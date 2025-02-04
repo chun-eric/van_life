@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { UserCircle } from "lucide-react";
 
 const Navbar = () => {
   return (
@@ -10,7 +11,7 @@ const Navbar = () => {
             <img src={logo} alt='#VANLIFE' className='w-[120px]' />
           </Link>
 
-          <div className='flex flex-row gap-4'>
+          <div className=''>
             <ul className='flex gap-8 mr-4 list-none '>
               <li>
                 <NavLink
@@ -47,6 +48,11 @@ const Navbar = () => {
                 >
                   Vans
                 </NavLink>
+              </li>
+              <li>
+                <Link to='/login'>
+                  <UserCircle className='w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-800' />
+                </Link>
               </li>
             </ul>
           </div>

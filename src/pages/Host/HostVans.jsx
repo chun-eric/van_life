@@ -1,19 +1,57 @@
 import { useState, useEffect } from "react";
-import "../../server.js";
+import { getHostVans } from "../../api";
 import { Link } from "react-router-dom";
 
 const HostVans = () => {
   const [vans, setVans] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/api/host/vans")
-      .then((res) => res.json())
-      .then((data) => {
-        setVans(data.vans);
-      });
+    async function loadVans() {
+      setLoading(true);
+      try {
+        const data = await getHostVans();
+        setVans(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadVans();
   }, []);
 
-  console.log(vans);
+  // Loading state
+  if (loading) {
+    return (
+      <div className='w-full px-4 sm:px-6 '>
+        <div className='my-10 max-w-[1280px] mx-auto'>
+          <h1 className='' aria-live='polite'>
+            Loading vans...
+          </h1>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className='w-full px-4 sm:px-6'>
+        <div className='my-10 max-w-[1280px] mx-auto'>
+          <div className='p-4 text-red-500 border border-red-500 rounded'>
+            <h2 className='mb-2 text-xl font-bold' aria-live='assertive'>
+              Error Details:
+            </h2>
+            <p aria-live='assertive'>Message: {error.message}</p>
+            <p aria-live='assertive'>Status: {error.status}</p>
+            <p aria-live='assertive'>Status Text: {error.statusText}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='flex flex-col gap-5 my-4'>
