@@ -1,14 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { UserCircle } from "lucide-react";
+import { useAuth } from "../context/useAuth.jsx";
 
 const Navbar = () => {
-  const authenticated = localStorage.getItem("loggedin");
-
-  function fakeLogOut() {
-    localStorage.removeItem("loggedin");
-    window.location.reload();
-  }
+  const { isLoggedIn, logout } = useAuth();
 
   return (
     <header className='bg-[#FFF7ED] w-full '>
@@ -61,13 +57,13 @@ const Navbar = () => {
                   <UserCircle className='w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-800' />
                 </Link>
               </li>
-              {authenticated && (
+              {isLoggedIn && (
                 <li>
                   <button
                     className='px-6 py-3 text-sm font-semibold text-center text-white capitalize bg-black rounded z-2'
-                    onClick={fakeLogOut}
+                    onClick={logout}
                   >
-                    Log Out
+                    {isLoggedIn ? "Log out" : "Log in"}
                   </button>
                 </li>
               )}

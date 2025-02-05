@@ -19,43 +19,46 @@ import HostVanPricing from "./pages/Host/HostVanPricing.jsx";
 import HostVanPhotos from "./pages/Host/HostVanPhotos.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Login from "./pages/Login.jsx";
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   return (
-    <div className='flex flex-col min-h-screen'>
-      {/* Added main wrapper */}
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<Home />} />
+    <AuthProvider>
+      <div className='flex flex-col min-h-screen'>
+        {/* Added main wrapper */}
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<Home />} />
 
-          {/** Navbar Routes */}
-          <Route path='/about' element={<About />} />
-          <Route path='/vans' element={<Vans />} />
-          <Route path='/vans/:id' element={<VanDetails />} />
+            {/** Navbar Routes */}
+            <Route path='/about' element={<About />} />
+            <Route path='/vans' element={<Vans />} />
+            <Route path='/vans/:id' element={<VanDetails />} />
 
-          {/*  Login */}
-          <Route path='/login' element={<Login />} />
+            {/*  Login */}
+            <Route path='/login' element={<Login />} />
 
-          {/** Host Layout Routes */}
-          <Route element={<AuthRequired />}>
-            <Route path='/host' element={<HostLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path='income' element={<Income />} />
-              <Route path='reviews' element={<Reviews />} />
-              <Route path='vans' element={<HostVans />} />
-              <Route path='vans/:id' element={<HostVanDetail />}>
-                <Route index element={<HostVanInfo />} />
-                <Route path='pricing' element={<HostVanPricing />} />
-                <Route path='photos' element={<HostVanPhotos />} />
+            {/** Host Layout Routes */}
+            <Route element={<AuthRequired />}>
+              <Route path='/host' element={<HostLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path='income' element={<Income />} />
+                <Route path='reviews' element={<Reviews />} />
+                <Route path='vans' element={<HostVans />} />
+                <Route path='vans/:id' element={<HostVanDetail />}>
+                  <Route index element={<HostVanInfo />} />
+                  <Route path='pricing' element={<HostVanPricing />} />
+                  <Route path='photos' element={<HostVanPhotos />} />
+                </Route>
               </Route>
             </Route>
-          </Route>
 
-          {/* A catch all route - 404 page */}
-          <Route path='*' element={<NotFound />} />
-        </Route>
-      </Routes>
-    </div>
+            {/* A catch all route - 404 page */}
+            <Route path='*' element={<NotFound />} />
+          </Route>
+        </Routes>
+      </div>
+    </AuthProvider>
   );
 }
 

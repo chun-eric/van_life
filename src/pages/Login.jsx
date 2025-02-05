@@ -1,7 +1,8 @@
 import "../server.js";
-import { useState } from "react";
-import { useNavigate, useLocation, replace } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../api.js";
+import { useAuth } from "../context/useAuth";
 
 const Login = () => {
   // setting state for form values
@@ -10,8 +11,11 @@ const Login = () => {
   const [status, setStatus] = useState("idle");
   const navigate = useNavigate();
   const location = useLocation();
+  const from = location.state?.from || "/host";
+  const { login } = useAuth();
 
   // "b@b.com" as the username and "p123" as the password
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -20,8 +24,8 @@ const Login = () => {
     loginUser(formValues)
       .then((data) => {
         console.log(data);
-        localStorage.setItem("loggedin", true);
-        navigate("/host", { replace: true });
+        login();
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         setError(err);
@@ -39,6 +43,14 @@ const Login = () => {
       [name]: value,
     }));
   }
+
+  // check if user is already logged after initial mount, if so redirect to /host
+  useEffect(() => {
+    const authenticated = localStorage.getItem("loggedin");
+    if (authenticated) {
+      navigate("/host", { replace: true });
+    }
+  }, [navigate]);
 
   return (
     <div className=' max-w-[500px] mx-auto max-h-[500px] '>
