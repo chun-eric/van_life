@@ -1,4 +1,4 @@
-import { createServer, Model } from "miragejs";
+import { createServer, Model, Response } from "miragejs";
 
 createServer({
   models: {
@@ -73,7 +73,7 @@ createServer({
       type: "rugged",
       hostId: "123",
     });
-    // fake user
+
     server.create("user", {
       id: "123",
       email: "b@b.com",
@@ -85,10 +85,10 @@ createServer({
   routes() {
     this.namespace = "api";
     this.logging = false;
-    this.timing = 1000;
+    // this.timing = 2000  // => mock a 2 second delay in server response
 
     this.get("/vans", (schema, request) => {
-      // return new Response(400, {}, { error: "Error fetching data" });
+      // return new Response(400, {}, {error: "Error fetching data"})
       return schema.vans.all();
     });
 
@@ -105,19 +105,14 @@ createServer({
     this.get("/host/vans/:id", (schema, request) => {
       // Hard-code the hostId for now
       const id = request.params.id;
-      return schema.vans.where({ id, hostId: "123" });
+      return schema.vans.findBy({ id, hostId: "123" });
     });
 
     this.post("/login", (schema, request) => {
       const { email, password } = JSON.parse(request.requestBody);
-
-      // Check for empty credentials
-      // if (!email || !password) {
-      //   return new Response(
-      //     401, // Changed to 401 to match the "no user found" case
-      //     JSON.stringify({ message: "No user with those credentials found!" })
-      //   );
-      // }
+      // ⚠️ This is an extremely naive version of authentication. Please don't
+      // do this in the real world, and never save raw text passwords
+      // in your database 😅
 
       const foundUser = schema.users.findBy({ email, password });
       if (!foundUser) {
@@ -128,7 +123,7 @@ createServer({
         );
       }
 
-      // At the very least, don't send the password back to the client
+      // At the very least, don't send the password back to the client 😅
       foundUser.password = undefined;
       return {
         user: foundUser,

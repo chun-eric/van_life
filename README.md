@@ -194,3 +194,46 @@ Day #2
 - Updated the server file for login post
 - Adding loading and error states with try catch block in useEffect in VanDetails, Vans, HostVans, HostVanDetails
 - From the input data from our login page we can use that info in the loginUser function
+
+## Day #7
+
+- Yesterday there was a bug issue. Whenever i tried to login without any credentials it should say the error message in the server.js file When submitting empty credentials, the server is still returning a 200 status code instead of the expected 401 error.
+- The issue was the structure of the server.js file. It had extra curly braces.
+- Redirecting after successful login to the /host page using useNavigate.
+- Bug\*\* the You must Log in first message keeps showing up on the host route even after refresh. Solution -- History Stack -- { replace: true}. We also add replace property to the AuthRequired Navigate. Without replace each navigations adds a new entry to the browsers history stack. Pressing back takes you to the previous page. Replace replaces the current entry in the history stack. Think of replace: true as saying "forget where we just were" instead of "remember where we just were". This concept was much trickier than I thought.
+
+```
+With replace
+Redirected to login with replace:
+[/] -> [/login]    // replaces /host
+
+After successful login with replace:
+[/] -> [/host]     // replaces /login
+
+// Now when user clicks "back":
+// they only go to / (clean!)
+```
+
+```
+Without replace
+Initial stack:
+[/]              <-- Top
+
+Try to visit /host:
+[/host]          <-- Top
+[/]
+
+Redirect to login (no replace):
+[/login]         <-- Top
+[/host]
+[/]
+
+After login (no replace):
+[/host]          <-- Top
+[/login]
+[/host]
+[/]
+```
+
+- Bug\*\* when i login with correct credentials it doesnt allow me to navigat to /host because AuthRequired has a const authenticated = false hardcoded. How can we let them know to change it to true? --- Solution `   localStorage.setItem("loggedin", true);` Then we import the `  const authenticated = localStorage.getItem("loggedin");`
+- How do I now make the Log Out button appear only if loggedin and not appear when logged out?

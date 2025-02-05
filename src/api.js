@@ -38,7 +38,7 @@ export async function getHostVans(id) {
 // login users with credentials
 export async function loginUser(credentials) {
   const response = await fetch("/api/login", {
-    method: "POST",
+    method: "post",
     body: JSON.stringify(credentials),
   });
 

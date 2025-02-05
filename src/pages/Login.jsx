@@ -1,11 +1,11 @@
+import "../server.js";
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { loginUser } from "../api";
+import { useNavigate, useLocation, replace } from "react-router-dom";
+import { loginUser } from "../api.js";
 
 const Login = () => {
   // setting state for form values
   const [formValues, setFormValues] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState("idle");
   const navigate = useNavigate();
@@ -20,12 +20,13 @@ const Login = () => {
     loginUser(formValues)
       .then((data) => {
         console.log(data);
+        localStorage.setItem("loggedin", true);
+        navigate("/host", { replace: true });
       })
       .catch((err) => {
         setError(err);
       })
       .finally(() => {
-        setLoading(false);
         setStatus("idle");
       });
   }
@@ -43,8 +44,8 @@ const Login = () => {
     <div className=' max-w-[500px] mx-auto max-h-[500px] '>
       <div className='flex flex-col gap-4 px-6 py-12 mx-auto my-10 bg-white rounded-lg'>
         {location.state?.message && (
-          <div className='bg-white rounded-lg mx-auto max-w-[500px] p-8 mt-4 shadow-sm'>
-            <h3 className='text-xl font-bold text-center text-black'>
+          <div className='bg-white rounded-lg mx-auto max-w-[500px] p-8 mt-4 '>
+            <h3 className='text-xl font-bold text-center text-red-500'>
               {location.state.message}
             </h3>
           </div>
@@ -53,7 +54,7 @@ const Login = () => {
           Sign in
         </h1>
         {error?.message && (
-          <p className='bg-white rounded-lg mx-auto max-w-[500px] p-8 mt-4 shadow-sm text-center text-red-500'>
+          <p className='bg-white rounded-lg mx-auto max-w-[500px] p-8 mt-4 font-bold text-center text-red-500'>
             {error.message}
           </p>
         )}

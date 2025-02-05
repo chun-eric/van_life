@@ -3,6 +3,13 @@ import logo from "../assets/logo.png";
 import { UserCircle } from "lucide-react";
 
 const Navbar = () => {
+  const authenticated = localStorage.getItem("loggedin");
+
+  function fakeLogOut() {
+    localStorage.removeItem("loggedin");
+    window.location.reload();
+  }
+
   return (
     <header className='bg-[#FFF7ED] w-full '>
       <div className='max-w-[1280px] mx-auto px-4 md:px-6'>
@@ -11,9 +18,9 @@ const Navbar = () => {
             <img src={logo} alt='#VANLIFE' className='w-[120px]' />
           </Link>
 
-          <div className=''>
+          <div className='flex items-center'>
             <ul className='flex gap-8 mr-4 list-none '>
-              <li>
+              <li className='flex items-center'>
                 <NavLink
                   to='/host'
                   className={({ isActive }) =>
@@ -25,7 +32,7 @@ const Navbar = () => {
                   Host
                 </NavLink>
               </li>
-              <li>
+              <li className='flex items-center'>
                 <NavLink
                   to='/about'
                   className={({ isActive }) =>
@@ -37,7 +44,7 @@ const Navbar = () => {
                   About
                 </NavLink>
               </li>
-              <li>
+              <li className='flex items-center'>
                 <NavLink
                   to='/vans'
                   className={({ isActive }) =>
@@ -49,11 +56,21 @@ const Navbar = () => {
                   Vans
                 </NavLink>
               </li>
-              <li>
+              <li className='flex items-center'>
                 <Link to='/login'>
                   <UserCircle className='w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-800' />
                 </Link>
               </li>
+              {authenticated && (
+                <li>
+                  <button
+                    className='px-6 py-3 text-sm font-semibold text-center text-white capitalize bg-black rounded z-2'
+                    onClick={fakeLogOut}
+                  >
+                    Log Out
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </nav>
