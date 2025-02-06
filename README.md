@@ -241,3 +241,7 @@ After login (no replace):
 - Bug\*\* when i log in when through /host page the Log Out button doesnt show up but it does after i manually reload! Solution --- the button isnt being rendered because simply using the localStorage as the value for authentication doesnt trigger a re-render of the components. Until i manually rerender does it read the localStorage Value. This means we need access to this localStorage state at a higher level that tracks auth status. -- Create an AuthContext() in context folder and pass it as children
 - We can also go straight to the previous route we were in before being logged in. So after we get logged in, it redirects us straight away to the page were browsing at. e.g. we were at /host/vans/1 --> we need to login at /login then after login it redirects us straight to /host/vans/1
   Solution -- `const location = useLocation()` in Authrequired. Also added ` state={{ message: "You must log in first", from: location.pathname }}` to our Navigate component in Authrequired. Then back in Login component add `  const from = location.state?.from || "/host";` and add `     navigate(from, { replace: true });` in our loginUser function.
+
+## Day #8
+- Add Host Dashboard data and styling
+- Add Host Income stats and styling

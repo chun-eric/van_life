@@ -39,7 +39,8 @@ const Income = () => {
   };
 
   // format date for display
-  const formatDate = (date) => {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
       day: "numeric",
       month: "numeric",
@@ -179,11 +180,25 @@ const Income = () => {
       <section className='flex flex-col gap-2 my-10 '>
         <div className='flex flex-row items-center gap-5 mb-3 '>
           <p className='text-xl font-semibold '>
-            Your Transactions <span className=''></span>
+            Your Transactions{" "}
+            <span className=''>({displayedTransactions.length})</span>
           </p>
-          <p className='text-xs'>last 30 days</p>
+          <span className='-mb-1 text-xs'>Last {selectedPeriod} days</span>
         </div>
-        <div className='bg-[#fff7ee] rounded-lg'></div>
+        <div className='flex flex-col gap-2 rounded-lg '>
+          {displayedTransactions.map((transaction) => (
+            <div
+              className='flex flex-row items-center justify-between gap-4 px-3 py-4 border border-slate-500 shadow-sm bg-[#FFF7ED] rounded'
+              key={transaction.id}
+            >
+              <span className='font-bold'>
+                ${transaction.amount.toLocaleString()}{" "}
+                <span className='text-sm'>received</span>
+              </span>
+              <span className=''>{formatDate(transaction.date)}</span>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );
