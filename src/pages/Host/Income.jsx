@@ -109,7 +109,7 @@ const Income = () => {
               60 days
             </button>
             <button
-              className={`px-3 py-2 rounded text-xs ${
+              className={`px-3 py-2  text-xs ${
                 selectedPeriod === 90
                   ? "bg-[#f7924a] text-white"
                   : "bg-gray-100"
@@ -119,7 +119,7 @@ const Income = () => {
               90 days
             </button>
             <button
-              className={`px-3 py-2 rounded text-xs ${
+              className={`px-3 py-2  text-xs ${
                 selectedPeriod === 180
                   ? "bg-[#f7924a] text-white"
                   : "bg-gray-100"
@@ -129,7 +129,7 @@ const Income = () => {
               180 days
             </button>
             <button
-              className={`px-3 py-2 rounded text-xs ${
+              className={`px-3 py-2  text-xs ${
                 selectedPeriod === 365
                   ? "bg-[#f7924a] text-white"
                   : "bg-gray-100"
@@ -198,6 +198,46 @@ const Income = () => {
               <span className=''>{formatDate(transaction.date)}</span>
             </div>
           ))}
+        </div>
+      </section>
+      <section className=''>
+        <div className='p-4 mt-6 rounded-lg bg-gray-50'>
+          <h3 className='mb-3 font-bold'>Income Summary</h3>
+          <div className='space-y-2'>
+            <p>
+              Last 60 days:{" "}
+              <span className='font-bold'>
+                ${last60Days.total.toLocaleString()}
+              </span>
+            </p>
+            <p>
+              Last 30 days:{" "}
+              <span className='font-bold'>
+                {" "}
+                ${last30Days.total.toLocaleString()}
+              </span>
+            </p>
+            <p>
+              Last 90 days:{" "}
+              <span className='font-bold'>
+                {" "}
+                ${last90Days.total.toLocaleString()}
+              </span>
+            </p>
+            <p>
+              Last 180 days:{" "}
+              <span className='font-bold'>
+                {" "}
+                ${last180Days.total.toLocaleString()}
+              </span>
+            </p>
+            <p>
+              Last year:{" "}
+              <span className='font-bold'>
+                ${last365days.total.toLocaleString()}
+              </span>
+            </p>
+          </div>
         </div>
       </section>
     </div>
