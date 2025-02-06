@@ -7,8 +7,8 @@ import HostVans from "../pages/Host/HostVans";
 
 const HostLayout = () => {
   return (
-    <div className='max-w-[1280px] mx-auto px-6 mt-12 flex flex-col gap-8 flex-wrap'>
-      <nav className='flex flex-wrap gap-12'>
+    <div className='max-w-[1280px] mx-auto px-6 mt-12 flex flex-col gap-8 flex-wrap '>
+      <nav className='flex flex-wrap gap-12 pl-4'>
         <NavLink
           to='.'
           end
@@ -18,7 +18,7 @@ const HostLayout = () => {
               : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
           }
         >
-          <Dashboard />
+          Dashboard
         </NavLink>
         <NavLink
           to='income'
@@ -28,7 +28,7 @@ const HostLayout = () => {
               : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
           }
         >
-          <Income />
+          Income
         </NavLink>
         <NavLink
           to='vans'

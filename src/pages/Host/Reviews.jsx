@@ -2,7 +2,7 @@ import { reviewsData } from "../../data";
 
 const Reviews = () => {
   return (
-    <div className=''>
+    <div className='mt-10'>
       <div className='flex gap-4'>
         <h2 className=''>Your reviews</h2>
         <p className=''>

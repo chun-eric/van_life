@@ -25,7 +25,7 @@ const HostVans = () => {
   // Loading state
   if (loading) {
     return (
-      <div className='w-full px-4 sm:px-6 '>
+      <div className='w-full px-4 sm:px-6'>
         <div className='my-10 max-w-[1280px] mx-auto'>
           <h1 className='' aria-live='polite'>
             Loading vans...
@@ -54,7 +54,7 @@ const HostVans = () => {
   }
 
   return (
-    <div className='flex flex-col gap-5 my-4'>
+    <div className='flex flex-col gap-5 my-4 mt-10'>
       <p className='text-2xl font-bold'>Your listed vans</p>
       <div className='flex flex-col flex-1 gap-5'>
         {vans.length > 0 ? (

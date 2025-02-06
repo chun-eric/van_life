@@ -33,7 +33,7 @@ const HostVanDetail = () => {
   // Loading state
   if (loading) {
     return (
-      <div className='w-full px-4 sm:px-6 '>
+      <div className='w-full px-4 mt-10 sm:px-6'>
         <div className='my-10 max-w-[1280px] mx-auto'>
           <h1 className='' aria-live='polite'>
             Loading vans...

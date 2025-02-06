@@ -21,3 +21,75 @@ export const reviewsData = [
     id: "3",
   },
 ];
+
+export const transactionData = [
+  // January 2024 transactions (Total: 2500)
+  { amount: 1200, date: "2024-01-08", id: "1" },
+  { amount: 1300, date: "2024-01-20", id: "2" },
+
+  // February 2024 transactions (Total: 1800)
+  { amount: 800, date: "2024-02-05", id: "3" },
+  { amount: 1000, date: "2024-02-15", id: "4" },
+
+  // March 2024 transactions (Total: 2200)
+  { amount: 1400, date: "2024-03-10", id: "5" },
+  { amount: 800, date: "2024-03-25", id: "6" },
+
+  // April 2024 transactions (Total: 3000)
+  { amount: 1600, date: "2024-04-12", id: "7" },
+  { amount: 1400, date: "2024-04-28", id: "8" },
+
+  // May 2024 transactions (Total: 2600)
+  { amount: 1500, date: "2024-05-05", id: "9" },
+  { amount: 1100, date: "2024-05-18", id: "10" },
+
+  // June 2024 transactions (Total: 3200)
+  { amount: 2000, date: "2024-06-10", id: "11" },
+  { amount: 1200, date: "2024-06-22", id: "12" },
+
+  // July 2022 transactions (Total: 3800)
+  { amount: 1200, date: "2024-07-05", id: "13" },
+  { amount: 1600, date: "2024-07-15", id: "14" },
+  { amount: 1000, date: "2024-07-28", id: "15" },
+
+  // August 2024 transactions (Total: 1200)
+  { amount: 800, date: "2024-08-10", id: "16" },
+  { amount: 400, date: "2024-08-25", id: "17" },
+
+  // September 2024 transactions (Total: 2800)
+  { amount: 1500, date: "2024-09-08", id: "18" },
+  { amount: 1300, date: "2024-09-22", id: "19" },
+
+  // October 2024 transactions (Total: 2400)
+  { amount: 900, date: "2024-10-07", id: "20" },
+  { amount: 800, date: "2024-10-18", id: "21" },
+  { amount: 700, date: "2024-10-29", id: "22" },
+
+  // November 2024 transactions (Total: 1500)
+  { amount: 800, date: "2024-11-12", id: "23" },
+  { amount: 700, date: "2024-11-25", id: "24" },
+
+  // December 2024 transactions (Total: 560)
+  { amount: 320, date: "2024-12-08", id: "25" },
+  { amount: 240, date: "2024-12-20", id: "26" },
+
+  // January 2025 transactions (Total: 2860)
+  { amount: 620, date: "2025-01-10", id: "27" },
+  { amount: 2240, date: "2025-01-14", id: "28" },
+];
+
+export const monthlyData = [
+  { month: "Jan", amount: 2500 },
+  { month: "Feb", amount: 1800 },
+  { month: "Mar", amount: 2200 },
+  { month: "Apr", amount: 3000 },
+  { month: "May", amount: 2600 },
+  { month: "Jun", amount: 3200 },
+  { month: "Jul", amount: 3800 },
+  { month: "Aug", amount: 1200 },
+  { month: "Sep", amount: 2800 },
+  { month: "Oct", amount: 2400 },
+  { month: "Nov", amount: 1500 },
+  { month: "Dec", amount: 560 },
+  { month: "Jan", amount: 2860 },
+];
