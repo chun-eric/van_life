@@ -11,37 +11,75 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const loggedIn = localStorage.getItem("loggedin");
     const userData = localStorage.getItem("user");
-    if (loggedIn) {
-      setIsLoggedIn(true);
-      setUser(JSON.parse(userData));
-    } else {
-      setIsLoggedIn(false);
-      setUser(null);
+    if (loggedIn && userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        setIsLoggedIn(true);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Error parsing user data from localStorage:", error);
+        localStorage.removeItem("loggedin");
+        localStorage.removeItem("user");
+      }
     }
   }, []);
 
   // login function
   const login = async (credentials) => {
-    const res = await fetch("/api/login", {
-      method: "POST",
-      body: JSON.stringify(credentials),
-    });
-    const data = await res.json();
+    try {
+      // First, check if we have the required credentials
+      if (!credentials?.email) {
+        throw new Error("Email is required");
+      }
 
-    if (!res.ok) {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      let data = null;
+
+      try {
+        // Only try to parse response if status is not 500
+        if (res.status !== 500) {
+          const rawText = await res.text();
+          data = rawText ? JSON.parse(rawText) : null;
+        }
+      } catch (error) {
+        console.error("Failed to parse response:", error);
+      }
+
+      // Handle different response scenarios
+      if (res.status === 500) {
+        throw new Error("Server error occurred. Please try again later.");
+      }
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Login failed");
+      }
+
+      if (!data) {
+        throw new Error("No data received from server");
+      }
+
+      // At this point, we have valid data
+      localStorage.setItem("loggedin", "true");
+      localStorage.setItem("user", JSON.stringify(data));
+      setUser(data);
+      setIsLoggedIn(true);
+
+      return data;
+    } catch (error) {
+      console.error("Login error:", error);
       throw {
-        message: data.message,
-        statusText: res.statusText,
-        status: res.status,
+        message: error.message || "Login failed",
+        statusText: error.statusText || "Error",
+        status: error.status || 500,
       };
     }
-
-    localStorage.setItem("loggedin", true);
-    localStorage.setItem("user", JSON.stringify(data.user));
-    setUser(data.user);
-    setIsLoggedIn(true);
-
-    return data;
   };
 
   // logout function

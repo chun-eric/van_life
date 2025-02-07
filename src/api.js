@@ -35,22 +35,22 @@ export async function getHostVans(id) {
   return data.vans;
 }
 
-// login users with credentials
-export async function loginUser(credentials) {
-  const response = await fetch("/api/login", {
-    method: "post",
-    body: JSON.stringify(credentials),
-  });
+// // login users with credentials
+// export async function loginUser(credentials) {
+//   const response = await fetch("/api/login", {
+//     method: "post",
+//     body: JSON.stringify(credentials),
+//   });
 
-  const data = await response.json();
+//   const data = await response.json();
 
-  if (!response.ok) {
-    throw {
-      message: data.message,
-      statusText: response.statusText,
-      status: response.status,
-    };
-  }
+//   if (!response.ok) {
+//     throw {
+//       message: data.message,
+//       statusText: response.statusText,
+//       status: response.status,
+//     };
+//   }
 
-  return data;
-}
+//   return data;
+// }

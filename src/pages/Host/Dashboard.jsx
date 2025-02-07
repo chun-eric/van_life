@@ -12,6 +12,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useContext(AuthContext);
+  console.log(user);
 
   // fetch vans data after initial component mount
   useEffect(() => {

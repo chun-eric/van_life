@@ -20,6 +20,27 @@ export const reviewsData = [
     text: "The Modest Explorer was nice. We loved the comfort and ease of the van. The host was very responsive and helpful. We will definitely rent from them again in the four however there was some cleanliness issues.",
     id: "3",
   },
+  {
+    rating: 3,
+    name: "Rachel",
+    date: "November 15, 2022",
+    text: "The Cruiser was decent for our weekend trip. The van ran well, but the interior could use some updating. The host was communicative but pickup took longer than expected. Might consider other options next time.",
+    id: "4",
+  },
+  {
+    rating: 5,
+    name: "Marcus",
+    date: "November 2, 2022",
+    text: "What an incredible experience with the Dreamfinder! Everything worked perfectly, and the solar panels were a game-changer for our off-grid adventure. The host provided excellent instructions and was always available for questions.",
+    id: "5",
+  },
+  {
+    rating: 4,
+    name: "Lisa",
+    date: "October 28, 2022",
+    text: "Really enjoyed our trip with the Green Wonder. The van was well-maintained and comfortable. Only giving 4 stars because the pickup location was quite far from the city center, but otherwise a great experience!",
+    id: "6",
+  },
 ];
 
 export const transactionData = [

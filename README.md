@@ -243,5 +243,14 @@ After login (no replace):
   Solution -- `const location = useLocation()` in Authrequired. Also added ` state={{ message: "You must log in first", from: location.pathname }}` to our Navigate component in Authrequired. Then back in Login component add `  const from = location.state?.from || "/host";` and add `     navigate(from, { replace: true });` in our loginUser function.
 
 ## Day #8
+
 - Add Host Dashboard data and styling
 - Add Host Income stats and styling
+- Dynamically rendered Host Dashboard data and Income Data.
+- This section was pretty difficult.
+
+## Day #9
+
+- Cant seem to login Error handling. Destructuring is email as null. That means the email property is null. Got rid of the loginUser function from api.js. We were calling that from api.js but our login function was being used from AuthProvider causing a conflict. Thats why we got rid of loginUser function.
+- Finish Reviews Section
+- Finish Styling main page, add footer.

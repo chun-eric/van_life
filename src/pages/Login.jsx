@@ -1,7 +1,7 @@
 import "../server.js";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { loginUser } from "../api.js";
+// import { loginUser } from "../api.js";
 import { useAuth } from "../context/useAuth";
 
 const Login = () => {
@@ -16,23 +16,16 @@ const Login = () => {
 
   // "b@b.com" as the username and "p123" as the password
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-
     setStatus("submitting");
-
-    loginUser(formValues)
-      .then((data) => {
-        console.log(data);
-        login();
-        navigate(from, { replace: true });
-      })
-      .catch((err) => {
-        setError(err);
-      })
-      .finally(() => {
-        setStatus("idle");
-      });
+    try {
+      await login(formValues);
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError(err);
+      setStatus("idle");
+    }
   }
 
   function handleChange(e) {
