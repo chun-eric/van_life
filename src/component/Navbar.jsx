@@ -7,7 +7,7 @@ const Navbar = () => {
   const { isLoggedIn, logout } = useAuth();
 
   return (
-    <header className='bg-[#FFF7ED] w-full '>
+    <header className='bg-[#FFF7ED] w-full border-b border-black '>
       <div className='max-w-[1280px] mx-auto px-4 md:px-6'>
         <nav className=' h-[100px] flex items-center justify-between '>
           <Link to='/'>

@@ -54,7 +54,7 @@ const HostVans = () => {
   }
 
   return (
-    <div className='flex flex-col gap-5 px-6 py-10 my-4  mt-10 bg-white rounded-lg'>
+    <div className='flex flex-col gap-5 px-6 py-10 my-4  mt-10 bg-white rounded-lg pb-16'>
       <p className='text-2xl font-bold'>Your listed vans</p>
       <div className='flex flex-col flex-1 gap-5'>
         {vans.length > 0 ? (
