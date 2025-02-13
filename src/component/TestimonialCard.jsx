@@ -4,23 +4,17 @@ import PropTypes from "prop-types";
 const TestimonialCard = ({ review, isMiddle }) => {
   return (
     <div
-      className={`p-6 py-8 space-y-4 rounded-lg bg-white border border-black w-[280px] h-[260px] ${
-        isMiddle ? "md:mt-12" : ""
+      className={`p-6 py-8 space-y-4 rounded-lg bg-white border border-black w-[260px] h-[240px] ${
+        isMiddle ? "md:mt-6" : ""
       }`}
     >
       {/* Star section */}
       <div className='flex'>
-        {[
-          ...Array(review.rating).map((_, index) => (
-            <Star key={index} className='w-5 h-5 fill-current text-amber-400' />
-          )),
-        ]}
+        {[...Array(review.rating)].map((_, index) => (
+          <Star key={index} className='w-5 h-5 fill-current text-amber-400' />
+        ))}
       </div>
-      <p className='text-sm text-left'>
-        {review.description}
-        "This is our third time using the Modest Explorer for our travels and we
-        love it! No complaints, absolutely perfect!"
-      </p>
+      <p className='text-sm text-left'>{review.text}</p>
 
       <div className='flex items-center gap-4 pt-4'>
         <div className='flex items-center '>
@@ -43,7 +37,9 @@ const TestimonialCard = ({ review, isMiddle }) => {
 
 TestimonialCard.propTypes = {
   review: PropTypes.shape({
+    rating: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     position: PropTypes.string.isRequired, // Add this line
   }).isRequired,

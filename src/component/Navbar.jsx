@@ -22,7 +22,7 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     isActive
                       ? "font-bold text-gray-800 underline"
-                      : "font-semibold text-gray-800 hover:underline hover:text-gray-600"
+                      : "font-semibold text-black hover:underline hover:text-gray-600"
                   }
                 >
                   Host

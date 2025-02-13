@@ -51,7 +51,7 @@ export const homePageTestimonials = [
     name: "Marcus",
     position: "Adventure Enthusiast",
     date: "November 2, 2022",
-    text: "What an incredible experience with the Dreamfinder! Everything worked perfectly, and the solar panels were a game-changer for our off-grid adventure. The host provided excellent instructions and was always available for questions.",
+    text: "What an incredible experience with the Dreamfinder! ",
     image:
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
   },
@@ -81,7 +81,7 @@ export const homePageTestimonials = [
     name: "Lisa",
     position: "Nature Photographer",
     date: "October 28, 2022",
-    text: "A truly unique travel experience!",
+    text: "A truly unique travel experience.",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
   },
@@ -101,7 +101,7 @@ export const homePageTestimonials = [
     name: "Sarah",
     position: "Digital Nomad",
     date: "August 22, 2022",
-    text: "The perfect mobile office setup!",
+    text: "The perfect mobile office setup.",
     image:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
   },

@@ -11,7 +11,12 @@ const CallToAction = () => {
           Discover our premium fleet of vans and start your journey today.
         </p>
 
-        <ButtonSet />
+        <ButtonSet
+          button1Text='Explore'
+          button1Link='/vans'
+          button2Text='Book'
+          button2Link='/book'
+        />
       </div>
     </div>
   );
