@@ -8,18 +8,24 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter", serif;
+  font-family: "Public Sans", serif;
+}
+
+@layer base {
+  html {
+    font-family: "Public Sans", system-ui, -apple-system, sans-serif;
+  }
 }
 
 body {
-  font-family: "Inter", serif;
+  font-family: "Public Sans", system-ui, -apple-system, sans-serif;
   background-color: #fff7ed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 @theme {
-  --font-display: "Inter", "sans-serif";
+  --font-display: "Public Sans", "sans-serif";
 }
 
 a {

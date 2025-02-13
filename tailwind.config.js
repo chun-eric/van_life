@@ -12,7 +12,9 @@ export default {
       "2xl": "1536px",
     },
     extend: {
-      // Keep extend for other customizations
+      fontFamily: {
+        sans: ["Public Sans", "system-ui", "-apple-system", "sans-serif"],
+      },
     },
   },
   plugins: [],

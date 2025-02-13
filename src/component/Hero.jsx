@@ -2,6 +2,7 @@ import React from "react";
 import HeroBackground from "../assets/image-54.png";
 import { Link } from "react-router-dom";
 import HeroImage from "../assets/hero.png";
+import ButtonSet from "./ButtonSet";
 
 const Hero = () => {
   return (
@@ -11,27 +12,24 @@ const Hero = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-14 items-center min-h-[80vh] '>
           {/* Text Container   */}
           <div className='order-1 md:order-1 '>
-            <h1 className='mb-6 text-4xl font-bold leading-tight md:text-5xl'>
-              You got the travel plans,
-              <br />
-              <span>we got the vans</span>
+            <h1 className='mb-6 text-4xl font-bold leading-relaxed md:text-5xl'>
+              <div className='flex flex-col gap-2'>
+                <div>You got the travel plans,</div>
+                <div>we got the vans</div>
+              </div>
             </h1>
 
             <p className='my-1 leading-relaxed text-left text-slate-700 text-md sm:text-lg sm:text-left w-[90%] '>
               Discover the freedom of the open road with our premium van
               rentals. We have the perfect van for your next adventure.
             </p>
-            <div className='flex flex-col gap-3 mt-6 xs:flex-row'>
-              <Link to='/vans'>
-                <button className='bg-[#FF8C38] text-white  text-center px-10 py-3 s capitalize  font-semibold z-10 text-base  border border-[#FF8C38] w-full '>
-                  See More
-                </button>
-              </Link>
-              <Link to='/vans'>
-                <button className='z-10 w-full px-12 py-3 text-base font-semibold text-center text-black capitalize bg-white border border-black'>
-                  Book
-                </button>
-              </Link>
+            <div className='flex flex-col gap-3 mt-8 xs:flex-row'>
+              <ButtonSet
+                button1Text='See More'
+                button2Text='Book'
+                button1Link='/vans'
+                button2Link='/book'
+              />
             </div>
           </div>
 
