@@ -14,14 +14,14 @@ export const reviewsData = [
     id: "2",
   },
   {
-    rating: 4,
+    rating: 5,
     name: "Kevin",
     date: "December 1, 2022",
     text: "The Modest Explorer was nice. We loved the comfort and ease of the van. The host was very responsive and helpful. We will definitely rent from them again in the four however there was some cleanliness issues.",
     id: "3",
   },
   {
-    rating: 3,
+    rating: 4,
     name: "Rachel",
     date: "November 15, 2022",
     text: "The Cruiser was decent for our weekend trip. The van ran well, but the interior could use some updating. The host was communicative but pickup took longer than expected. Might consider other options next time.",
@@ -40,6 +40,70 @@ export const reviewsData = [
     date: "October 28, 2022",
     text: "Really enjoyed our trip with the Green Wonder. The van was well-maintained and comfortable. Only giving 4 stars because the pickup location was quite far from the city center, but otherwise a great experience!",
     id: "6",
+  },
+];
+
+// Home Page Testimonials.js
+export const homePageTestimonials = [
+  {
+    id: "home-1",
+    rating: 5,
+    name: "Marcus",
+    position: "Adventure Enthusiast",
+    date: "November 2, 2022",
+    text: "What an incredible experience with the Dreamfinder! Everything worked perfectly, and the solar panels were a game-changer for our off-grid adventure. The host provided excellent instructions and was always available for questions.",
+    image:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
+  },
+  {
+    id: "home-2",
+    rating: 5,
+    name: "Elliot",
+    position: "Travel Blogger",
+    date: "January 3, 2023",
+    text: "The Beach Bum is such an awesome van! Highly recommend!",
+    image:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
+  },
+  {
+    id: "home-3",
+    rating: 5,
+    name: "Sandy",
+    position: "Frequent Traveler",
+    date: "December 12, 2022",
+    text: "No complaints, absolutely perfect!",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
+  },
+  {
+    id: "home-4",
+    rating: 5,
+    name: "Lisa",
+    position: "Nature Photographer",
+    date: "October 28, 2022",
+    text: "A truly unique travel experience!",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
+  },
+  {
+    id: "home-5",
+    rating: 5,
+    name: "James",
+    position: "Weekend Explorer",
+    date: "September 15, 2022",
+    text: "Can't wait to book again!",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
+  },
+  {
+    id: "home-6",
+    rating: 5,
+    name: "Sarah",
+    position: "Digital Nomad",
+    date: "August 22, 2022",
+    text: "The perfect mobile office setup!",
+    image:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&h=200&q=80",
   },
 ];
 
