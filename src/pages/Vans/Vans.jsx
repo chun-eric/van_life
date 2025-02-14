@@ -2,17 +2,18 @@ import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import "../../server.js";
 import { getVans } from "../../api.js";
-const Vans = () => {
-  // all vans state
-  const [vans, setVans] = useState([]);
-  // URL search params
-  const [searchParams, setSearchParams] = useSearchParams();
-  // loading state
-  const [loading, setLoading] = useState(false);
-  // error state
-  const [error, setError] = useState(null);
+import VanCard from "./VanCard.jsx";
+import SearchBar from "../../component/SearchBar.jsx";
 
-  const typeFilter = searchParams.get("type");
+const Vans = () => {
+  const [vans, setVans] = useState([]); // all vans state
+  const [searchParams, setSearchParams] = useSearchParams(); // URL search params
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const typeFilter = searchParams.get("type"); // URL search type
+  console.log(typeFilter);
 
   // Filtered vans array based on url search type
   const filteredVans = typeFilter
@@ -55,6 +56,10 @@ const Vans = () => {
     });
   }
 
+  function handleSearch(query) {
+    setSearchQuery(query);
+  }
+
   // if loading
   if (loading) {
     return (
@@ -87,13 +92,28 @@ const Vans = () => {
   }
 
   return (
-    <div className='w-full px-4 sm:px-6 '>
+    <div className='w-full px-4 bg-white border border-t border-gray-100 py-14 sm:px-6 '>
       <div className='my-10 max-w-[1280px] mx-auto'>
-        <h1 className='mb-6 text-xl font-bold md:text-2xl'>
-          Explore our van options 🚐
-        </h1>
+        <h1 className='mb-3 text-xl font-bold md:text-2xl'>Explore Our Vans</h1>
+        <p className='my-2 mb-6 text-xs'>
+          Find the perfect van for your next adventure!
+        </p>
+        <div className='flex flex-row items-center gap-6 mb-6 align-top justify-normal'>
+          {/* Search Bar */}
+          <SearchBar onSearch={handleSearch} />
+          <select
+            name=''
+            id=''
+            className='px-4 py-2 text-xs border border-gray-200'
+          >
+            <option value=''>Sort By</option>
+            <option value=''>Price: Low to High</option>
+            <option value=''>Price: High to Low</option>
+            <option value=''>Price: High to Low</option>
+          </select>
+        </div>
         <div className='flex flex-col flex-wrap items-center justify-between mb-4 xs:flex-row'>
-          <div className='flex flex-wrap w-full gap-2 xs:w-auto'>
+          <div className='flex flex-wrap w-full gap-1 xs:w-auto'>
             {Object.keys(colorOptions).map((type) => (
               <button
                 key={type}
@@ -106,7 +126,7 @@ const Vans = () => {
                       typeFilter === type ? colorOptions[type] : "#ffead0",
                     color: typeFilter === type ? "white" : "black",
                   }}
-                  className={`inline-block px-4 py-2 capitalize max-w-[100px] text-center rounded mr-2 cursor-pointer`}
+                  className={`inline-block px-2 py-2 capitalize max-w-[100px] text-center rounded mr-2 cursor-pointer text-xs`}
                 >
                   {type}
                 </span>
@@ -119,7 +139,7 @@ const Vans = () => {
               className='flex w-full mt-4 ml-2 xs:ml-0 xs:w-auto xs:mt-0'
             >
               <span
-                className={`inline-block  py-2 capitalize  w-full text-left  rounded text-black mr-2 cursor-pointer  underline
+                className={`inline-block  py-2 capitalize  w-full text-left  rounded text-black mr-2 cursor-pointer  underline text-xs
               }`}
               >
                 Clear filter
@@ -127,39 +147,15 @@ const Vans = () => {
             </button>
           )}
         </div>
-        <div className='grid w-full grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3'>
+        <div className='grid w-full grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4'>
           {filteredVans.map((van) => (
             // Van Card
-            <Link
-              // saves search params to url
-              state={{ search: `?${searchParams.toString()}` }}
-              to={van.id}
+            <VanCard
               key={van.id}
-              aria-label={`View details for ${van.name}, 
-                             priced at $${van.price} per day`}
-            >
-              <div className='flex flex-col w-full my-2 cursor-pointer '>
-                <img
-                  src={van.imageUrl}
-                  alt={`Image of ${van.name}`}
-                  className='object-cover w-full transition rounded-md aspect-square hover:shadow-lg hover:shadow-transition hover:opacity-95'
-                />
-                <div className='flex justify-between w-full px-2 my-4'>
-                  <p className='text-xl font-bold'>{van.name}</p>
-                  <p className='text-xl font-bold'>
-                    ${van.price}
-                    <span className='text-base font-semibold'>/day</span>
-                  </p>
-                </div>
-                <span
-                  style={{ backgroundColor: colorOptions[van.type] }}
-                  className={`inline-block px-1 py-2 capitalize bg-black max-w-[100px] text-center text-white rounded-lg ml-2 transition-all duration-200 [transition-timing-function:_cubic-bezier(0.4,_0,_0.2,_1)] 
-                }`}
-                >
-                  {van.type}
-                </span>
-              </div>
-            </Link>
+              van={van}
+              colorOptions={colorOptions}
+              searchParams={searchParams}
+            />
           ))}
         </div>
       </div>

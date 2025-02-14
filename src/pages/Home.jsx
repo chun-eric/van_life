@@ -3,11 +3,13 @@
 import CallToAction from "../component/CallToAction";
 import Hero from "../component/Hero";
 import Testimonials from "../component/Testimonials";
+import Vans from "../pages/Vans/Vans";
 
 const Home = () => {
   return (
     <>
       <Hero />
+      <Vans />
       <Testimonials />
       <CallToAction />
     </>

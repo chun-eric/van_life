@@ -28,7 +28,7 @@ const Testimonials = () => {
 
   return (
     <div className='w-full bg-white'>
-      <div className='flex flex-col items-center justify-center px-4 py-16 mx-auto text-center bg-orange-200 rounded-xl pb-36'>
+      <div className='flex flex-col items-center justify-center px-4 py-16 mx-auto text-center bg-orange-100 rounded-xl pb-36'>
         <div className='px-4 py-12 mx-auto md:pb-6 md:py-24 max-w-7xl sm:px-6 lg:px-8'>
           <h1 className='mb-4 text-4xl font-semibold text-slate-900'>
             Our customers{" "}

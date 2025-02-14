@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../assets/logo.png";
@@ -15,7 +14,7 @@ const Footer = () => {
   const year = date.getFullYear();
 
   return (
-    <footer className='pt-16 pb-8 text-black bg-[#FFF7ED] border-t border-black'>
+    <footer className='pt-16 pb-8 text-black bg-orange-100 border-t border-black'>
       <div className='px-4 mx-auto max-w-7xl sm:px-6 lg:px-8'>
         <div className='grid grid-cols-1 gap-8 md:grid-cols-5 '>
           {/* Logo Section */}
