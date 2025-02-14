@@ -17,8 +17,16 @@ const Vans = () => {
 
   // Filtered vans array based on url search type
   const filteredVans = typeFilter
-    ? vans.filter((van) => van.type === typeFilter)
-    : vans;
+    ? vans.filter((van) => {
+        const matchesType = van.type === typeFilter;
+        const matchesSearch = van.name
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
+        return matchesType && matchesSearch;
+      })
+    : vans.filter((van) =>
+        van.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
   useEffect(() => {
     async function loadVans() {
@@ -56,8 +64,9 @@ const Vans = () => {
     });
   }
 
-  function handleSearch(query) {
-    setSearchQuery(query);
+  function handleSearch(value) {
+    console.log("Value received from SearchBar:", value);
+    setSearchQuery(value);
   }
 
   // if loading
@@ -101,6 +110,7 @@ const Vans = () => {
         <div className='flex flex-row items-center gap-6 mb-6 align-top justify-normal'>
           {/* Search Bar */}
           <SearchBar onSearch={handleSearch} />
+          {console.log("Current search query:", searchQuery)}
           <select
             name=''
             id=''
