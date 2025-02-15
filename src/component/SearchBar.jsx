@@ -20,7 +20,7 @@ const SearchBar = ({ onSearch }) => {
         type='text'
         value={inputValue}
         onChange={handleChange}
-        className='w-full p-2 pl-3 pr-8 text-sm border border-gray-200 outline-none rounded-2xl placeholder:text-xs'
+        className='w-full px-4 py-[0.75rem] text-sm border border-gray-600 rounded-l outline-none placeholder:text-xs '
         placeholder='Search vans...'
       />
       {

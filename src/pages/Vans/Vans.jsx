@@ -5,6 +5,7 @@ import { getVans } from "../../api.js";
 import VanCard from "./VanCard.jsx";
 import SearchBar from "../../component/SearchBar.jsx";
 import SortSelect from "../../component/SortSelect.jsx";
+import DateRangePicker from "../../component/DateRangePicker.jsx";
 
 const Vans = () => {
   const [vans, setVans] = useState([]); // all vans state
@@ -124,11 +125,14 @@ const Vans = () => {
         <p className='my-2 mb-6 text-xs'>
           Find the perfect van for your next adventure!
         </p>
-        <div className='flex flex-row items-center gap-6 mb-6 align-top justify-normal'>
+        <div className='flex flex-row items-center mb-6 align-top rounded-lg shadow-md justify-normal'>
           {/* Search Bar */}
-          <SearchBar onSearch={handleSearch} />
-          {console.log("Current search query:", searchQuery)}
-          <SortSelect value={sort} onSort={handleSort} />
+          <div className='flex w-full'>
+            <SearchBar onSearch={handleSearch} />
+            {console.log("Current search query:", searchQuery)}
+            <DateRangePicker />
+            <SortSelect value={sort} onSort={handleSort} />
+          </div>
         </div>
         <div className='flex flex-col flex-wrap items-center justify-between mb-4 xs:flex-row'>
           <div className='flex flex-wrap w-full gap-1 xs:w-auto'>
