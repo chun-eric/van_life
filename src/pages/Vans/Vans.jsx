@@ -4,6 +4,7 @@ import "../../server.js";
 import { getVans } from "../../api.js";
 import VanCard from "./VanCard.jsx";
 import SearchBar from "../../component/SearchBar.jsx";
+import SortSelect from "../../component/SortSelect.jsx";
 
 const Vans = () => {
   const [vans, setVans] = useState([]); // all vans state
@@ -11,20 +12,31 @@ const Vans = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sort, setSort] = useState("");
 
   const typeFilter = searchParams.get("type"); // URL search type
   console.log(typeFilter);
 
+  // sort all vans first
+  const sortVans = [...vans].sort((a, b) => {
+    if (sort === "low-to-high") {
+      return a.price - b.price;
+    } else if (sort === "high-to-low") {
+      return b.price - a.price;
+    }
+    return 0;
+  });
+
   // Filtered vans array based on url search type
   const filteredVans = typeFilter
-    ? vans.filter((van) => {
+    ? sortVans.filter((van) => {
         const matchesType = van.type === typeFilter;
         const matchesSearch = van.name
           .toLowerCase()
           .includes(searchQuery.toLowerCase());
         return matchesType && matchesSearch;
       })
-    : vans.filter((van) =>
+    : sortVans.filter((van) =>
         van.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
@@ -69,6 +81,11 @@ const Vans = () => {
     setSearchQuery(value);
   }
 
+  function handleSort(value) {
+    console.log("Value received from SortSelect:", value);
+    setSort(value);
+  }
+
   // if loading
   if (loading) {
     return (
@@ -111,16 +128,7 @@ const Vans = () => {
           {/* Search Bar */}
           <SearchBar onSearch={handleSearch} />
           {console.log("Current search query:", searchQuery)}
-          <select
-            name=''
-            id=''
-            className='px-4 py-2 text-xs border border-gray-200'
-          >
-            <option value=''>Sort By</option>
-            <option value=''>Price: Low to High</option>
-            <option value=''>Price: High to Low</option>
-            <option value=''>Price: High to Low</option>
-          </select>
+          <SortSelect value={sort} onSort={handleSort} />
         </div>
         <div className='flex flex-col flex-wrap items-center justify-between mb-4 xs:flex-row'>
           <div className='flex flex-wrap w-full gap-1 xs:w-auto'>
