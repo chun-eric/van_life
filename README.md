@@ -254,3 +254,13 @@ After login (no replace):
 - Cant seem to login Error handling. Destructuring is email as null. That means the email property is null. Got rid of the loginUser function from api.js. We were calling that from api.js but our login function was being used from AuthProvider causing a conflict. Thats why we got rid of loginUser function.
 - Finish Reviews Section
 - Finish Styling main page, add footer.
+
+
+## Day 10-13
+- Redesigned Website
+- Add new ButtonSet components
+- Added new testimonials
+
+1. Redesign the 
+2.
+3.

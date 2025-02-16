@@ -66,7 +66,7 @@ const DateRangePicker = () => {
 
       {/* Calendar Dropdown */}
       {showCalendar && (
-        <div className='absolute left-0 z-150 w-full mt-0 p-4 bg-white rounded-lg shadow top-full max-w-[500px]'>
+        <div className='absolute left-0 z-150 w-full mt-0 p-4 bg-white rounded-lg shadow top-full max-w-[600px]'>
           {/* Calendar Navigation */}
           <div className='flex items-center justify-between mb-4'>
             <button className='flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full'>

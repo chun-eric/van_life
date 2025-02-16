@@ -119,13 +119,13 @@ const Vans = () => {
   }
 
   return (
-    <div className='w-full px-4 bg-white border border-t border-gray-100 py-14 sm:px-6 '>
+    <div className='w-full px-4 bg-white border py-14 sm:px-6 '>
       <div className='my-10 max-w-[1280px] mx-auto'>
         <h1 className='mb-3 text-xl font-bold md:text-2xl'>Explore Our Vans</h1>
         <p className='my-2 mb-6 text-xs'>
           Find the perfect van for your next adventure!
         </p>
-        <div className='flex flex-row items-center mb-6 align-top rounded-lg shadow-md justify-normal'>
+        <div className='flex flex-row items-center mb-6 align-top rounded-lg justify-normal'>
           {/* Search Bar */}
           <div className='flex w-full'>
             <SearchBar onSearch={handleSearch} />

@@ -188,12 +188,19 @@ const Income = () => {
         <div className='flex flex-col gap-2 rounded-lg '>
           {displayedTransactions.map((transaction) => (
             <div
-              className='flex flex-row items-center justify-between gap-4 px-3 py-4 border border-slate-500 shadow-sm bg-[#FFF7ED] rounded'
+              className='flex flex-row items-center justify-between gap-4 px-3 py-4 border rounded shadow-sm border-slate-500'
               key={transaction.id}
             >
-              <span className='font-bold'>
-                ${transaction.amount.toLocaleString()}{" "}
-                <span className='text-sm'>received</span>
+              <span
+                className={`font-bold ${
+                  transaction.amount > 0 ? "text-green-700" : "text-red-600"
+                } `}
+              >
+                {transaction.amount > 0 ? "+" : "-"}$
+                {Math.abs(transaction.amount).toLocaleString()}{" "}
+                <span className='text-sm'>
+                  {transaction.amount > 0 ? "Deposited" : "Withdrawn"}
+                </span>
               </span>
               <span className=''>{formatDate(transaction.date)}</span>
             </div>

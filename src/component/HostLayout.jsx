@@ -1,14 +1,10 @@
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import Dashboard from "../pages/Host/Dashboard";
-import Income from "../pages/Host/Income";
-import Reviews from "../pages/Host/Reviews";
-import HostVans from "../pages/Host/HostVans";
 
 const HostLayout = () => {
   return (
-    <div className='max-w-[1280px] mx-auto px-6 mt-12 flex flex-col gap-8 flex-wrap '>
-      <nav className='flex flex-wrap gap-12 pl-4'>
+    <div className='max-w-[1280px] mx-auto px-6 mt-12 flex flex-col  flex-wrap bg-white'>
+      <nav className='flex flex-wrap gap-12 text-sm pl-7'>
         <NavLink
           to='.'
           end

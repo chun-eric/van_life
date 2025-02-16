@@ -108,52 +108,52 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='px-6 py-10 mt-6 bg-white rounded-lg'>
-      <section className='flex flex-col gap-4 '>
-        <div className='flex flex-col gap-2'>
-          <h1 className='text-2xl font-bold'>
-            {" "}
-            Welcome {user?.name || "Host"}!
-          </h1>
-          <div className='flex flex-row items-center justify-between '>
-            <p className='text-sm'>
-              Your income in the past{" "}
-              <span className='text-gray-700 underline cursor-pointer'>
-                30 days
-              </span>
-            </p>
-            <Link
-              to='income'
-              className='pr-3 text-xs cursor-pointer hover:underline'
-            >
-              Details
-            </Link>
+    <div className='px-6 py-10 mt-2 rounded-lg '>
+      <div className='p-2 text-left text-white bg-teal-700 rounded-lg md:pt-8 md:p-5'>
+        <section className='flex flex-col gap-4 '>
+          <div className='flex flex-col gap-2'>
+            <h1 className='text-2xl font-bold'>
+              {" "}
+              Welcome {user?.name || "back"}!
+            </h1>
+            <div className='flex flex-row items-center justify-between '>
+              <p className='text-sm'>
+                Your income in the past{" "}
+                <span className='underline cursor-pointer'>30 days</span>
+              </p>
+              <Link
+                to='income'
+                className='pr-3 text-xs cursor-pointer hover:underline'
+              >
+                Details
+              </Link>
+            </div>
+            <h2 className='mt-6 text-3xl font-bold'>{formatted}</h2>
           </div>
-          <h2 className='mt-6 text-3xl font-bold'>{formatted}</h2>
-        </div>
-      </section>
-      <section className='flex flex-row items-center justify-between my-8'>
-        <div className='flex flex-row gap-4'>
-          <h2 className='font-bold'>Review score</h2>
-          <div className='flex flex-row items-center gap-1'>
-            <BsStarFill className='' color='#ff8c38' />
-            <p className='ml-1'>
-              <span className='font-bold'>{averageRating}</span>/5
-            </p>
-            <p className='ml-2'>
-              <span className='underline cursor-pointer'>
-                {reviewCount} reviews
-              </span>
-            </p>
+        </section>
+        <section className='flex flex-row items-center justify-between my-8'>
+          <div className='flex flex-row gap-4'>
+            <h2 className='font-bold'>Review score</h2>
+            <div className='flex flex-row items-center gap-1'>
+              <BsStarFill className='' color='#ff8c38' />
+              <p className='ml-1'>
+                <span className='font-bold'>{averageRating}</span>/5
+              </p>
+              <p className='ml-2'>
+                <span className='underline cursor-pointer'>
+                  {reviewCount} reviews
+                </span>
+              </p>
+            </div>
           </div>
-        </div>
-        <Link
-          to='review'
-          className='pr-3 text-xs cursor-pointer hover:underline'
-        >
-          Details
-        </Link>
-      </section>
+          <Link
+            to='review'
+            className='pr-3 text-xs cursor-pointer hover:underline'
+          >
+            Details
+          </Link>
+        </section>
+      </div>
       <section className='flex flex-col gap-2 my-10 '>
         <div className='flex flex-row items-center gap-5 mb-3 '>
           <h2 className='text-2xl font-bold '>Your listed vans</h2>

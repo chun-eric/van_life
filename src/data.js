@@ -133,7 +133,7 @@ export const transactionData = [
   { amount: 1200, date: "2024-06-22", id: "12" },
 
   // July 2022 transactions (Total: 3800)
-  { amount: 1200, date: "2024-07-05", id: "13" },
+  { amount: -1200, date: "2024-07-05", id: "13" },
   { amount: 1600, date: "2024-07-15", id: "14" },
   { amount: 1000, date: "2024-07-28", id: "15" },
 
@@ -147,7 +147,7 @@ export const transactionData = [
 
   // October 2024 transactions (Total: 2400)
   { amount: 900, date: "2024-10-07", id: "20" },
-  { amount: 800, date: "2024-10-18", id: "21" },
+  { amount: -800, date: "2024-10-18", id: "21" },
   { amount: 700, date: "2024-10-29", id: "22" },
 
   // November 2024 transactions (Total: 1500)
@@ -156,10 +156,10 @@ export const transactionData = [
 
   // December 2024 transactions (Total: 560)
   { amount: 320, date: "2024-12-08", id: "25" },
-  { amount: 240, date: "2024-12-20", id: "26" },
+  { amount: -240, date: "2024-12-20", id: "26" },
 
   // January 2025 transactions (Total: 2860)
-  { amount: 620, date: "2025-01-10", id: "27" },
+  { amount: -620, date: "2025-01-10", id: "27" },
   { amount: 2240, date: "2025-01-14", id: "28" },
 ];
 
