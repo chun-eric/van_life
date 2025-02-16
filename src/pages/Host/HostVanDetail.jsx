@@ -67,13 +67,13 @@ const HostVanDetail = () => {
         <Link
           to='..'
           relative='path'
-          className='block mt-16 mb-6 ml-5 text-black no-underline '
+          className='block mt-16 mb-4 ml-4 text-black no-underline '
         >
           &larr;{" "}
           <span className='text-xs hover:underline'>back to all vans</span>
         </Link>
 
-        <div className='flex flex-col w-full gap-4 p-5 rounded-lg bg-gray-50'>
+        <div className='flex flex-col w-full gap-4 p-5 border border-black rounded-lg bg-gray-50'>
           <div className='flex flex-col items-center w-full gap-6 mt-4 rounded-lg sm:flex-row'>
             <img
               className='object-cover w-full h-auto rounded sm:w-36 sm:h-36'
