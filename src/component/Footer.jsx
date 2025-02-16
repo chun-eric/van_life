@@ -15,7 +15,7 @@ const Footer = () => {
 
   return (
     <footer className='pt-16 pb-8 text-black bg-orange-100 border-t border-black'>
-      <div className='px-4 mx-auto max-w-7xl sm:px-6 lg:px-8'>
+      <div className='px-6 mx-auto max-w-7xl sm:px-6 lg:px-8'>
         <div className='grid grid-cols-1 gap-8 md:grid-cols-5 '>
           {/* Logo Section */}
           <div className='col-span-1'>
@@ -77,7 +77,7 @@ const Footer = () => {
             <ul className='space-y-2'>
               <li>
                 <Link
-                  to='/about-us'
+                  to='/about'
                   className='text-sm text-slate-800 hover:text-gray-700'
                 >
                   About Us
