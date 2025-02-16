@@ -4,9 +4,9 @@ import ButtonSet from "../component/ButtonSet";
 
 const About = () => {
   return (
-    <div className='flex flex-col min-h-screen gap-6 my-24 text-center relative max-w-[1280px] mx-auto'>
+    <div className='flex flex-col min-h-screen gap-6 my-36 text-center relative max-w-[1280px] mx-auto m'>
       <div className='mb-10'>
-        <h1 className='my-10 mb-0 text-5xl font-bold text-left text-black '>
+        <h1 className='my-10 mb-0 text-6xl font-bold text-left text-black '>
           We Belive in
         </h1>
         <h1 className='mt-2 text-5xl font-bold text-left text-black '>
@@ -15,7 +15,7 @@ const About = () => {
       </div>
 
       {/* Hero Image Section */}
-      <div className='flex flex-row items-start gap-1'>
+      <div className='flex flex-row items-start gap-4'>
         <div className='w-full h-[80vh]  mx-auto'>
           <img
             src={HeroImage}
