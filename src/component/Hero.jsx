@@ -2,12 +2,13 @@ import React from "react";
 import HeroBackground from "../assets/image-54.png";
 import { Link } from "react-router-dom";
 import HeroImage from "../assets/hero.png";
+import HeroImage2 from "../assets/hero4.svg";
 import ButtonSet from "./ButtonSet";
 
 const Hero = () => {
   return (
     <div className='min-h-screen text-black bg-white'>
-      <div className='px-4 py-12 mx-auto md:py-24 max-w-7xl sm:px-6 lg:px-8'>
+      <div className='px-4 py-12 mx-auto md:py-20 max-w-7xl sm:px-6 lg:px-8'>
         {/* Added background wrapper */}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-14 items-center min-h-[80vh] '>
           {/* Text Container   */}
@@ -37,7 +38,7 @@ const Hero = () => {
           <div className='flex items-center justify-center order-2 w-full mb-10 md:order-2 sm:mb-0'>
             <div className='flex items-center w-full h-full '>
               <img
-                src={HeroImage}
+                src={HeroImage2}
                 alt='Van life Hero'
                 className='object-cover w-full sm:h-[80%] h-full '
               />

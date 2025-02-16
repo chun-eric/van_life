@@ -119,9 +119,9 @@ const Vans = () => {
   }
 
   return (
-    <div className='w-full px-4 bg-white border py-14 sm:px-6 '>
-      <div className='my-10 max-w-[1280px] mx-auto'>
-        <h1 className='mb-3 text-xl font-bold md:text-2xl'>Explore Our Vans</h1>
+    <div className='w-full px-4 py-24 bg-white sm:px-6 '>
+      <div className=' max-w-[1280px] mx-auto'>
+        <h1 className='mb-3 text-xl font-bold md:text-4xl'>Explore Our Vans</h1>
         <p className='my-2 mb-6 text-xs'>
           Find the perfect van for your next adventure!
         </p>
