@@ -16,7 +16,7 @@ const About = () => {
 
       {/* Hero Image Section */}
       <div className='flex flex-row items-start gap-4'>
-        <div className='w-full h-[80vh]  mx-auto'>
+        <div className='w-full h-[80vh]  mx-auto shadow-md'>
           <img
             src={HeroImage}
             alt='Van with pop-up roof at night'
@@ -27,7 +27,7 @@ const About = () => {
         {/* Content Section */}
         <div className='max-w-[1280px] mx-auto px-8 flex flex-col items-start'>
           {/* Call to Action Section */}
-          <div className='bg-[#FFCC8D] rounded-lg p-6 md:p-8 text-left py-16 my-3  max-w-[1280px] mx-auto w-full mb-14 md:py-8 mt-0 md:mt-0 '>
+          <div className='bg-[#FFCC8D] rounded-lg p-6 md:p-8 text-left py-16 my-3  max-w-[1280px] mx-auto w-full mb-14 md:py-8 mt-0 md:mt-0 shadow-sm '>
             <h2 className='mb-6 text-xl font-bold text-black md:text-2xl'>
               Your destination is waiting.
               <br />
