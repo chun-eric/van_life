@@ -1,11 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
 import logo from "../assets/logo.png";
 import { UserCircle } from "lucide-react";
 import { useAuth } from "../context/useAuth.jsx";
 import ButtonSet from "./ButtonSet.jsx";
+import SideNavBar from "./SideNavBar.jsx";
+import { Menu } from "lucide-react";
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useAuth();
+  const [isSideNavOpen, setIsSideNavOpen] = useState(false);
 
   return (
     <header className='bg-[#FFF7ED] w-full border-b border-black  '>
@@ -57,6 +61,7 @@ const Navbar = () => {
               </ul>
             </div>
           </div>
+          {/* Desktop buttonset */}
           <div className=''>
             <ButtonSet
               button1Text='Book'
@@ -66,8 +71,17 @@ const Navbar = () => {
               button2Link={isLoggedIn ? "/" : "/login"}
             />
           </div>
+          {/** Mobile Hamburger Menu */}
+          <button
+            aria-label='Open menu'
+            className='p-2 rounded-lg md:hidden hover:bg-gray-200'
+          >
+            <Menu />
+          </button>
         </nav>
       </div>
+      {/* Side Navigation Model */}
+      <SideNavBar />
     </header>
   );
 };
