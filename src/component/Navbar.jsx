@@ -81,7 +81,7 @@ const Navbar = () => {
         </nav>
       </div>
       {/* Side Navigation Model */}
-      <SideNavBar />
+      {/* <SideNavBar /> */}
     </header>
   );
 };
