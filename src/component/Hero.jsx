@@ -1,7 +1,6 @@
 import React from "react";
-import HeroBackground from "../assets/image-54.png";
+
 import { Link } from "react-router-dom";
-import HeroImage from "../assets/hero.png";
 import HeroImage2 from "../assets/hero4.svg";
 import ButtonSet from "./ButtonSet";
 
@@ -10,13 +9,13 @@ const Hero = () => {
     <div className='min-h-screen text-black bg-white'>
       <div className='px-8 pt-24 pb-12 mx-auto border-b border-gray-100 md:py-20 max-w-7xl sm:px-6 lg:px-8'>
         {/* Added background wrapper */}
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-14 items-center min-h-[80vh] '>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-14 items-center min-h-[80vh] '>
           {/* Text Container   */}
           <div className='order-1 md:order-1 '>
-            <h1 className='mb-6 text-4xl font-bold leading-relaxed md:text-5xl'>
+            <h1 className='mb-6 text-4xl font-bold leading-relaxed md:text-6xl'>
               <div className='flex flex-col gap-0 md:gap-2'>
-                <p className=''>You got the travel plans,</p>
-                <p className='-mt-2 md:mt-2'>we got the vans</p>
+                <p className='flex-wrap'>You got the plans,</p>
+                <p className='-mt-2 md:mt-2'>We got the vans.</p>
               </div>
             </h1>
 
@@ -24,14 +23,13 @@ const Hero = () => {
               Discover the freedom of the open road with our premium van
               rentals. We have the perfect van for your next adventure.
             </p>
-            <div className='flex flex-col gap-3 mt-8 xs:flex-row'>
-              <ButtonSet
-                button1Text='See More'
-                button2Text='Book'
-                button1Link='/vans'
-                button2Link='/book'
-              />
-            </div>
+            <div className='flex flex-col w-full gap-3 mt-8'> </div>
+            <ButtonSet
+              button1Text='See More'
+              button2Text='Book'
+              button1Link='/vans'
+              button2Link='/book'
+            />
           </div>
 
           {/* Van Image right   */}

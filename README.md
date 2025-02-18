@@ -261,15 +261,21 @@ After login (no replace):
 - Add new ButtonSet components
 - Added new testimonials
 
+
+
+
+## Day 14-16
+-  responsive navbar
+-  
+
+
 Things to do
-
-
 1. Search bar - make it responsive
 2. Finalize functionality for calendar function
-3. responsive navbar
-4. responive about page
-5. Redesign login page
-6. Add book route
-7. Design and make booking page
-8. Hosts dashobard, income, vans, reviews - make it all responsive
-9. White side bar showing on very small screens
+
+3. responive about page
+4. Redesign login page
+5. Add book route
+6. Design and make booking page
+7. Hosts dashobard, income, vans, reviews - make it all responsive
+8. White side bar showing on very small screens

@@ -32,3 +32,18 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+/* Custom keyframes */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animationDelay {
+}

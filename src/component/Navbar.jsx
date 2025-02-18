@@ -14,13 +14,13 @@ const Navbar = () => {
   return (
     <header className='bg-[#FFF7ED] w-full border-b border-black  '>
       <div className='max-w-[1280px] mx-auto px-4 md:px-6'>
-        <nav className=' h-[100px] flex items-center justify-between '>
-          <div className='flex gap-10'>
+        <nav className='h-[100px] flex items-center justify-between'>
+          <div className='flex items-center gap-10'>
             <Link to='/'>
               <img src={logo} alt='#VANLIFE' className='w-[120px]' />
             </Link>
 
-            <div className='flex items-center'>
+            <div className='hidden md:block'>
               <ul className='flex gap-8 mr-4 list-none '>
                 <li className='flex items-center'>
                   <NavLink
@@ -62,7 +62,7 @@ const Navbar = () => {
             </div>
           </div>
           {/* Desktop buttonset */}
-          <div className=''>
+          <div className='items-center hidden md:flex'>
             <ButtonSet
               button1Text='Book'
               button1Link='/book'
@@ -71,17 +71,25 @@ const Navbar = () => {
               button2Link={isLoggedIn ? "/" : "/login"}
             />
           </div>
+
           {/** Mobile Hamburger Menu */}
           <button
+            onClick={() => setIsSideNavOpen(!isSideNavOpen)}
             aria-label='Open menu'
-            className='p-2 rounded-lg md:hidden hover:bg-gray-200'
+            className='p-2 rounded-lg md:hidden hover:bg-gray-200 cursoer-pointer'
           >
-            <Menu />
+            <Menu size={24} />
           </button>
         </nav>
       </div>
       {/* Side Navigation Model */}
       {/* <SideNavBar /> */}
+      {isSideNavOpen && (
+        <SideNavBar
+          isOpen={isSideNavOpen}
+          onClose={() => setIsSideNavOpen(!isSideNavOpen)}
+        />
+      )}
     </header>
   );
 };
