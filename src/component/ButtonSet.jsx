@@ -8,20 +8,24 @@ const ButtonSet = ({
   button2Link = "/",
   button2OnClick,
 }) => {
+  const buttonBaseClasses =
+    "w-full px-6 py-3 font-semibold text-black transition-all border border-black shadow-inner cursor-pointer hover:-translate-y-0.5 hover:shadow-md duration-300 ease-in-out";
   return (
-    <div className='flex flex-col w-full gap-3 md:flex-row md:w-auto '>
-      <Link to={button1Link} className='w-full md:w-auto'>
-        <button className='px-6 py-3 font-semibold transition-all bg-orange-300 border border-black shadow-inner cursor-pointer  hover:bg-orange-50 hover:-translate-y-0.5 hover:shadow-md duration-300 ease-in-out max-w-[150px] w-full'>
+    <div className='flex flex-col items-center w-full gap-3 text-center xs:flex-row xs:w-auto '>
+      <Link to={button1Link} className='block w-[150px]'>
+        <button
+          className={`${buttonBaseClasses} bg-[#FDBA74] hover:bg-orange-50 font-bold`}
+        >
           {button1Text}
         </button>
       </Link>
       {/* button2OnClick is checking if user is logged in or not */}
       {button2OnClick ? (
         // if user is logged in
-        <Link to='/' className='w-full md:w-auto'>
+        <Link to='/' className=' w-[150px] md:w-inline-block'>
           <button
             onClick={button2OnClick}
-            className='px-6 py-3 font-semibold transition-all border border-black shadow-inner cursor-pointer bg-b hover:bg-white  bg-gray-50  hover:-translate-y-0.5 hover:shadow-md duration-300 ease-in-out max-w-[150px] w-full'
+            className={`${buttonBaseClasses} bg-white hover:bg-gray-50`}
           >
             {button2Text}
           </button>
@@ -29,8 +33,8 @@ const ButtonSet = ({
       ) : (
         // if user is not logged in
         // link to the login page
-        <Link to={button2Link} className='w-full md:w-auto'>
-          <button className='px-6 py-3 font-semibold transition-all border border-black shadow-inner cursor-pointer bg-b hover:bg-white  bg-gray-50  hover:-translate-y-0.5 hover:shadow-md duration-300 ease-in-out  '>
+        <Link to={button2Link} className='block w-[150px]'>
+          <button className={`${buttonBaseClasses} bg-white hover:bg-gray-50`}>
             {button2Text}
           </button>
         </Link>

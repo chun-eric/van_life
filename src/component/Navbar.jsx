@@ -64,7 +64,7 @@ const Navbar = () => {
           {/* Desktop buttonset */}
           <div className='items-center hidden md:flex'>
             <ButtonSet
-              button1Text='Book'
+              button1Text='Book Now'
               button1Link='/book'
               button2OnClick={isLoggedIn ? logout : null}
               button2Text={isLoggedIn ? "Sign Out" : "Sign in"}
