@@ -59,30 +59,29 @@ const HostVans = () => {
       <div className='flex flex-col flex-1 gap-5'>
         {vans.length > 0 ? (
           vans.map((van) => (
-            <div key={van.id} className='flex flex-col gap-4 '>
-              <div className='flex flex-row items-center justify-between gap-6 border border-black rounded-lg '>
-                <div className='flex items-center justify-between gap-3 xs:gap-6'>
-                  <img
-                    className='object-cover rounded-lg cursor-pointer h-28 w-28'
-                    src={van.imageUrl[0]}
-                    alt={`This is a ${van.type}  ${van.name} van`}
-                  />
-                  <div className='flex flex-col'>
-                    <p className='mb-2 font-bold xs:text-xl text-md'>
-                      {van.name}
-                    </p>
-                    <p className='xs:text-lg text-md'>
-                      <span className=''>${van.price}/day</span>
-                    </p>
+            <div key={van.id} className='flex flex-col gap-4'>
+              <Link to={`/host/vans/${van.id}`}>
+                <div className='flex flex-row items-center justify-between gap-6 border border-black rounded-lg'>
+                  <div className='flex items-center justify-between gap-3 xs:gap-6'>
+                    <img
+                      className='object-cover rounded-lg cursor-pointer h-28 w-28'
+                      src={van.imageUrl[0]}
+                      alt={`This is a ${van.type}  ${van.name} van`}
+                    />
+                    <div className='flex flex-col'>
+                      <p className='mb-2 font-bold xs:text-xl text-md'>
+                        {van.name}
+                      </p>
+                      <p className='xs:text-lg text-md'>
+                        <span className=''>${van.price}/day</span>
+                      </p>
+                    </div>
                   </div>
+                  <span className='hidden mr-4 text-xs cursor-pointer hover:underline xs:block'>
+                    View
+                  </span>
                 </div>
-                <Link
-                  to={`vans/${van.id}`}
-                  className='hidden mr-4 text-xs cursor-pointer hover:underline xs:block'
-                >
-                  View
-                </Link>
-              </div>
+              </Link>
             </div>
           ))
         ) : (

@@ -1,15 +1,19 @@
-import React from "react";
 import { useOutletContext } from "react-router-dom";
 
 const HostVanPhotos = () => {
   const { van } = useOutletContext();
+
+  console.log(van.imageUrl);
   return (
-    <div className='my-6'>
-      <img
-        src={van.imageUrl}
-        alt={`Photo of ${van.name}`}
-        className='h-20 rounded-lg'
-      />
+    <div className='flex flex-row flex-wrap gap-4 my-6 overflow-hidden'>
+      {van.imageUrl.map((image, index) => (
+        <img
+          key={index}
+          src={image}
+          alt={`Photo of ${image + 1} of ${van.name}`}
+          className='w-24 h-24 rounded-lg shadow-sm cursor-pointer'
+        />
+      ))}
     </div>
   );
 };
