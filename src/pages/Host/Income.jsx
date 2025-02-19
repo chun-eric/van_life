@@ -72,7 +72,7 @@ const Income = () => {
   };
 
   return (
-    <div className='px-6 py-10 mt-6 bg-white rounded-lg '>
+    <div className='px-6 py-10 mt-6 mb-10 rounded-lg bg-gray-50'>
       <section className='flex flex-col gap-4 '>
         <div className='flex flex-col gap-2'>
           <h1 className='text-2xl font-bold'>Host Income</h1>
@@ -87,7 +87,7 @@ const Income = () => {
           <h2 className='mt-6 text-3xl font-bold'>
             ${displayedTotal.toLocaleString()}
           </h2>
-          <div className='flex mt-4'>
+          <div className='flex flex-col mt-4 xs:flex-row'>
             <button
               className={`px-3 py-2  text-xs ${
                 selectedPeriod === 30
@@ -101,7 +101,7 @@ const Income = () => {
             <button
               className={`px-3 py-2  text-xs ${
                 selectedPeriod === 60
-                  ? "bg-[#f7924a] text-black"
+                  ? "bg-[#f7924a]  text-white"
                   : "bg-gray-100"
               }`}
               onClick={() => handlePeriodChange(60)}
@@ -188,7 +188,7 @@ const Income = () => {
         <div className='flex flex-col gap-2 rounded-lg '>
           {displayedTransactions.map((transaction) => (
             <div
-              className='flex flex-row items-center justify-between gap-4 px-3 py-4 border rounded shadow-sm border-slate-500'
+              className='flex flex-row items-center justify-between gap-4 px-3 py-4 border rounded shadow-sm border-slate-500 hover:bg-white hover:shadow-md hover:transition-all hover:ease-in-out hover:duration-200 '
               key={transaction.id}
             >
               <span

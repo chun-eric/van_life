@@ -49,20 +49,20 @@ const Reviews = () => {
   }
 
   return (
-    <div className='px-4 py-10 mt-6  rounded-lg flex flex-col '>
-      <div className='flex gap-4 align-center items-center mb-6'>
-        <h2 className='font-bold text-2xl'>Your reviews</h2>
-        <p className='text-sm mt-2'>
-          Last <span className='underline font-normal '>30 days</span>
+    <div className='flex flex-col px-0 py-10 mt-6 rounded-lg xs:px-2 '>
+      <div className='flex items-center gap-4 mb-6 align-center'>
+        <h2 className='text-2xl font-bold'>Your reviews</h2>
+        <p className='mt-2 text-sm'>
+          Last <span className='font-normal underline '>30 days</span>
         </p>
       </div>
 
       {/* Overall Rating */}
       <div className='flex items-center mt-4'>
-        <div className='flex gap-2  flex-row items-center'>
+        <div className='flex flex-row items-center gap-2'>
           <span className='text-2xl font-bold'>{averageRating}</span>
           <BsStarFill className='' color='#ff8c38' size={20} />
-          <p className='text-black text-base '>overall rating</p>
+          <p className='text-base text-black '>overall rating</p>
         </div>
       </div>
 
@@ -72,10 +72,10 @@ const Reviews = () => {
           .reverse()
           .map(([rating, percentage]) => (
             <div
-              className='flex items-center gap-2  text-gray-800 mt-5'
+              className='flex items-center gap-2 mt-5 text-gray-800'
               key={rating}
             >
-              <span className='w-14 sm:w-20 flex'>
+              <span className='flex w-14 sm:w-20'>
                 {rating} {rating === "1" ? "star" : "stars"}
               </span>
               <div className='flex-1 h-3 bg-[#b9b9b9] rounded sm:mr-3'>
@@ -84,30 +84,30 @@ const Reviews = () => {
                   style={{ width: `${percentage}%` }}
                 ></div>
               </div>
-              <span className='sm:w-20 w-14 text-center'>{percentage}%</span>
+              <span className='text-center sm:w-20 w-14'>{percentage}%</span>
             </div>
           ))}
       </div>
 
       {/* Individual Reviews */}
       <div className='mt-10'>
-        <h3 className='font-bold text-black text-lg'>
+        <h3 className='text-lg font-bold text-black'>
           Reviews ({totalReviews})
         </h3>
-        <div className='space-y-8 mt-6'>
+        <div className='mt-6 space-y-8'>
           {reviewsData.map((review) => (
-            <div key={review.id} className='border-b pb-6'>
+            <div key={review.id} className='pb-6 border-b'>
               {/* Stars*/}
               <div className='flex gap-1 mb-2'>
                 {renderStars(review.rating)}
               </div>
 
               {/* Name and Date */}
-              <div className='flex gap-2 text-gray-700 mb-3 items-center align-center'>
+              <div className='flex items-center gap-2 mb-3 text-gray-700 align-center'>
                 <span className='text-black'>{review.name}</span>
                 <span className='text-gray-500'>{review.date}</span>
               </div>
-              <p className='text-black leading-relaxed '>{review.text}</p>
+              <p className='leading-relaxed text-black '>{review.text}</p>
             </div>
           ))}
         </div>

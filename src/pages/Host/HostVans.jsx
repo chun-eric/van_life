@@ -54,29 +54,31 @@ const HostVans = () => {
   }
 
   return (
-    <div className='flex flex-col gap-5 px-6 py-10 my-4  mt-10 bg-white rounded-lg pb-16'>
+    <div className='flex flex-col gap-5 py-10 pb-16 my-4 mt-3 bg-white rounded-lg xs:mt-6 xs:px-2 px:0'>
       <p className='text-2xl font-bold'>Your listed vans</p>
       <div className='flex flex-col flex-1 gap-5'>
         {vans.length > 0 ? (
           vans.map((van) => (
             <div key={van.id} className='flex flex-col gap-4 '>
               <div className='flex flex-row items-center justify-between gap-6 border border-black rounded-lg '>
-                <div className='flex items-center justify-between gap-6 '>
+                <div className='flex items-center justify-between gap-3 xs:gap-6'>
                   <img
                     className='object-cover rounded-lg cursor-pointer h-28 w-28'
-                    src={van.imageUrl}
+                    src={van.imageUrl[0]}
                     alt={`This is a ${van.type}  ${van.name} van`}
                   />
                   <div className='flex flex-col'>
-                    <p className='mb-2 text-xl font-bold'>{van.name}</p>
-                    <p className=''>
+                    <p className='mb-2 font-bold xs:text-xl text-md'>
+                      {van.name}
+                    </p>
+                    <p className='xs:text-lg text-md'>
                       <span className=''>${van.price}/day</span>
                     </p>
                   </div>
                 </div>
                 <Link
                   to={`vans/${van.id}`}
-                  className='mr-4 text-xs cursor-pointer hover:underline'
+                  className='hidden mr-4 text-xs cursor-pointer hover:underline xs:block'
                 >
                   View
                 </Link>

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const HostLayout = () => {
   return (
     <div className='max-w-[1280px] mx-auto px-6 mt-12 flex flex-col  flex-wrap bg-white'>
-      <nav className='flex flex-wrap gap-12 text-sm pl-7'>
+      <nav className='flex flex-col gap-4 text-sm xs:gap-12 xs:flex-row xs:pl-2 pl:3'>
         <NavLink
           to='.'
           end

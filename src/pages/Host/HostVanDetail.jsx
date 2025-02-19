@@ -70,7 +70,9 @@ const HostVanDetail = () => {
           className='block mt-16 mb-4 ml-4 text-black no-underline '
         >
           &larr;{" "}
-          <span className='text-xs hover:underline'>back to all vans</span>
+          <span className='text-xs capitalize hover:underline'>
+            back to all vans
+          </span>
         </Link>
 
         <div className='flex flex-col w-full gap-4 p-5 border border-black rounded-lg bg-gray-50'>

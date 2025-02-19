@@ -83,14 +83,14 @@ const VanDetails = () => {
 
   return (
     <div className='w-full max-w-6xl px-4 mx-auto sm:px-6'>
-      <div className='flex flex-col w-full p-6 mx-auto my-24 bg-white rounded-lg '>
+      <div className='flex flex-col w-full p-6 mx-auto my-24 mt-16 bg-white rounded-lg '>
         <Link
           to={`..${location.state?.search || ""}`}
           relative='path'
           className='block my-8 text-black no-underline '
         >
           &larr;{" "}
-          <span className='text-sm hover:underline'>
+          <span className='text-sm capitalize hover:underline text-bold'>
             Back to all {van?.type} vans
           </span>
         </Link>
@@ -140,9 +140,9 @@ const VanDetails = () => {
               <p className='w-[80%] text-sm leading-relaxed text-black mb-4'>
                 {van.description}
               </p>
-              <Link to={`/vans/${van.id}/book`}>
+              <Link to={`/vans/${van.id}/book`} className='w-[60%]'>
                 <button
-                  className={`${buttonBaseClasses} bg-[#FDBA74] hover:bg-orange-50 font-bold w-[80%]`}
+                  className={`${buttonBaseClasses} bg-[#FDBA74] hover:bg-orange-50 font-bold `}
                 >
                   Rent Van
                 </button>

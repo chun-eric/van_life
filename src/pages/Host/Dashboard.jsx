@@ -71,23 +71,23 @@ const Dashboard = () => {
   function renderVans(vans) {
     const vansElements = vans.map((van) => (
       <div key={van.id} className='relative flex flex-col gap-4'>
-        <div className='flex flex-row items-center justify-between gap-6 border border-black rounded-lg '>
-          <div className='flex items-center justify-between gap-6 '>
+        <div className='flex flex-row items-center justify-between gap-3 pr-2 border border-black rounded-lg xs:gap-6'>
+          <div className='flex items-center justify-between gap-3 xs:gap-6 '>
             <img
               className='object-cover rounded-lg cursor-pointer h-28 w-28'
-              src={van.imageUrl}
+              src={van.imageUrl[0]}
               alt={`This is a ${van.type}  ${van.name} van`}
             />
-            <div className='flex flex-col'>
-              <p className='mb-2 text-xl font-bold'>{van.name}</p>
-              <p className=''>
+            <div className='flex flex-col '>
+              <p className='mb-2 text-base font-bold xs:text-xl'>{van.name}</p>
+              <p className='text-md xs:text-xl'>
                 <span className=''>${van.price}/day</span>
               </p>
             </div>
           </div>
           <Link
             to={`vans/${van.id}`}
-            className='mr-4 text-xs cursor-pointer hover:underline'
+            className='hidden mr-4 text-xs cursor-pointer hover:underline xs:block'
           >
             View
           </Link>
@@ -108,54 +108,54 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='px-6 py-10 mt-2 rounded-lg '>
-      <div className='p-2 text-left text-white bg-teal-700 rounded-lg md:pt-8 md:p-5'>
+    <div className='py-10 mt-2 rounded-lg '>
+      <div className='p-5 text-left text-white bg-teal-700 rounded-lg '>
         <section className='flex flex-col gap-4 '>
           <div className='flex flex-col gap-2'>
-            <h1 className='text-2xl font-bold'>
+            <h1 className='text-xl font-bold xs:text-2xl'>
               {" "}
               Welcome {user?.name || "back"}!
             </h1>
             <div className='flex flex-row items-center justify-between '>
-              <p className='text-sm'>
+              <p className='text-xs xs:text-sm'>
                 Your income in the past{" "}
                 <span className='underline cursor-pointer'>30 days</span>
               </p>
               <Link
                 to='income'
-                className='pr-3 text-xs cursor-pointer hover:underline'
+                className='hidden pr-3 text-xs cursor-pointer hover:underline xs:block'
               >
                 Details
               </Link>
             </div>
-            <h2 className='mt-6 text-3xl font-bold'>{formatted}</h2>
+            <h2 className='mt-6 text-2xl font-bold xs:text-3xl'>{formatted}</h2>
           </div>
         </section>
         <section className='flex flex-row items-center justify-between my-8'>
-          <div className='flex flex-row gap-4'>
-            <h2 className='font-bold'>Review score</h2>
-            <div className='flex flex-row items-center gap-1'>
+          <div className='flex flex-col gap-4 xs:flex-row'>
+            <h2 className='font-semibold'>Review score</h2>
+            <div className='flex flex-row items-center gap-1 '>
               <BsStarFill className='' color='#ff8c38' />
               <p className='ml-1'>
                 <span className='font-bold'>{averageRating}</span>/5
               </p>
               <p className='ml-2'>
-                <span className='underline cursor-pointer'>
+                <span className='text-sm underline cursor-pointer'>
                   {reviewCount} reviews
                 </span>
               </p>
             </div>
           </div>
           <Link
-            to='review'
-            className='pr-3 text-xs cursor-pointer hover:underline'
+            to='/host/reviews'
+            className='hidden pr-3 text-xs cursor-pointer hover:underline xs:block'
           >
             Details
           </Link>
         </section>
       </div>
       <section className='flex flex-col gap-2 my-10 '>
-        <div className='flex flex-row items-center gap-5 mb-3 '>
+        <div className='flex flex-col gap-5 mb-1 xs:mb-3 xs:items-center xs:flex-row items-left'>
           <h2 className='text-2xl font-bold '>Your listed vans</h2>
           <Link
             to='vans'
