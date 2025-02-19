@@ -266,6 +266,7 @@ After login (no replace):
 - responsive navbar
 - responive about page
 - customer testimonials on small screen sizes
+- White side bar showing on very small screens - fixed using overflow-x: hidden
 
 Things to do
 
@@ -275,4 +276,4 @@ Things to do
 4. Add book route
 5. Design and make booking page
 6. Hosts dashobard, income, vans, reviews - make it all responsive
-7. White side bar showing on very small screens
+7. Van Details Redesign

@@ -6,15 +6,15 @@ import ButtonSet from "./ButtonSet";
 const Hero = () => {
   return (
     <div className='min-h-screen text-black bg-white'>
-      <div className='px-8 pt-24 pb-12 mx-auto border-b border-gray-100 md:py-20 max-w-7xl sm:px-6 lg:px-8'>
+      <div className='px-8 pt-24 pb-12 mx-auto border-b border-gray-100 md:py-20 max-w-7xl lg:px-8'>
         {/* Added background wrapper */}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-14 items-center min-h-[80vh] xs:items-left '>
           {/* Text Container   */}
           <div className='order-1 text-center md:order-1 md:text-left '>
-            <h1 className='mb-6 font-bold leading-relaxed xs:text-4xl md:text-6xl'>
+            <h1 className='mb-6 font-bold leading-relaxed xs:text-4xl md:text-6xl sm:text-5xl'>
               <div className='flex flex-col gap-0 md:gap-2'>
-                <p className='flex-wrap text-3xl'>You got the plans,</p>
-                <p className='mt-1 text-3xl md:mt-2'>We got the vans.</p>
+                <p className='flex-wrap '>You got the plans,</p>
+                <p className='mt-1 md:mt-2'>We got the vans.</p>
               </div>
             </h1>
 
