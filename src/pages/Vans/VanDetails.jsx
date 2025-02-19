@@ -5,6 +5,7 @@ import Breadcrumbs from "../../component/Breadcrumbs.jsx";
 
 const VanDetails = () => {
   const [van, setVan] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { id } = useParams();
@@ -97,7 +98,30 @@ const VanDetails = () => {
         {van ? (
           <div className='flex flex-col text-[#161616] gap-6 md:flex-row md:gap-8 nax-w-[1280px]'>
             <div className='w-full md:w-[50%]'>
-              <img src={van.imageUrl} className='mb-4 rounded shadow-sm' />
+              {/* Main Image */}
+              <img
+                src={van?.imageUrl[selectedImage]}
+                className='mb-4 rounded shadow-sm'
+                alt={`Van view ${selectedImage + 1}`}
+              />
+              {/* Thumbnail Images */}
+              <div className='flex gap-1 mt-1'>
+                {van?.imageUrl.map((img, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImage(index)}
+                    className={`w-24 h-24 overflow-hidden rounded ${
+                      selectedImage === index ? "ring-2 ring-[#FF8C38]" : ""
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt={`Van thumbnail ${index + 1}`}
+                      className='object-cover w-full h-full'
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
             <div className='w-full md:w-[50%] flex flex-col gap-5'>
               <Breadcrumbs van={van} />

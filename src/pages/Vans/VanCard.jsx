@@ -15,7 +15,7 @@ const VanCard = ({ van, colorOptions, searchParams }) => {
       >
         <div className='flex flex-col w-full pb-4 my-2 border border-black rounded-lg shadow-md cursor-pointer'>
           <img
-            src={van.imageUrl}
+            src={van.imageUrl[0]}
             alt={`Image of ${van.name}`}
             className='object-cover w-full transition rounded-lg aspect-square hover:shadow-lg hover:shadow-transition hover:opacity-95'
           />
