@@ -268,12 +268,17 @@ After login (no replace):
 - customer testimonials on small screen sizes
 - White side bar showing on very small screens - fixed using overflow-x: hidden
 - Van Details Redesign
+- Host dashboard, income, review make responsive
 
-Things to do
+# Day 17-19
+
+- Sign in
+  Things to do
+- Redesign login page
 
 1. Search bar - make it responsive
 2. Finalize functionality for calendar function
-3. Redesign login page
-4. Add book route
-5. Design and make booking page
-6. Hosts dashobard, income, vans, reviews - make it all responsive
+
+3. Add book route
+4. Design and make booking page
+5. Hosts dashobard, vans photos click on it so it appears in the big picture, reviews - make it all responsive

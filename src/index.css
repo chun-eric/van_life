@@ -52,3 +52,8 @@ a {
   }
 }
 
+input[type="number"],
+input[type="email"],
+input[type="password"] {
+  background: white !important;
+}
