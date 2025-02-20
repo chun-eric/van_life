@@ -5,6 +5,7 @@ import { NavLink, useParams, Link, Outlet } from "react-router-dom";
 const HostVanDetail = () => {
   const [van, setVan] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [error, setError] = useState(null);
   const { id } = useParams();
 
@@ -28,6 +29,11 @@ const HostVanDetail = () => {
     simple: "#e17653",
     rugged: "#115E59",
     luxury: "#161616",
+  };
+
+  // handle image change
+  const handleImageChange = (index) => {
+    setCurrentImageIndex(index);
   };
 
   // Loading state
@@ -79,7 +85,7 @@ const HostVanDetail = () => {
           <div className='sm:w-[50%] h-auto w-full'>
             <img
               className='object-cover w-full h-auto rounded-lg shadow-sm sm:h-full sm:w-full'
-              src={van.imageUrl[0]}
+              src={van.imageUrl[currentImageIndex]}
               alt={`This is a ${van.type}  ${van.name} van`}
             />
           </div>
@@ -137,7 +143,13 @@ const HostVanDetail = () => {
                   Photos
                 </NavLink>
               </nav>
-              <Outlet context={{ van }} />
+              <Outlet
+                context={{
+                  van,
+                  onImageChange: handleImageChange,
+                  currentImageIndex,
+                }}
+              />
             </div>
           </div>
         </div>

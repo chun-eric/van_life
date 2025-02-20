@@ -54,7 +54,7 @@ const Login = () => {
       <div className=' max-w-[400px] mx-auto max-h-[auto] border rounded-2xl  w-full mb-20 shadow-sm border-gray-300'>
         <div className='flex flex-col gap-4 px-6 py-12 mx-auto my-10 bg-white rounded-lg'>
           {location.state?.message && (
-            <div className='bg-white rounded-lg mx-auto max-w-[500px] p-8 mt-4 '>
+            <div className='bg-white rounded-lg mx-auto max-w-[500px] p-8  '>
               <h3 className='text-xl font-bold text-center text-red-500'>
                 {location.state.message}
               </h3>
@@ -64,7 +64,7 @@ const Login = () => {
             Sign in
           </h1>
           {error?.message && (
-            <p className='bg-white rounded-lg mx-auto max-w-[500px] p-8 mt-4 font-bold text-center text-red-500'>
+            <p className='bg-white rounded-lg mx-auto max-w-[500px] p-8 font-bold text-center text-red-500'>
               {error.message}
             </p>
           )}

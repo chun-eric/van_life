@@ -275,10 +275,10 @@ After login (no replace):
 - Sign in
   Things to do
 - Redesign login page
+- Hosts dashobard, vans photos click on it so it appears in the big picture, reviews - make it all responsive
+
 
 1. Search bar - make it responsive
 2. Finalize functionality for calendar function
-
 3. Add book route
 4. Design and make booking page
-5. Hosts dashobard, vans photos click on it so it appears in the big picture, reviews - make it all responsive

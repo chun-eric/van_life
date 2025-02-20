@@ -125,13 +125,22 @@ const Vans = () => {
         <p className='my-2 mb-6 text-xs'>
           Find the perfect van for your next adventure!
         </p>
-        <div className='flex flex-row items-center mb-6 align-top rounded-lg justify-normal'>
-          {/* Search Bar */}
-          <div className='flex w-full'>
-            <SearchBar onSearch={handleSearch} />
-            {console.log("Current search query:", searchQuery)}
-            <DateRangePicker />
-            <SortSelect value={sort} onSort={handleSort} />
+        <div className='flex flex-col mb-6'>
+          {/* Container for all three components with responsive layouts */}
+          <div className='flex flex-col space-y-1 lg:space-y-0 lg:flex-row lg:items-stretch '>
+            {/* Search Bar - Full width on all screens */}
+            <div className='w-full  lg:w-[50%]'>
+              <SearchBar onSearch={handleSearch} />
+              {console.log("Current search query:", searchQuery)}
+            </div>
+
+            {/* Container for DateRange and Sort - Stack on mobile, row on tablet, inline on desktop */}
+            <div className='w-full lg:w-[30%] '>
+              <DateRangePicker />
+            </div>
+            <div className='w-full lg:w-[20%] '>
+              <SortSelect value={sort} onSort={handleSort} />
+            </div>
           </div>
         </div>
         <div className='flex flex-col flex-wrap items-center justify-between mb-4 xs:flex-row'>

@@ -29,20 +29,20 @@ const DateRangePicker = () => {
   console.log("currentMonth", currentMonth);
 
   return (
-    <div className='   w-[20%] relative '>
+    <div className=' w-full relative '>
       {/* input field */}
       <div
-        className='flex items-center gap-2 text-black cursor-pointer'
+        className='flex items-center  text-black cursor-pointer w-full'
         onClick={() => setShowCalender(!showCalendar)}
       >
-        <div className='flex items-center pl-2 border border-gray-600'>
+        <div className='flex items-center pl-2 border border-gray-600 w-full  '>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
             stroke-width='1.5'
             stroke='currentColor'
-            class='size-6'
+            className='size-5 w-5 h-5'
           >
             <path
               stroke-linecap='round'
@@ -59,7 +59,7 @@ const DateRangePicker = () => {
                 : "Select Dates"
             }
             placeholder='Select Dates'
-            className='w-full px-4 py-3 text-sm outline-none cursor-pointer placeholder:text-black'
+            className='w-full px-4 py-3 mt-1 text-xs outline-none cursor-pointer placeholder:text-black'
           />
         </div>
       </div>

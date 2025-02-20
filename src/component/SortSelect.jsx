@@ -9,7 +9,7 @@ const SortSelect = ({ value, onSort }) => {
       value={value}
       onChange={(e) => onSort(e.target.value)}
       id=''
-      className='px-4 py-2.5 text-xs border border-gray-600 rounded-r outline-none cursor-pointer bg-white w-[15%]'
+      className='px-4 py-2.5 text-xs border border-gray-600 rounded-r outline-none cursor-pointer bg-white w-full h-full'
     >
       <option value='default'>Sort By</option>
       <option value='low-to-high'>Price: Low to High</option>

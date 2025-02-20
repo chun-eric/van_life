@@ -112,7 +112,7 @@ const Dashboard = () => {
       <div className='p-5 text-left text-white bg-teal-700 rounded-lg '>
         <section className='flex flex-col gap-4 '>
           <div className='flex flex-col gap-2'>
-            <h1 className='text-xl font-bold xs:text-2xl'>
+            <h1 className='text-xl font-bold xs:text-2xl pt-3'>
               {" "}
               Welcome {user?.name || "back"}!
             </h1>
@@ -128,7 +128,7 @@ const Dashboard = () => {
                 Details
               </Link>
             </div>
-            <h2 className='mt-6 text-2xl font-bold xs:text-3xl'>{formatted}</h2>
+            <h2 className='mt-6 text-2xl font-bold xs:text-2xl'>{formatted}</h2>
           </div>
         </section>
         <section className='flex flex-row items-center justify-between my-8'>
