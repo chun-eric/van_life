@@ -15,12 +15,12 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className='relative items-center flex-grow'>
+    <div className='relative items-center flex-grow '>
       <input
         type='text'
         value={inputValue}
         onChange={handleChange}
-        className='w-full px-4 py-[0.75rem] text-sm border border-gray-600 rounded-l outline-none placeholder:text-xs '
+        className='w-full px-4 lg:py-[27px] text-sm border border-gray-600  outline-none placeholder:text-xs lg:border-r-0 py-5 '
         placeholder='Search vans...'
       />
       {
