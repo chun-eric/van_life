@@ -1,6 +1,4 @@
-// function sleep(ms) {
-//   return new Promise((resolve) => setTimeout(() => resolve(), ms));
-// }
+
 
 // Fetch all vans
 export async function getVans(id) {

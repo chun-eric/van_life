@@ -7,16 +7,36 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+.pnp
+.pnp.js
+
+# Build files
 dist
 dist-ssr
+.cache/
+.next/
+out/
+.vite/
+
+# Local environment variables
 *.local
+.env
+.env.*.local
+
+# Firebase (if using Firebase Hosting)
+.firebase/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj

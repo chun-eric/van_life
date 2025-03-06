@@ -276,9 +276,23 @@ After login (no replace):
   Things to do
 - Redesign login page
 - Hosts dashobard, vans photos click on it so it appears in the big picture, reviews - make it all responsive
+- Search bar - make it responsive
 
 
-1. Search bar - make it responsive
+
+
+#Day 20
+- configuring Firebase for the database to make real api calls now not 
+- how do i connect the firebaseConfig to the api.js? How do we connect with each other?
+- 1. First i need to create a vans collection in my firestore database. We need to migrate our data from server.js to firebase.
+
+
+
+#Day 21
+- Rental Datepicker component added
+
+
+1. Clean up calendar function
 2. Finalize functionality for calendar function
 3. Add book route
 4. Design and make booking page

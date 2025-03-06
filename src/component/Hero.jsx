@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import HeroImage2 from "../assets/hero4.svg";
-import ButtonSet from "./ButtonSet";
+import HeroImage2 from '../assets/hero4.svg'
+import ButtonSet from './ButtonSet'
 
 const Hero = () => {
   return (
@@ -38,14 +38,14 @@ const Hero = () => {
               <img
                 src={HeroImage2}
                 alt='Van life Hero'
-                className='object-cover w-full sm:h-[80%] h-full '
+                className='object-cover w-full sm:h-[100%] h-full '
               />
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero
