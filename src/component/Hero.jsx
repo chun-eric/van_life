@@ -6,7 +6,7 @@ import ButtonSet from './ButtonSet'
 const Hero = () => {
   return (
     <div className='min-h-screen text-black bg-white'>
-      <div className='px-8 pt-24 pb-12 mx-auto border-b border-gray-100 md:py-20 max-w-7xl lg:px-8'>
+      <div className='px-8 pt-24 pb-12 mx-auto border-gray-100 md:py-20 max-w-7xl lg:px-8'>
         {/* Added background wrapper */}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-14 items-center min-h-[80vh] xs:items-left '>
           {/* Text Container   */}
