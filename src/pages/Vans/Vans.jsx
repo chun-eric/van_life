@@ -5,15 +5,48 @@ import { getVans } from "../../api.js";
 import VanCard from "./VanCard.jsx";
 import SearchBar from "../../component/SearchBar.jsx";
 import SortSelect from "../../component/SortSelect.jsx";
-import DateRangePicker from "../../component/DateRangePicker.jsx";
+// import DateRangePicker from "../../component/DateRangePicker.jsx";
+import RentalDatePicker from "../../component/RentalDatePicker.jsx";
 
 const Vans = () => {
+  // get current time rounded to nearest half hour in HH:MM format
+  const getCurrentTime = () => {
+    const now = new Date();
+    console.log("now", now);
+
+    let hours = now.getHours();
+    const minutes = now.getMinutes();
+    const roundedMinutes = Math.round(minutes / 30) * 30; // round minutes to nearest 30
+
+    // handle hour rollover
+    if (roundedMinutes === 60) {
+      hours = (hours + 1) % 24;
+      return `${hours.toString().padStart(2, "0")}:00`;
+    }
+
+    const formattedHours = hours.toString().padStart(2, "0");
+    const formattedMinutes = roundedMinutes.toString().padStart(2, "0");
+    return `${formattedHours}:${formattedMinutes}`;
+  };
+
+  // get current date
+  const today = new Date().toISOString().split("T")[0];
+  // set initial pickup and return times
+  const initialPickupTime = getCurrentTime();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const initialReturnDateFormatted = tomorrow.toISOString().split("T")[0];
+
   const [vans, setVans] = useState([]); // all vans state
   const [searchParams, setSearchParams] = useSearchParams(); // URL search params
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sort, setSort] = useState("");
+  const [pickupDate, setPickupDate] = useState(today);
+  const [pickupTime, setPickupTime] = useState(initialPickupTime);
+  const [returnDate, setReturnDate] = useState(initialReturnDateFormatted);
+  const [returnTime, setReturnTime] = useState(initialPickupTime);
 
   const typeFilter = searchParams.get("type"); // URL search type
   console.log(typeFilter);
@@ -119,26 +152,36 @@ const Vans = () => {
   }
 
   return (
-    <div className='w-full px-8 py-24 bg-white sm:px-6 '>
+    <div className='w-full px-8 py-24 bg-white sm:px-6 border '>
       <div className=' max-w-[1280px] mx-auto '>
         <h1 className='mb-3 text-xl font-bold md:text-4xl'>Explore Our Vans</h1>
         <p className='my-2 mb-6 text-xs'>
           Find the perfect van for your next adventure!
         </p>
-        <div className='flex flex-col mb-6'>
+        <div className='flex flex-col mb-6  '>
           {/* Container for all three components with responsive layouts */}
-          <div className='flex flex-col space-y-1 lg:space-y-0 lg:flex-row lg:items-stretch '>
+          <div className='flex flex-col space-y-1 lg:space-y-0 lg:flex-row lg:items-stretch  '>
             {/* Search Bar - Full width on all screens */}
-            <div className='w-full  lg:w-[50%]'>
+            <div className='w-full  flex-1 '>
               <SearchBar onSearch={handleSearch} />
               {console.log("Current search query:", searchQuery)}
             </div>
 
             {/* Container for DateRange and Sort - Stack on mobile, row on tablet, inline on desktop */}
-            <div className='w-full lg:w-[30%] '>
-              <DateRangePicker />
+            <div className='w-full  flex-1 '>
+              {/* <DateRangePicker /> */}
+              <RentalDatePicker
+                pickupDate={pickupDate}
+                pickupTime={pickupTime}
+                returnDate={returnDate}
+                returnTime={returnTime}
+                onPickupDateChange={setPickupDate}
+                onPickupTimeChange={setPickupTime}
+                onReturnDateChange={setReturnDate}
+                onReturnTimeChange={setReturnTime}
+              />
             </div>
-            <div className='w-full lg:w-[20%] '>
+            <div className='w-full flex-1 max-w-[130px] '>
               <SortSelect value={sort} onSort={handleSort} />
             </div>
           </div>
