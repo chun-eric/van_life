@@ -70,3 +70,7 @@ desktop.ini
 # database seed files
 seedFirestore.js
 *seed*.js
+
+# config file
+firebaseConfig.js
+src/firebaseConfig.js

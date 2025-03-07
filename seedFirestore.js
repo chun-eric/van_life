@@ -1,8 +1,8 @@
-import { db } from './src/firebaseConfig.js'
-import { collection, addDoc, setDoc, doc } from 'firebase/firestore'
-import crypto from 'crypto'
 import dotenv from 'dotenv'
 dotenv.config()
+import { db } from './src/firebaseConfig.js'
+import { setDoc, doc } from 'firebase/firestore'
+import crypto from 'crypto'
 
 // help function to hash passwords
 function hashPassword (password) {

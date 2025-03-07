@@ -292,7 +292,13 @@ After login (no replace):
 - Rental Datepicker component added
 
 
-1. Clean up calendar function
-2. Finalize functionality for calendar function
-3. Add book route
-4. Design and make booking page
+#Day 22
+- Clean up calendar function
+
+#Day 23
+- Seeded Databse 
+- Fixed api routes with database
+
+1. Finalize functionality for calendar function
+2. Add book route
+3. Design and make booking page
