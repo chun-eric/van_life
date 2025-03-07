@@ -66,3 +66,7 @@ desktop.ini
 
 # env.production.local
 .env.production.local
+
+# database seed files
+seedFirestore.js
+*seed*.js
