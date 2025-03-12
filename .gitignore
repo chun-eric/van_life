@@ -74,3 +74,6 @@ seedFirestore.js
 # config file
 firebaseConfig.js
 src/firebaseConfig.js
+seedFirestore.js
+src/oldapi.js
+src/server.js

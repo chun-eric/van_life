@@ -299,6 +299,10 @@ After login (no replace):
 - Seeded Databse 
 - Fixed api routes with database
 
+
+# Day 24 
+- Loading van errors. The vans dont seem to be loading. Solution: I deleted the oldapi.js file which was using the mock api. Thats why. I think it was interefering. We also blocked the server.js as well.
+- 
 1. Finalize functionality for calendar function
 2. Add book route
 3. Design and make booking page
