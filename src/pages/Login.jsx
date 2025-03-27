@@ -1,53 +1,53 @@
-import "../server.js";
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import '../server.js'
+import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 // import { loginUser } from "../api.js";
-import { useAuth } from "../context/useAuth";
-import GoogleLogo from "../assets/google-logo.svg";
+import { useAuth } from '../context/useAuth'
+import GoogleLogo from '../assets/google-logo.svg'
 
 const Login = () => {
   // setting state for form values
-  const [formValues, setFormValues] = useState({ email: "", password: "" });
-  const [error, setError] = useState(null);
-  const [status, setStatus] = useState("idle");
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from || "/host";
-  const { login } = useAuth();
+  const [formValues, setFormValues] = useState({ email: '', password: '' })
+  const [error, setError] = useState(null)
+  const [status, setStatus] = useState('idle')
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from || '/host'
+  const { login, googleLogin } = useAuth()
 
   // "b@b.com" as the username and "p123" as the password
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setStatus("submitting");
+  async function handleSubmit (e) {
+    e.preventDefault()
+    setStatus('submitting')
     try {
-      await login(formValues);
-      navigate(from, { replace: true });
+      await login(formValues)
+      navigate(from, { replace: true })
     } catch (err) {
-      setError(err);
-      setStatus("idle");
+      setError(err)
+      setStatus('idle')
     }
   }
 
-  function handleChange(e) {
-    const { name, value } = e.target;
+  function handleChange (e) {
+    const { name, value } = e.target
 
-    setFormValues((prev) => ({
+    setFormValues(prev => ({
       ...prev,
-      [name]: value,
-    }));
+      [name]: value
+    }))
   }
 
   // check if user is already logged after initial mount, if so redirect to /host
   useEffect(() => {
-    const authenticated = localStorage.getItem("loggedin");
+    const authenticated = localStorage.getItem('loggedin')
     if (authenticated) {
-      navigate("/host", { replace: true });
+      navigate('/host', { replace: true })
     }
-  }, [navigate]);
+  }, [navigate])
 
   const buttonBaseClasses =
-    "w-full px-6 py-3 font-semibold text-black transition-all border border-black shadow-inner cursor-pointer hover:-translate-y-0.5 hover:shadow-md duration-300 ease-in-out";
+    'w-full px-6 py-3 font-semibold text-black transition-all border border-black shadow-inner cursor-pointer hover:-translate-y-0.5 hover:shadow-md duration-300 ease-in-out'
 
   return (
     <div className='flex items-center justify-center min-h-screen px-3 '>
@@ -60,7 +60,7 @@ const Login = () => {
               </h3>
             </div>
           )}
-          <h1 className='mb-3 text-2xl font-bold text-center text-black capitalize border-b pb-4 '>
+          <h1 className='pb-4 mb-3 text-2xl font-bold text-center text-black capitalize border-b '>
             Sign in
           </h1>
           {error?.message && (
@@ -91,22 +91,25 @@ const Login = () => {
             />
             <div className='mt-4'>
               <button
-                disabled={status === "submitting"}
+                disabled={status === 'submitting'}
                 className={`${buttonBaseClasses} bg-[#FDBA74] hover:bg-gray-50 rounded-lg`}
               >
-                {status === "submitting" ? "Signing in..." : "Sign in"}
+                {status === 'submitting' ? 'Signing in...' : 'Sign in'}
               </button>
             </div>
             {/* or */}
             <div className='flex items-center my-6'>
               <div className='flex-1 border-t border-gray-300'></div>
-              <span className='text-xs px-4 text-gray-500'>or</span>
+              <span className='px-4 text-xs text-gray-500'>or</span>
               <div className='flex-1 border-t border-gray-300'></div>
             </div>
 
             {/* Google sign in button */}
             <div className='mt-4 '>
-              <button className='border border-gray-400 shadow-sm rounded-lg w-full flex items-center justify-center hover:bg-gray-100 transition-all duration-300 relative'>
+              <button
+                className='relative flex items-center justify-center w-full transition-all duration-300 border border-gray-400 rounded-lg shadow-sm hover:bg-gray-100'
+                onClick={googleLogin}
+              >
                 <div className='absolute left-4'>
                   <img
                     src={GoogleLogo}
@@ -114,9 +117,9 @@ const Login = () => {
                     className='w-4 h-4 mr-3'
                   />
                 </div>
-                <span className='sm:text-sm px-6 py-3 font-semibold text-slate-700 text-xs'>
-                  <span className='sm:inline hidden'>Sign in with Google</span>
-                  <span className='sm:hidden inline'>Sign-in</span>
+                <span className='px-6 py-3 text-xs font-semibold sm:text-sm text-slate-700'>
+                  <span className='hidden sm:inline'>Sign in with Google</span>
+                  <span className='inline sm:hidden'>Sign-in</span>
                 </span>
               </button>
             </div>
@@ -124,7 +127,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

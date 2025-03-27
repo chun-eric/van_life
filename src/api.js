@@ -17,7 +17,7 @@ import crypto from 'crypto'
 export async function getVans (id) {
   try {
     if (id) {
-      // Get a specific van by ID
+      // Get a specific van by ID - getDoc fetches single document
       const vanDoc = await getDoc(doc(db, 'vans', id))
 
       if (!vanDoc.exists()) {
@@ -26,11 +26,12 @@ export async function getVans (id) {
           status: 404
         }
       }
-
       // Add the id field to match your expected structure
+      // .data() returns all other fields
       return { id: vanDoc.id, ...vanDoc.data() }
     } else {
-      // Get all vans
+      // Get all vans - getDocs fetchs all documents
+      // .docs changes the querysnapshot to an array
       const vansSnapshot = await getDocs(collection(db, 'vans'))
       const vans = vansSnapshot.docs.map(doc => ({
         id: doc.id,
@@ -49,13 +50,16 @@ export async function getVans (id) {
 }
 
 // Fetch all Host Vans - with hostId filtering
+// the id being passed in the van id not the host id
 export async function getHostVans (id) {
   try {
-    // Hard-coded hostId to match your implementation
+    // Hard-coded hostId to match your implementation // demo purposes
+    // real world we get host id credentials from hostId
     const hostId = '123'
 
+    // if van id exists
     if (id) {
-      // Get a specific host van by ID
+      // Get a specific van document based on the van id from the vans collection
       const vanDoc = await getDoc(doc(db, 'vans', id))
 
       if (!vanDoc.exists()) {
@@ -65,6 +69,7 @@ export async function getHostVans (id) {
         }
       }
 
+      // referencing a single document data to a van
       const van = vanDoc.data()
 
       // Only return if it belongs to the host
@@ -74,16 +79,18 @@ export async function getHostVans (id) {
           status: 404
         }
       }
-
+      // id is the van document id
       return { id: vanDoc.id, ...van }
     } else {
-      // Get all vans for the specific host
+      // Get all vans for the specific host using a firestore query
       const hostVansQuery = query(
         collection(db, 'vans'),
         where('hostId', '==', hostId)
       )
-
+      // get docs based on this hostVansQuery
       const vansSnapshot = await getDocs(hostVansQuery)
+      
+      // .docs changes the querysnapshot to an array
       const hostVans = vansSnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
@@ -112,6 +119,7 @@ export async function getVanReviews (vanId) {
       }
     }
 
+    // if vanId exists - getDocs with a query
     const reviewsSnapshot = await getDocs(
       query(collection(db, 'vans', vanId, 'reviews'), orderBy('date', 'desc'))
     )

@@ -300,9 +300,18 @@ After login (no replace):
 - Fixed api routes with database
 
 
-# Day 24 
+#Day 24 
 - Loading van errors. The vans dont seem to be loading. Solution: I deleted the oldapi.js file which was using the mock api. Thats why. I think it was interefering. We also blocked the server.js as well.
-- 
+- added 
+- Login and authentication 
+- Ability to book when logged in. 
+- Added security rules to the firebase database
+
+
+#Day 25 
+- Redoing authentication with firebase
+
 1. Finalize functionality for calendar function
 2. Add book route
 3. Design and make booking page
+4. Add a favorited collection. I think this should be able to be saved in the users favorited collection. 

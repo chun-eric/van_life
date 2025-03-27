@@ -77,3 +77,6 @@ src/firebaseConfig.js
 seedFirestore.js
 src/oldapi.js
 src/server.js
+
+# readme
+README.md
