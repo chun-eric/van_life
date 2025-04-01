@@ -1,27 +1,28 @@
-import "./index.css";
+import './index.css'
 
-import { Routes, Route } from "react-router-dom";
-import About from "./pages/About";
-import Home from "./pages/Home";
-import "./server.js";
-import Vans from "./pages/Vans/Vans.jsx";
-import VanDetails from "./pages/Vans/VanDetails.jsx";
-import Layout from "./component/Layout.jsx";
-import Income from "./pages/Host/Income.jsx";
-import Reviews from "./pages/Host/Reviews.jsx";
-import HostLayout from "./component/HostLayout.jsx";
-import AuthRequired from "./component/AuthRequired.jsx";
-import Dashboard from "./pages/Host/Dashboard.jsx";
-import HostVans from "./pages/Host/HostVans.jsx";
-import HostVanDetail from "./pages/Host/HostVanDetail.jsx";
-import HostVanInfo from "./pages/Host/HostVanInfo.jsx";
-import HostVanPricing from "./pages/Host/HostVanPricing.jsx";
-import HostVanPhotos from "./pages/Host/HostVanPhotos.jsx";
-import NotFound from "./pages/NotFound.jsx";
-import Login from "./pages/Login.jsx";
-import { AuthProvider } from "./context/AuthProvider";
+import { Routes, Route } from 'react-router-dom'
+import About from './pages/About'
+import Home from './pages/Home'
+import './server.js'
+import Vans from './pages/Vans/Vans.jsx'
+import VanDetails from './pages/Vans/VanDetails.jsx'
+import Layout from './component/Layout.jsx'
+import Income from './pages/Host/Income.jsx'
+import Reviews from './pages/Host/Reviews.jsx'
+import HostLayout from './component/HostLayout.jsx'
+import AuthRequired from './component/AuthRequired.jsx'
+import Dashboard from './pages/Host/Dashboard.jsx'
+import HostVans from './pages/Host/HostVans.jsx'
+import HostVanDetail from './pages/Host/HostVanDetail.jsx'
+import HostVanInfo from './pages/Host/HostVanInfo.jsx'
+import HostVanPricing from './pages/Host/HostVanPricing.jsx'
+import HostVanPhotos from './pages/Host/HostVanPhotos.jsx'
+import NotFound from './pages/NotFound.jsx'
+import Login from './pages/Login.jsx'
+import { AuthProvider } from './context/AuthProvider'
+import AdminPanel from './pages/Host/AdminPanel.jsx'
 
-function App() {
+function App () {
   return (
     <AuthProvider>
       <div className='flex flex-col min-h-screen'>
@@ -41,6 +42,7 @@ function App() {
             {/** Host Layout Routes */}
             <Route element={<AuthRequired />}>
               <Route path='/host' element={<HostLayout />}>
+                <Route path='admin' element={<AdminPanel />} />
                 <Route index element={<Dashboard />} />
                 <Route path='income' element={<Income />} />
                 <Route path='reviews' element={<Reviews />} />
@@ -59,7 +61,7 @@ function App() {
         </Routes>
       </div>
     </AuthProvider>
-  );
+  )
 }
 
-export default App;
+export default App

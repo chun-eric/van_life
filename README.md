@@ -311,6 +311,19 @@ After login (no replace):
 #Day 25 
 - Redoing authentication with firebase
 
+
+#Day 26
+- reformating user authentication data. An authenticated user should have access to its host routes and data. 
+
+
+#Day 27
+What a doozy of a day. Probably the hardest day of not knowing half the time what was going on. 
+1. Restructured the database scheme for user collection by using 2 scripts for the database and the vanhosts
+2. This made it easier to create apis that fetch the appropriate data. 
+3. Login and out issues with data host fetching works.
+4. Bug* however still issues with fetching testimonials
+
+
 1. Finalize functionality for calendar function
 2. Add book route
 3. Design and make booking page

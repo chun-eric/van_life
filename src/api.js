@@ -1,6 +1,5 @@
 // update to use Firebase with subcollections
 import { db, auth } from './firebaseConfig.js'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import {
   collection,
   getDocs,
@@ -8,13 +7,84 @@ import {
   getDoc,
   query,
   where,
-  orderBy
+  orderBy,
+  writeBatch
 } from 'firebase/firestore'
 import crypto from 'crypto'
 
 // --------------------- Van API Functions ---------------------
-// Fetch all vans or a specific van by ID
-export async function getVans (id) {
+
+// Function to update all vans with hostId 123 to use current user's ID
+export async function updateVanHostIds () {
+  // Get current user
+  const currentUser = auth.currentUser
+
+  if (!currentUser) {
+    console.error(
+      'No user is logged in. Please log in before running this script'
+    )
+    throw new Error('You must be logged in to update van hostIds')
+  }
+
+  try {
+    // Create a batch to perform multiple updates at once
+    const batch = writeBatch(db)
+
+    // Get all vans with hostId "123"
+    const vansRef = collection(db, 'vans')
+    const q = query(vansRef, where('hostId', '==', '123'))
+    const querySnapshot = await getDocs(q)
+
+    if (querySnapshot.empty) {
+      console.log("No vans found with hostId '123'")
+      return
+    }
+
+    console.log(`Found ${querySnapshot.size} vans to update`)
+
+    // Update each document with the new hostId
+    querySnapshot.forEach(docSnapshot => {
+      console.log(`Updating van: ${docSnapshot.id}`)
+      batch.update(doc(db, 'vans', docSnapshot.id), {
+        hostId: currentUser.uid
+      })
+    })
+
+    // Commit the batch
+    await batch.commit()
+    console.log('Successfully updated all van hostIds to:', currentUser.uid)
+
+    return {
+      success: true,
+      count: querySnapshot.size
+    }
+  } catch (error) {
+    console.error('Error updating van hostIds:', error)
+    throw error
+  }
+}
+
+// Get all vans (public)
+export async function getVans () {
+  try {
+    const vansCollectionRef = collection(db, 'vans')
+    const querySnapshot = await getDocs(vansCollectionRef)
+    const vansArray = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }))
+    return vansArray
+  } catch (error) {
+    throw {
+      message: error.message,
+      statusText: error.code,
+      status: 500
+    }
+  }
+}
+
+// Get single van details (public)
+export async function getVan (id) {
   try {
     if (id) {
       // Get a specific van by ID - getDoc fetches single document
@@ -29,20 +99,10 @@ export async function getVans (id) {
       // Add the id field to match your expected structure
       // .data() returns all other fields
       return { id: vanDoc.id, ...vanDoc.data() }
-    } else {
-      // Get all vans - getDocs fetchs all documents
-      // .docs changes the querysnapshot to an array
-      const vansSnapshot = await getDocs(collection(db, 'vans'))
-      const vans = vansSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }))
-
-      return vans
     }
   } catch (error) {
     throw {
-      message: 'Failed to fetch vans',
+      message: 'Failed to fetch van details',
       statusText: error.message,
       status: error.code || 500
     }
@@ -50,55 +110,56 @@ export async function getVans (id) {
 }
 
 // Fetch all Host Vans - with hostId filtering
-// the id being passed in the van id not the host id
-export async function getHostVans (id) {
-  try {
-    // Hard-coded hostId to match your implementation // demo purposes
-    // real world we get host id credentials from hostId
-    const hostId = '123'
+export async function getHostVans () {
+  console.log('getHostVans function called')
 
-    // if van id exists
-    if (id) {
-      // Get a specific van document based on the van id from the vans collection
-      const vanDoc = await getDoc(doc(db, 'vans', id))
+  const currentUser = auth.currentUser
+  console.log(
+    'Current logged in user:',
+    currentUser ? currentUser.uid : 'Not logged in'
+  )
 
-      if (!vanDoc.exists()) {
-        throw {
-          message: 'Host van not found',
-          status: 404
-        }
-      }
-
-      // referencing a single document data to a van
-      const van = vanDoc.data()
-
-      // Only return if it belongs to the host
-      if (van.hostId !== hostId) {
-        throw {
-          message: 'No van with that id found for host',
-          status: 404
-        }
-      }
-      // id is the van document id
-      return { id: vanDoc.id, ...van }
-    } else {
-      // Get all vans for the specific host using a firestore query
-      const hostVansQuery = query(
-        collection(db, 'vans'),
-        where('hostId', '==', hostId)
-      )
-      // get docs based on this hostVansQuery
-      const vansSnapshot = await getDocs(hostVansQuery)
-      
-      // .docs changes the querysnapshot to an array
-      const hostVans = vansSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }))
-
-      return hostVans
+  // if not logged in user
+  if (!currentUser) {
+    throw {
+      message: 'You must be logged in to view your vans',
+      statusText: 'Unauthorized',
+      status: 401
     }
+  }
+
+  try {
+    // Fixed: Use collection() instead of doc() for the vans collection
+    const vansCollectionRef = collection(db, 'vans')
+    console.log('Collection reference created')
+
+    // Create a query to find vans where hostId equals current user ID
+    const q = query(vansCollectionRef, where('hostId', '==', currentUser.uid))
+    console.log('Query created with hostId:', currentUser.uid)
+
+    console.log('Executing query...')
+    const querySnapshot = await getDocs(q) // querying multiple documents
+    console.log('Query executed, docs count:', querySnapshot.size)
+
+    // Check if any vans were found
+    if (querySnapshot.empty) {
+      console.log('No vans found for this user')
+      return [] // Return empty array instead of throwing error
+    }
+
+    const vansArray = querySnapshot.docs.map(doc => {
+      const data = doc.data()
+      console.log('Van found:', doc.id)
+      return {
+        id: doc.id,
+        ...data
+      }
+    })
+
+    console.log('Returning vans array:', vansArray.length)
+    return vansArray
   } catch (error) {
+    console.error('Error in getHostVans:', error)
     throw {
       message: 'Could not fetch Host vans',
       statusText: error.message,
@@ -109,28 +170,39 @@ export async function getHostVans (id) {
 
 // --------------------- Reviews API Functions ---------------------
 
-// Fetch reviews for a specific van using subcollection
-export async function getVanReviews (vanId) {
+// Fetch reviews for the current user
+export async function getUserReviews () {
+  const currentUser = auth.currentUser
+
+  if (!currentUser) {
+    throw {
+      message: 'You must be logged in to view your reviews',
+      statusText: 'Unauthorized',
+      status: 401
+    }
+  }
+
   try {
-    if (!vanId) {
-      throw {
-        message: 'Van ID is required to fetch reviews',
-        status: 400
-      }
+    // Fixed: Used currentUser.uid instead of undefined vanId
+    const reviewsCollectionRef = collection(
+      db,
+      'users',
+      currentUser.uid,
+      'reviews'
+    )
+    const querySnapshot = await getDocs(reviewsCollectionRef)
+
+    if (querySnapshot.empty) {
+      console.log('No reviews found for user')
+      return []
     }
 
-    // if vanId exists - getDocs with a query
-    const reviewsSnapshot = await getDocs(
-      query(collection(db, 'vans', vanId, 'reviews'), orderBy('date', 'desc'))
-    )
-
-    const reviews = reviewsSnapshot.docs.map(doc => ({
+    const reviewsArray = querySnapshot.docs.map(doc => ({
       id: doc.id,
-      ...doc.data(),
-      vanId // Add back the vanId for consistency
+      ...doc.data()
     }))
 
-    return reviews
+    return reviewsArray.sort((a, b) => new Date(b.date) - new Date(a.date))
   } catch (error) {
     throw {
       message: 'Failed to fetch reviews',
@@ -163,33 +235,37 @@ export async function getTestimonials () {
 
 // --------------------- Transaction API Functions ---------------------
 
-// Fetch transaction data for a user with optional date filtering
-export async function getUserTransactions (userId = '123', startDate, endDate) {
-  try {
-    let transactionsQuery
+// Fetch transaction data for a user
+export async function getUserTransactions () {
+  const currentUser = auth.currentUser
 
-    if (startDate && endDate) {
-      transactionsQuery = query(
-        collection(db, 'users', userId, 'transactions'),
-        where('date', '>=', startDate),
-        where('date', '<=', endDate),
-        orderBy('date', 'asc')
-      )
-    } else {
-      transactionsQuery = query(
-        collection(db, 'users', userId, 'transactions'),
-        orderBy('date', 'asc')
-      )
+  if (!currentUser) {
+    throw {
+      message: 'You must be logged in to view your transactions',
+      statusText: 'Unauthorized',
+      status: 401
+    }
+  }
+  try {
+    const transactionsCollectionRef = collection(
+      db,
+      'users',
+      currentUser.uid,
+      'transactions'
+    )
+    const querySnapshot = await getDocs(transactionsCollectionRef)
+
+    if (querySnapshot.empty) {
+      console.log('No transactions found for user')
+      return []
     }
 
-    const transactionsSnapshot = await getDocs(transactionsQuery)
-    const transactions = transactionsSnapshot.docs.map(doc => ({
+    const transactionsArray = querySnapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data(),
-      userId
+      userId: currentUser.uid // Fixed: Added userId properly
     }))
-
-    return transactions
+    return transactionsArray.sort((a, b) => new Date(b.date) - new Date(a.date))
   } catch (error) {
     throw {
       message: 'Failed to fetch transactions',
@@ -201,33 +277,57 @@ export async function getUserTransactions (userId = '123', startDate, endDate) {
 
 // --------------------- Monthly Data API Functions ---------------------
 
-// Fetch monthly data for a specific user with optional year filtering
-export async function getUserMonthlyData (userId = '123', year) {
-  try {
-    let monthlyDataQuery
+// Fetch monthly data for a specific user
+export async function getUserMonthlyData () {
+  const currentUser = auth.currentUser
 
-    if (year) {
-      monthlyDataQuery = query(
-        collection(db, 'users', userId, 'monthlyData'),
-        where('year', '==', year),
-        orderBy('month')
-      )
-    } else {
-      monthlyDataQuery = query(
-        collection(db, 'users', userId, 'monthlyData'),
-        orderBy('year'),
-        orderBy('month')
-      )
+  if (!currentUser) {
+    throw {
+      message: 'You must be logged in to view your monthly data',
+      statusText: 'Unauthorized',
+      status: 401
+    }
+  }
+
+  try {
+    const monthlyDataCollectionRef = collection(
+      db,
+      'users',
+      currentUser.uid,
+      'monthlyData'
+    )
+    const querySnapshot = await getDocs(monthlyDataCollectionRef)
+
+    if (querySnapshot.empty) {
+      console.log('No monthly data found for user')
+      return []
     }
 
-    const monthlyDataSnapshot = await getDocs(monthlyDataQuery)
-    const monthlyData = monthlyDataSnapshot.docs.map(doc => ({
+    // Fixed: Using querySnapshot instead of undefined monthlyDataSnapshot
+    const monthlyDataArray = querySnapshot.docs.map(doc => ({
       id: doc.id,
-      ...doc.data(),
-      userId
+      ...doc.data()
     }))
 
-    return monthlyData
+    // sort by month order
+    const monthOrder = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ]
+
+    return monthlyDataArray.sort(
+      (a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month)
+    )
   } catch (error) {
     throw {
       message: 'Failed to fetch monthly data',
@@ -296,5 +396,3 @@ export async function loginUser (credentials) {
     }
   }
 }
-
-//

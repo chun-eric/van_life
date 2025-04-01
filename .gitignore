@@ -74,9 +74,15 @@ seedFirestore.js
 # config file
 firebaseConfig.js
 src/firebaseConfig.js
+src/migrateData.js
+src/seedFirestore.js
+migrateData.js
+updateVanHostIds.js
+updateVanHostIds.js/
 seedFirestore.js
 src/oldapi.js
 src/server.js
+AdminPanel.jsx
 
 # readme
 README.md

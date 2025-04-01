@@ -1,51 +1,51 @@
-import { useState, useEffect } from "react";
-import { useParams, Link, useLocation } from "react-router-dom";
-import { getVans } from "../../api.js";
-import Breadcrumbs from "../../component/Breadcrumbs.jsx";
+import { useState, useEffect } from 'react'
+import { useParams, Link, useLocation } from 'react-router-dom'
+import { getVan } from '../../api.js'
+import Breadcrumbs from '../../component/Breadcrumbs.jsx'
 
 const VanDetails = () => {
-  const [van, setVan] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
-  const location = useLocation();
-  const [activeTab, setActiveTab] = useState("info");
+  const [van, setVan] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const { id } = useParams()
+  const location = useLocation()
+  const [activeTab, setActiveTab] = useState('info')
 
   // reg eturns id: "1"
   // console.log(id);
-  console.log(location);
+  console.log(location)
 
   useEffect(() => {
-    async function loadVans() {
-      setLoading(true);
+    async function loadVans () {
+      setLoading(true)
       try {
-        const data = await getVans(id);
-        setVan(data);
+        const data = await getVan(id)
+        setVan(data)
       } catch (error) {
-        setError(error);
+        setError(error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
-    loadVans();
-  }, [id]);
+    loadVans()
+  }, [id])
 
   // color options
   const colorOptions = {
-    simple: "#e17653",
-    rugged: "#115E59",
-    luxury: "#161616",
-  };
+    simple: '#e17653',
+    rugged: '#115E59',
+    luxury: '#161616'
+  }
 
   // tab content
   const tabContent = {
-    info: "Our Adventure Van comes equipped with all the essentials for a perfect getaway. Enjoy a fully-stocked kitchen, comfortable sleeping arrangements, and ample storage space. Experience the great outdoors like never before!",
+    info: 'Our Adventure Van comes equipped with all the essentials for a perfect getaway. Enjoy a fully-stocked kitchen, comfortable sleeping arrangements, and ample storage space. Experience the great outdoors like never before!',
     delivery:
-      "Get your van delivered right to your destination. We offer flexible pickup and drop-off times, with real-time tracking and timely communication throughout the delivery process.",
+      'Get your van delivered right to your destination. We offer flexible pickup and drop-off times, with real-time tracking and timely communication throughout the delivery process.',
     payment:
-      "Easy and secure payment options available. We accept all major credit cards, digital wallets, and offer flexible payment plans. Transparent pricing with no hidden fees.",
-  };
+      'Easy and secure payment options available. We accept all major credit cards, digital wallets, and offer flexible payment plans. Transparent pricing with no hidden fees.'
+  }
 
   // loading state
   if (loading) {
@@ -57,7 +57,7 @@ const VanDetails = () => {
           </h1>
         </div>
       </div>
-    );
+    )
   }
 
   // error state
@@ -75,21 +75,21 @@ const VanDetails = () => {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   const buttonBaseClasses =
-    "w-full px-6 py-3 font-semibold text-black transition-all border border-black shadow-inner cursor-pointer hover:-translate-y-0.5 hover:shadow-md duration-300 ease-in-out";
+    'w-full px-6 py-3 font-semibold text-black transition-all border border-black shadow-inner cursor-pointer hover:-translate-y-0.5 hover:shadow-md duration-300 ease-in-out'
 
   return (
     <div className='w-full max-w-6xl px-4 mx-auto sm:px-6'>
       <div className='flex flex-col w-full p-6 mx-auto my-24 mt-16 bg-white rounded-lg '>
         <Link
-          to={`..${location.state?.search || ""}`}
+          to={`..${location.state?.search || ''}`}
           relative='path'
           className='block my-8 text-black no-underline '
         >
-          &larr;{" "}
+          &larr;{' '}
           <span className='text-sm capitalize hover:underline text-bold'>
             Back to all {van?.type} vans
           </span>
@@ -111,7 +111,7 @@ const VanDetails = () => {
                     key={index}
                     onClick={() => setSelectedImage(index)}
                     className={`w-24 h-24 overflow-hidden rounded ${
-                      selectedImage === index ? "ring-2 ring-[#FF8C38]" : ""
+                      selectedImage === index ? 'ring-2 ring-[#FF8C38]' : ''
                     }`}
                   >
                     <img
@@ -150,14 +150,14 @@ const VanDetails = () => {
               {/* tabs */}
               <div className='mt-8 '>
                 <div className='flex gap-8 pl-2'>
-                  {["info", "delivery", "payment"].map((tab) => (
+                  {['info', 'delivery', 'payment'].map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={`pb-2 text-xs capitalize  transition-all duration-200 ${
                         activeTab === tab
-                          ? "border-b-2 border-black"
-                          : "text-gray-500 hover:text-black"
+                          ? 'border-b-2 border-black'
+                          : 'text-gray-500 hover:text-black'
                       } `}
                     >
                       {tab}
@@ -178,7 +178,7 @@ const VanDetails = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default VanDetails;
+export default VanDetails

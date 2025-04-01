@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { Outlet } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const HostLayout = () => {
   return (
@@ -10,18 +10,19 @@ const HostLayout = () => {
           end
           className={({ isActive }) =>
             isActive
-              ? "font-bold text-gray-800 underline hover:text-gray-600"
-              : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
+              ? 'font-bold text-gray-800 underline hover:text-gray-600'
+              : 'font-semibold text-gray-800 hover:text-gray-600 hover:underline'
           }
         >
           Dashboard
         </NavLink>
+
         <NavLink
           to='income'
           className={({ isActive }) =>
             isActive
-              ? "font-bold text-gray-800 underline hover:text-gray-600"
-              : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
+              ? 'font-bold text-gray-800 underline hover:text-gray-600'
+              : 'font-semibold text-gray-800 hover:text-gray-600 hover:underline'
           }
         >
           Income
@@ -30,8 +31,8 @@ const HostLayout = () => {
           to='vans'
           className={({ isActive }) =>
             isActive
-              ? "font-bold text-gray-800 underline hover:text-gray-600"
-              : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
+              ? 'font-bold text-gray-800 underline hover:text-gray-600'
+              : 'font-semibold text-gray-800 hover:text-gray-600 hover:underline'
           }
         >
           Vans
@@ -40,8 +41,8 @@ const HostLayout = () => {
           to='reviews'
           className={({ isActive }) =>
             isActive
-              ? "font-bold text-gray-800 underline hover:text-gray-600"
-              : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
+              ? 'font-bold text-gray-800 underline hover:text-gray-600'
+              : 'font-semibold text-gray-800 hover:text-gray-600 hover:underline'
           }
         >
           Reviews
@@ -49,7 +50,7 @@ const HostLayout = () => {
       </nav>
       <Outlet />
     </div>
-  );
-};
+  )
+}
 
-export default HostLayout;
+export default HostLayout

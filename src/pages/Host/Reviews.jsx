@@ -1,14 +1,32 @@
-import { reviewsData } from "../../data";
-import { BsStarFill } from "react-icons/bs";
+// import { reviewsData } from "../../data";
+import { getUserReviews } from '../../api'
+import { BsStarFill } from 'react-icons/bs'
+import { useState, useEffect } from 'react'
 
 const Reviews = () => {
+  const [reviews, setReviews] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    async function fetchReviews () {
+      try {
+        setLoading(true)
+        const data = await getUserReviews()
+        setReviews(data)
+      } catch (error) {
+        setError(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchReviews()
+  }, [])
+
   // calculate average reviews
   const averageRating = (
-    reviewsData.reduce((acc, review) => acc + review.rating, 0) /
-    reviewsData.length
-  ).toFixed(1);
-
-  console.log(averageRating);
+    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+  ).toFixed(1)
 
   // calculate rating distribution
   const ratingCounts = {
@@ -16,37 +34,46 @@ const Reviews = () => {
     4: 0,
     3: 0,
     2: 0,
-    1: 0,
-  };
+    1: 0
+  }
 
-  reviewsData.forEach((review) => {
-    ratingCounts[review.rating] += 1;
-  });
+  reviews.forEach(review => {
+    ratingCounts[review.rating] += 1
+  })
 
   // total reviews
-  const totalReviews = reviewsData.length;
+  const totalReviews = reviews.length
 
   // rating percentages
   // Object.entries turns an object into an array or array
   const ratingPercentages = Object.entries(ratingCounts).reduce(
     (acc, [rating, count]) => {
-      acc[rating] = Math.round((count / totalReviews) * 100).toFixed(0);
-      return acc;
+      acc[rating] = Math.round((count / totalReviews) * 100).toFixed(0)
+      return acc
     },
     {}
-  );
+  )
 
   // function to render stars
-  function renderStars(rating) {
+  function renderStars (rating) {
     return [...Array(5)].map((_, index) => (
       <BsStarFill
         key={index}
         color='#ff8c38'
         size={16}
-        className={index < rating ? "" : "opacity-30"}
+        className={index < rating ? '' : 'opacity-30'}
       />
-    ));
+    ))
   }
+
+  if (loading) return <div className='py-10 mt-6'>Loading reviews...</div>
+
+  if (error)
+    return (
+      <div className='py-10 mt-6 text-red-600'>
+        Error loading reviews: {error.message}
+      </div>
+    )
 
   return (
     <div className='flex flex-col px-0 py-10 mt-6 rounded-lg xs:px-2 '>
@@ -76,7 +103,7 @@ const Reviews = () => {
               key={rating}
             >
               <span className='flex w-14 sm:w-20'>
-                {rating} {rating === "1" ? "star" : "stars"}
+                {rating} {rating === '1' ? 'star' : 'stars'}
               </span>
               <div className='flex-1 h-3 bg-[#b9b9b9] rounded sm:mr-3'>
                 <div
@@ -95,7 +122,7 @@ const Reviews = () => {
           Reviews ({totalReviews})
         </h3>
         <div className='mt-6 space-y-8'>
-          {reviewsData.map((review) => (
+          {reviews.map(review => (
             <div key={review.id} className='pb-6 border-b'>
               {/* Stars*/}
               <div className='flex gap-1 mb-2'>
@@ -113,7 +140,7 @@ const Reviews = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Reviews;
+export default Reviews

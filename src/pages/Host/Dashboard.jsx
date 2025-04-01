@@ -1,82 +1,110 @@
-import { Link } from "react-router-dom";
-import { BsStarFill } from "react-icons/bs";
-import { useState, useEffect } from "react";
-import { getHostVans } from "../../api";
-import { reviewsData } from "../../data";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { transactionData, monthlyData } from "../../data.js";
+import { Link } from 'react-router-dom'
+import { BsStarFill } from 'react-icons/bs'
+import { useState, useEffect, useContext } from 'react'
+import { getHostVans, getUserReviews, getUserTransactions } from '../../api'
+import { AuthContext } from '../../context/AuthContext'
 
 const Dashboard = () => {
-  const [vans, setVans] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const { user } = useContext(AuthContext);
-  console.log(user);
+  // State for data fetched from Firebase
+  const [vans, setVans] = useState([])
+  const [reviews, setReviews] = useState([])
+  const [transactions, setTransactions] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const { user } = useContext(AuthContext)
 
-  // fetch vans data after initial component mount
+  console.log('Current user:', user)
+
+  // Fetch all data on component mount
   useEffect(() => {
-    setLoading(true);
-    getHostVans()
-      .then((data) => setVans(data))
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
-  }, []);
+    async function fetchData () {
+      try {
+        setLoading(true)
 
-  // get review count
-  const reviewCount = reviewsData.length;
+        // Fetch data in parallel for better performance
+        const [vansData, reviewsData, transactionsData] = await Promise.all([
+          getHostVans(),
+          getUserReviews(),
+          getUserTransactions()
+        ])
 
-  // average review rating (rounded to 1 decimal place)
-  const averageRating = (
-    reviewsData.reduce((acc, review) => acc + review.rating, 0) / reviewCount
-  ).toFixed(1);
-  console.log(averageRating);
+        console.log('Successfully fetched vans:', vansData)
+        console.log('Successfully fetched reviews:', reviewsData)
+        console.log('Successfully fetched transactions:', transactionsData)
 
-  // helper function to calculate date range
-  const calculateDateRange = (days) => {
-    const currentDate = new Date(transactionData.at(-1).date);
-    const pastDate = new Date(currentDate);
-    pastDate.setDate(currentDate.getDate() - days);
-    return { currentDate, pastDate };
-  };
+        setVans(vansData)
+        setReviews(reviewsData)
+        setTransactions(transactionsData)
+        setError(null)
+      } catch (err) {
+        console.error('Error fetching dashboard data:', err)
+        setError(err)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-  // helper function to filter and sum transactions
-  const calcuateIncomeForPeriod = (days) => {
-    // object destructuring
-    const { currentDate, pastDate } = calculateDateRange(days);
+    fetchData()
+  }, [])
 
-    const filteredTransactions = transactionData.filter((transaction) => {
-      const transactionDate = new Date(transaction.date);
-      return transactionDate >= pastDate && transactionDate <= currentDate;
-    });
+  // Calculate review stats if reviews exist
+  const reviewCount = reviews.length
 
-    return {
-      total: filteredTransactions.reduce(
-        (sum, transaction) => sum + transaction.amount,
-        0
-      ),
-      transactions: filteredTransactions,
-    };
-  };
+  const averageRating =
+    reviewCount > 0
+      ? (
+          reviews.reduce((acc, review) => acc + review.rating, 0) / reviewCount
+        ).toFixed(1)
+      : '0.0'
 
-  // Calculate income for different periods
-  const last30Days = calcuateIncomeForPeriod(30);
+  // Calculate income for last 30 days
+  const calculateLast30DaysIncome = () => {
+    if (transactions.length === 0) return 0
 
-  const formatted = last30Days.total.toLocaleString("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
+    const now = new Date()
+    const thirtyDaysAgo = new Date(now)
+    thirtyDaysAgo.setDate(now.getDate() - 30)
 
-  // render vans data
-  function renderVans(vans) {
-    const vansElements = vans.map((van) => (
+    const filteredTransactions = transactions.filter(transaction => {
+      const transactionDate = new Date(transaction.date)
+      return transactionDate >= thirtyDaysAgo
+    })
+
+    return filteredTransactions.reduce(
+      (sum, transaction) => sum + transaction.amount,
+      0
+    )
+  }
+
+  const last30DaysIncome = calculateLast30DaysIncome()
+
+  const formatted = last30DaysIncome.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  })
+
+  // Render vans data
+  function renderVans (vans) {
+    if (!vans || vans.length === 0) {
+      return <p className='text-gray-500'>No vans listed yet.</p>
+    }
+
+    const vansElements = vans.map(van => (
       <div key={van.id} className='relative flex flex-col gap-4'>
         <div className='flex flex-row items-center justify-between gap-3 pr-2 border border-black rounded-lg xs:gap-6'>
           <div className='flex items-center justify-between gap-3 xs:gap-6 '>
             <img
               className='object-cover rounded-lg cursor-pointer h-28 w-28'
-              src={van.imageUrl[0]}
-              alt={`This is a ${van.type}  ${van.name} van`}
+              src={
+                van.imageUrl && Array.isArray(van.imageUrl)
+                  ? van.imageUrl[0]
+                  : van.imageUrl
+              }
+              alt={`This is a ${van.type || ''} ${van.name || ''} van`}
+              onError={e => {
+                console.error('Image failed to load:', e)
+                e.target.src = 'https://via.placeholder.com/112?text=No+Image'
+              }}
             />
             <div className='flex flex-col '>
               <p className='mb-2 text-base font-bold xs:text-xl'>{van.name}</p>
@@ -93,18 +121,18 @@ const Dashboard = () => {
           </Link>
         </div>
       </div>
-    ));
+    ))
 
     return (
       <div className=''>
         <section className='flex flex-col gap-4'>{vansElements}</section>
       </div>
-    );
+    )
   }
 
-  // render error message
+  // Render error message
   if (error) {
-    return <h1>{error.message}</h1>;
+    return <h1>{error.message}</h1>
   }
 
   return (
@@ -112,13 +140,12 @@ const Dashboard = () => {
       <div className='p-5 text-left text-white bg-teal-700 rounded-lg '>
         <section className='flex flex-col gap-4 '>
           <div className='flex flex-col gap-2'>
-            <h1 className='text-xl font-bold xs:text-2xl pt-3'>
-              {" "}
-              Welcome {user?.name || "back"}!
+            <h1 className='pt-3 text-xl font-bold xs:text-2xl'>
+              Welcome {user?.name || 'back'}!
             </h1>
             <div className='flex flex-row items-center justify-between '>
               <p className='text-xs xs:text-sm'>
-                Your income in the past{" "}
+                Your income in the past{' '}
                 <span className='underline cursor-pointer'>30 days</span>
               </p>
               <Link
@@ -165,15 +192,11 @@ const Dashboard = () => {
           </Link>
         </div>
         <div className='rounded-lg'>
-          {loading && !vans ? (
-            <h1 className=''>Loading...</h1>
-          ) : (
-            renderVans(vans)
-          )}
+          {loading ? <h1 className=''>Loading...</h1> : renderVans(vans)}
         </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard
