@@ -80,7 +80,8 @@ migrateData.js
 updateVanHostIds.js
 setUpDatabaseSchema.js/
 setUpDatabaseSchema.js
-
+utils/
+**/utils/
 updateVanHostIds.js/
 seedFirestore.js
 src/oldapi.js
