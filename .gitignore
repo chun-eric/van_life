@@ -78,6 +78,9 @@ src/migrateData.js
 src/seedFirestore.js
 migrateData.js
 updateVanHostIds.js
+setUpDatabaseSchema.js/
+setUpDatabaseSchema.js
+
 updateVanHostIds.js/
 seedFirestore.js
 src/oldapi.js
