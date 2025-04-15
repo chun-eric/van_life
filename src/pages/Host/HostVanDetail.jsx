@@ -1,40 +1,40 @@
-import { useState, useEffect } from "react";
-import { getHostVans } from "../../api";
-import { NavLink, useParams, Link, Outlet } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import { getHostVans } from '../../api'
+import { NavLink, useParams, Link, Outlet } from 'react-router-dom'
 
 const HostVanDetail = () => {
-  const [van, setVan] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
+  const [van, setVan] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [error, setError] = useState(null)
+  const { id } = useParams()
 
   useEffect(() => {
-    async function loadVans() {
-      setLoading(true);
+    async function loadVans () {
+      setLoading(true)
       try {
-        const data = await getHostVans(id);
-        setVan(data);
+        const data = await getHostVans()
+        setVan(data)
       } catch (error) {
-        setError(error);
+        setError(error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
-    loadVans();
-  }, [id]);
+    loadVans()
+  }, [id])
 
   // color options
   const colorOptions = {
-    simple: "#e17653",
-    rugged: "#115E59",
-    luxury: "#161616",
-  };
+    simple: '#e17653',
+    rugged: '#115E59',
+    luxury: '#161616'
+  }
 
   // handle image change
-  const handleImageChange = (index) => {
-    setCurrentImageIndex(index);
-  };
+  const handleImageChange = index => {
+    setCurrentImageIndex(index)
+  }
 
   // Loading state
   if (loading) {
@@ -46,7 +46,7 @@ const HostVanDetail = () => {
           </h1>
         </div>
       </div>
-    );
+    )
   }
 
   // Error state
@@ -64,7 +64,7 @@ const HostVanDetail = () => {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -75,7 +75,7 @@ const HostVanDetail = () => {
           relative='path'
           className='block mt-16 mb-4 text-black no-underline '
         >
-          &larr;{" "}
+          &larr;{' '}
           <span className='text-xs capitalize hover:underline'>
             back to all vans
           </span>
@@ -116,8 +116,8 @@ const HostVanDetail = () => {
                   end
                   className={({ isActive }) =>
                     isActive
-                      ? "font-bold text-gray-800 underline hover:text-gray-600"
-                      : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
+                      ? 'font-bold text-gray-800 underline hover:text-gray-600'
+                      : 'font-semibold text-gray-800 hover:text-gray-600 hover:underline'
                   }
                 >
                   Details
@@ -126,8 +126,8 @@ const HostVanDetail = () => {
                   to='pricing'
                   className={({ isActive }) =>
                     isActive
-                      ? "font-bold text-gray-800 underline hover:text-gray-600"
-                      : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
+                      ? 'font-bold text-gray-800 underline hover:text-gray-600'
+                      : 'font-semibold text-gray-800 hover:text-gray-600 hover:underline'
                   }
                 >
                   Pricing
@@ -136,8 +136,8 @@ const HostVanDetail = () => {
                   to='photos'
                   className={({ isActive }) =>
                     isActive
-                      ? "font-bold text-gray-800 underline hover:text-gray-600"
-                      : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
+                      ? 'font-bold text-gray-800 underline hover:text-gray-600'
+                      : 'font-semibold text-gray-800 hover:text-gray-600 hover:underline'
                   }
                 >
                   Photos
@@ -147,7 +147,7 @@ const HostVanDetail = () => {
                 context={{
                   van,
                   onImageChange: handleImageChange,
-                  currentImageIndex,
+                  currentImageIndex
                 }}
               />
             </div>
@@ -155,7 +155,7 @@ const HostVanDetail = () => {
         </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default HostVanDetail;
+export default HostVanDetail

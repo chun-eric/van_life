@@ -215,16 +215,30 @@ export async function getUserReviews () {
 // --------------------- Testimonial API Functions ---------------------
 
 // Fetch testimonials for homepage
+// export async function getTestimonials () {
+//   try {
+//     const testimonialsSnapshot = await getDocs(collection(db, 'testimonials'))
+//     const testimonials = testimonialsSnapshot.docs.map(doc => ({
+//       id: doc.id,
+//       ...doc.data()
+//     }))
+
+//     return testimonials
+//   } catch (error) {
+//     throw {
+//       message: 'Failed to fetch testimonials',
+//       statusText: error.message,
+//       status: error.code || 500
+//     }
+//   }
+// }
+
+// Fetch multiple testimonials
 export async function getTestimonials () {
   try {
-    const testimonialsSnapshot = await getDocs(collection(db, 'testimonials'))
-    const testimonials = testimonialsSnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }))
-
-    return testimonials
+    console.log('Fetching testimonials from collection...')
   } catch (error) {
+    console.error('Error fetching testimonials:', error)
     throw {
       message: 'Failed to fetch testimonials',
       statusText: error.message,

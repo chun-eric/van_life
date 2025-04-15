@@ -67,6 +67,14 @@ const Testimonials = () => {
       </div>
     )
 
+  // Empty state
+  if (!testimonials || testimonials.length === 0) {
+    console.log('No testimonials found')
+    return (
+      <div className='w-full py-20 text-center '>No testimonials found</div>
+    )
+  }
+
   return (
     <div className='w-full bg-white'>
       <div className='flex flex-col items-center justify-center py-16 mx-auto text-center bg-orange-100 rounded-xl pb-36 min-w-[320px]'>

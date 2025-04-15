@@ -324,6 +324,9 @@ What a doozy of a day. Probably the hardest day of not knowing half the time wha
 4. Bug* however still issues with fetching testimonials
 
 
+#Day 28
+1. Bug* however still issues with fetching testimonials from firebase.
+
 1. Finalize functionality for calendar function
 2. Add book route
 3. Design and make booking page

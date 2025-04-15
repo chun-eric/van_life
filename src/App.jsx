@@ -3,7 +3,7 @@ import './index.css'
 import { Routes, Route } from 'react-router-dom'
 import About from './pages/About'
 import Home from './pages/Home'
-import './server.js'
+
 import Vans from './pages/Vans/Vans.jsx'
 import VanDetails from './pages/Vans/VanDetails.jsx'
 import Layout from './component/Layout.jsx'

@@ -1,4 +1,3 @@
-import '../server.js'
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 // import { loginUser } from "../api.js";

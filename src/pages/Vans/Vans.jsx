@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import '../../server.js'
+
 import { getVans } from '../../api.js'
 import VanCard from './VanCard.jsx'
 import SearchBar from '../../component/SearchBar.jsx'
