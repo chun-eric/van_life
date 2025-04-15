@@ -19,7 +19,6 @@ import HostVanPhotos from './pages/Host/HostVanPhotos.jsx'
 import NotFound from './pages/NotFound.jsx'
 import Login from './pages/Login.jsx'
 import { AuthProvider } from './context/AuthProvider'
-import AdminPanel from './pages/Host/AdminPanel.jsx'
 
 function App () {
   return (
@@ -41,7 +40,6 @@ function App () {
             {/** Host Layout Routes */}
             <Route element={<AuthRequired />}>
               <Route path='/host' element={<HostLayout />}>
-                <Route path='admin' element={<AdminPanel />} />
                 <Route index element={<Dashboard />} />
                 <Route path='income' element={<Income />} />
                 <Route path='reviews' element={<Reviews />} />
