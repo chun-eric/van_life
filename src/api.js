@@ -237,6 +237,24 @@ export async function getUserReviews () {
 export async function getTestimonials () {
   try {
     console.log('Fetching testimonials from collection...')
+
+    const testimonialsCollectionRef = collection(db, 'testimonials')
+
+    const querySnapshot = await getDocs(testimonialsCollectionRef)
+
+    if (querySnapshot.empty) {
+      console.log('No testimonials found')
+      return []
+    }
+
+    // map docs to an array of testimonial objects
+    const testimonials = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }))
+    console.log('testimonials', testimonials)
+
+    return testimonials
   } catch (error) {
     console.error('Error fetching testimonials:', error)
     throw {
