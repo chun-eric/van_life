@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AuthContext } from './AuthContext.jsx'
 import PropTypes from 'prop-types'
-import { auth } from '/src/firebaseConfig.js'
+import { auth } from '../../src/firebaseConfig.js'
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
