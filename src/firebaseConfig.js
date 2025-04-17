@@ -5,13 +5,7 @@ import { getAnalytics } from 'firebase/analytics'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyALBANFnnuxBbxeBuicvxRWkJtlK4cPDrs',
-  authDomain: 'journeyvan-life.firebaseapp.com',
-  projectId: 'journeyvan-life',
-  storageBucket: 'journeyvan-life.firebasestorage.app',
-  messagingSenderId: '870352165992',
-  appId: '1:870352165992:web:4809430d1355c9c2662fdd',
-  measurementId: 'G-NMBZDK2GVT'
+ 
 }
 
 // Initialize Firebase
