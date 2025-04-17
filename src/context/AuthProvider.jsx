@@ -16,21 +16,21 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
 
   // on first mount check local storage
-  // useEffect(() => {
-  //   const loggedIn = localStorage.getItem('loggedin')
-  //   const userData = localStorage.getItem('user')
-  //   if (loggedIn && userData) {
-  //     try {
-  //       const parsedUser = JSON.parse(userData)
-  //       setIsLoggedIn(true)
-  //       setUser(parsedUser)
-  //     } catch (error) {
-  //       console.error('Error parsing user data from localStorage:', error)
-  //       localStorage.removeItem('loggedin')
-  //       localStorage.removeItem('user')
-  //     }
-  //   }
-  // }, [])
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('loggedin')
+    const userData = localStorage.getItem('user')
+    if (loggedIn && userData) {
+      try {
+        const parsedUser = JSON.parse(userData)
+        setIsLoggedIn(true)
+        setUser(parsedUser)
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error)
+        localStorage.removeItem('loggedin')
+        localStorage.removeItem('user')
+      }
+    }
+  }, [])
 
   // on first mount check auth state
   useEffect(() => {
@@ -68,13 +68,13 @@ export const AuthProvider = ({ children }) => {
         throw new Error('Email is required')
       }
 
-      // const res = await fetch('/api/login', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify(credentials)
-      // })
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+      })
 
       const userCredentials = await signInWithEmailAndPassword(
         auth,
