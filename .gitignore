@@ -72,8 +72,7 @@ seedFirestore.js
 *seed*.js
 
 # config file
-firebaseConfig.js
-src/firebaseConfig.js
+
 src/migrateData.js
 src/seedFirestore.js
 migrateData.js
