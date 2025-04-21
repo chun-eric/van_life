@@ -59,15 +59,25 @@ const Dashboard = () => {
 
   // Calculate income for last 30 days
   const calculateLast30DaysIncome = () => {
-    if (transactions.length === 0) return 0
+    // guard clause to check if transaction exists and has data
+    if (!transactions || transactions.length === 0) return 0
 
-    const now = new Date()
-    const thirtyDaysAgo = new Date(now)
-    thirtyDaysAgo.setDate(now.getDate() - 30)
+    // Sort transactions by date in descending order (newest dates first)
+    // spread operator to create a shallow copy of the transactions array
+    // and sort it in descending order based on the date property into Date object
+    const sortedTransactions = [...transactions].sort(
+      (a, b) => new Date(b.date) - new Date(a.date)
+    )
+
+    const mostRecentDate = new Date(sortedTransactions[0].date) // index 0 is the most recent date
+    const thirtyDaysAgo = new Date(mostRecentDate)
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30) // subtract 30 days from the most recent date
 
     const filteredTransactions = transactions.filter(transaction => {
       const transactionDate = new Date(transaction.date)
-      return transactionDate >= thirtyDaysAgo
+      return (
+        transactionDate >= thirtyDaysAgo && transactionDate <= mostRecentDate
+      )
     })
 
     return filteredTransactions.reduce(
@@ -167,9 +177,11 @@ const Dashboard = () => {
                 <span className='font-bold'>{averageRating}</span>/5
               </p>
               <p className='ml-2'>
-                <span className='text-sm underline cursor-pointer'>
-                  {reviewCount} reviews
-                </span>
+                <Link to='/host/reviews'>
+                  <span className='text-sm underline cursor-pointer'>
+                    {reviewCount} reviews
+                  </span>
+                </Link>
               </p>
             </div>
           </div>

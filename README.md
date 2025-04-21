@@ -329,9 +329,14 @@ What a doozy of a day. Probably the hardest day of not knowing half the time wha
 
 
 #Day 29
-1. 
+1. Deployment fixed! - Updated env in vercel and project.
 
-1. Finalize functionality for calendar function
-2. Add book route
-3. Design and make booking page
-4. Add a favorited collection. I think this should be able to be saved in the users favorited collection. 
+#Day 30
+1. Need to get the host income. Currently it isnt rendering the data on the initial render. That means its not fetching it
+2. keep the password and username in the login page so that people can login 
+3. *Bug* HostDeatils when clicked keeps logging out. I think root cause is the component isnt checking whether the user has already logged in or not.
+
+4. Finalize functionality for calendar function
+5. Add book route
+6. Design and make booking page
+7. Add a favorited collection. I think this should be able to be saved in the users favorited collection. 

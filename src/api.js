@@ -32,11 +32,11 @@ export async function updateVanHostIds () {
 
     // Get all vans with hostId "123"
     const vansRef = collection(db, 'vans')
-    const q = query(vansRef, where('hostId', '==', '123'))
+    const q = query(vansRef, where('hostId', '==', '123456'))
     const querySnapshot = await getDocs(q)
 
     if (querySnapshot.empty) {
-      console.log("No vans found with hostId '123'")
+      console.log("No vans found with hostId '123456'")
       return
     }
 
@@ -52,7 +52,7 @@ export async function updateVanHostIds () {
 
     // Commit the batch
     await batch.commit()
-    console.log('Successfully updated all van hostIds to:', currentUser.uid)
+    // console.log('Successfully updated all van hostIds to:', currentUser.uid)
 
     return {
       success: true,
@@ -111,7 +111,7 @@ export async function getVan (id) {
 
 // Fetch all Host Vans - with hostId filtering
 export async function getHostVans () {
-  console.log('getHostVans function called')
+  // console.log('getHostVans function called')
 
   const currentUser = auth.currentUser
   console.log(
@@ -131,15 +131,11 @@ export async function getHostVans () {
   try {
     // Fixed: Use collection() instead of doc() for the vans collection
     const vansCollectionRef = collection(db, 'vans')
-    console.log('Collection reference created')
 
     // Create a query to find vans where hostId equals current user ID
     const q = query(vansCollectionRef, where('hostId', '==', currentUser.uid))
-    console.log('Query created with hostId:', currentUser.uid)
 
-    console.log('Executing query...')
     const querySnapshot = await getDocs(q) // querying multiple documents
-    console.log('Query executed, docs count:', querySnapshot.size)
 
     // Check if any vans were found
     if (querySnapshot.empty) {
@@ -236,8 +232,6 @@ export async function getUserReviews () {
 // Fetch multiple testimonials
 export async function getTestimonials () {
   try {
-    console.log('Fetching testimonials from collection...')
-
     const testimonialsCollectionRef = collection(db, 'testimonials')
 
     const querySnapshot = await getDocs(testimonialsCollectionRef)

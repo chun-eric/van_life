@@ -15,6 +15,9 @@ const Income = () => {
   const [monthlyData, setMonthlyData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [selectedPeriod, setSelectedPeriod] = useState(30)
+  const [displayedTransactions, setDisplayedTransactions] = useState([])
+  const [displayedTotal, setDisplayedTotal] = useState(0)
 
   // Fetch data from Firebase
   useEffect(() => {
@@ -30,10 +33,19 @@ const Income = () => {
         setTransactions(transactionsData)
         setMonthlyData(monthlyDataResult)
 
-        // Initialize with the last 30 days data
-        const initialPeriodData = calculateIncomeForPeriod(30, transactionsData)
-        setDisplayedTransactions(initialPeriodData.transactions)
-        setDisplayedTotal(initialPeriodData.total)
+        // Only calculate displayed data if we have transactions
+        if (transactionsData && transactionsData.length > 0) {
+          // Calculate using the transactionsData directly
+          const initialPeriodData = calculateIncomeForPeriod(
+            30,
+            transactionsData
+          )
+          setDisplayedTransactions(initialPeriodData.transactions)
+          setDisplayedTotal(initialPeriodData.total)
+        } else {
+          setDisplayedTransactions([])
+          setDisplayedTotal(0)
+        }
       } catch (err) {
         console.error('Error fetching income data:', err)
         setError(err)
@@ -45,14 +57,15 @@ const Income = () => {
     fetchData()
   }, [])
 
-  // helper function to calculate date range
-  const calculateDateRange = days => {
-    if (!transactions || transactions.length === 0) {
-      return { currentDate: new Date(), pastDate: new Date() }
+  // Helper function to calculate date range based on actual transaction data
+  const calculateDateRange = (days, transactionsArray) => {
+    // If no transactions, return null values to indicate no valid date range
+    if (!transactionsArray || transactionsArray.length === 0) {
+      return { currentDate: null, pastDate: null }
     }
 
     // Sort transactions by date to find the most recent one
-    const sortedTransactions = [...transactions].sort(
+    const sortedTransactions = [...transactionsArray].sort(
       (a, b) => new Date(b.date) - new Date(a.date)
     )
 
@@ -62,10 +75,18 @@ const Income = () => {
     return { currentDate, pastDate }
   }
 
-  // helper function to filter and sum transactions
+  // Helper function to filter and sum transactions for a specific period
   const calculateIncomeForPeriod = (days, transactionsArray = transactions) => {
-    // object destructuring
-    const { currentDate, pastDate } = calculateDateRange(days)
+    // Get date range from actual transaction data
+    const { currentDate, pastDate } = calculateDateRange(
+      days,
+      transactionsArray
+    )
+
+    // If no valid date range (no transactions), return empty result
+    if (!currentDate || !pastDate) {
+      return { total: 0, transactions: [] }
+    }
 
     const filteredTransactions = transactionsArray.filter(transaction => {
       const transactionDate = new Date(transaction.date)
@@ -81,7 +102,7 @@ const Income = () => {
     }
   }
 
-  // format date for display
+  // Format date for display
   const formatDate = dateString => {
     const date = new Date(dateString)
     return date.toLocaleDateString('en-US', {
@@ -91,48 +112,69 @@ const Income = () => {
     })
   }
 
-  // state for selected time period
-  const [selectedPeriod, setSelectedPeriod] = useState(30)
-  const [displayedTransactions, setDisplayedTransactions] = useState([])
-  const [displayedTotal, setDisplayedTotal] = useState(0)
-
-  // handle updated displayed data when period changes
+  // Handle period change and update displayed data
   const handlePeriodChange = days => {
-    const periodData = calculateIncomeForPeriod(days)
-    console.log(periodData)
+    const periodData = calculateIncomeForPeriod(days, transactions)
     setSelectedPeriod(days)
     setDisplayedTransactions(periodData.transactions)
     setDisplayedTotal(periodData.total)
   }
 
   // Calculate income for different periods for the summary section
-  const calculatedPeriods = {
-    last30Days: calculateIncomeForPeriod(30),
-    last60Days: calculateIncomeForPeriod(60),
-    last90Days: calculateIncomeForPeriod(90),
-    last180Days: calculateIncomeForPeriod(180),
-    last365days: calculateIncomeForPeriod(365)
+  // Using memoization to avoid unnecessary recalculations
+  const getCalculatedPeriods = () => {
+    return {
+      last30Days: calculateIncomeForPeriod(30, transactions),
+      last60Days: calculateIncomeForPeriod(60, transactions),
+      last90Days: calculateIncomeForPeriod(90, transactions),
+      last180Days: calculateIncomeForPeriod(180, transactions),
+      last365days: calculateIncomeForPeriod(365, transactions)
+    }
   }
 
+  // Loading state
   if (loading)
     return (
       <div className='px-6 py-10 mt-6 mb-10 rounded-lg bg-gray-50'>
-        Loading income data...
-      </div>
-    )
-  if (error)
-    return (
-      <div className='px-6 py-10 mt-6 mb-10 text-red-600 rounded-lg bg-gray-50'>
-        Error loading income data: {error.message}
+        <div className='flex items-center justify-center'>
+          <div className='w-6 h-6 border-2 border-t-2 border-gray-500 rounded-full border-t-teal-500 animate-spin'></div>
+          <span className='ml-2'>Loading income data...</span>
+        </div>
       </div>
     )
 
+  // Error state
+  if (error)
+    return (
+      <div className='px-6 py-10 mt-6 mb-10 text-red-600 rounded-lg bg-gray-50'>
+        <div className='flex items-center'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            className='w-6 h-6 mr-2'
+            fill='none'
+            viewBox='0 0 24 24'
+            stroke='currentColor'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+            />
+          </svg>
+          Error loading income data: {error.message}
+        </div>
+      </div>
+    )
+
+  const calculatedPeriods = getCalculatedPeriods()
+
   return (
     <div className='px-6 py-10 mt-6 mb-10 rounded-lg bg-gray-50'>
-      <section className='flex flex-col gap-4 '>
+      <section className='flex flex-col gap-4'>
         <div className='flex flex-col gap-2'>
           <h1 className='text-2xl font-bold'>Host Income</h1>
-          <div className='flex flex-row items-center justify-between '>
+          <div className='flex flex-row items-center justify-between'>
             <p className='text-sm'>
               Last{' '}
               <span className='text-gray-700 underline cursor-pointer'>
@@ -145,7 +187,7 @@ const Income = () => {
           </h2>
           <div className='flex flex-col mt-4 xs:flex-row'>
             <button
-              className={`px-3 py-2  text-xs ${
+              className={`px-3 py-2 text-xs ${
                 selectedPeriod === 30
                   ? 'bg-[#f7924a] text-white'
                   : 'bg-gray-100'
@@ -155,9 +197,9 @@ const Income = () => {
               30 days
             </button>
             <button
-              className={`px-3 py-2  text-xs ${
+              className={`px-3 py-2 text-xs ${
                 selectedPeriod === 60
-                  ? 'bg-[#f7924a]  text-white'
+                  ? 'bg-[#f7924a] text-white'
                   : 'bg-gray-100'
               }`}
               onClick={() => handlePeriodChange(60)}
@@ -165,7 +207,7 @@ const Income = () => {
               60 days
             </button>
             <button
-              className={`px-3 py-2  text-xs ${
+              className={`px-3 py-2 text-xs ${
                 selectedPeriod === 90
                   ? 'bg-[#f7924a] text-white'
                   : 'bg-gray-100'
@@ -175,7 +217,7 @@ const Income = () => {
               90 days
             </button>
             <button
-              className={`px-3 py-2  text-xs ${
+              className={`px-3 py-2 text-xs ${
                 selectedPeriod === 180
                   ? 'bg-[#f7924a] text-white'
                   : 'bg-gray-100'
@@ -185,7 +227,7 @@ const Income = () => {
               180 days
             </button>
             <button
-              className={`px-3 py-2  text-xs ${
+              className={`px-3 py-2 text-xs ${
                 selectedPeriod === 365
                   ? 'bg-[#f7924a] text-white'
                   : 'bg-gray-100'
@@ -199,7 +241,7 @@ const Income = () => {
       </section>
 
       <section className='mt-10'>
-        <div className='flex h-48 mb-6 '>
+        <div className='flex h-48 mb-6'>
           <ResponsiveContainer width='100%' height='100%'>
             <BarChart
               data={monthlyData}
@@ -233,19 +275,18 @@ const Income = () => {
         </div>
       </section>
 
-      <section className='flex flex-col gap-2 my-10 '>
-        <div className='flex flex-row items-center gap-5 mb-3 '>
-          <p className='text-xl font-semibold '>
-            Your Transactions{' '}
-            <span className=''>({displayedTransactions.length})</span>
+      <section className='flex flex-col gap-2 my-10'>
+        <div className='flex flex-row items-center gap-5 mb-3'>
+          <p className='text-xl font-semibold'>
+            Your Transactions <span>({displayedTransactions.length})</span>
           </p>
           <span className='-mb-1 text-xs'>Last {selectedPeriod} days</span>
         </div>
-        <div className='flex flex-col gap-2 rounded-lg '>
+        <div className='flex flex-col gap-2 rounded-lg'>
           {displayedTransactions.length > 0 ? (
             displayedTransactions.map(transaction => (
               <div
-                className='flex flex-row items-center justify-between gap-4 px-3 py-4 border rounded shadow-sm border-slate-500 hover:bg-white hover:shadow-md hover:transition-all hover:ease-in-out hover:duration-200'
+                className='flex flex-row items-center justify-between gap-4 px-3 py-4 border rounded shadow-sm border-slate-300 hover:bg-white hover:shadow-md hover:transition-all hover:ease-in-out hover:duration-200'
                 key={transaction.id}
               >
                 <span
@@ -259,20 +300,26 @@ const Income = () => {
                     {transaction.amount > 0 ? 'Deposited' : 'Withdrawn'}
                   </span>
                 </span>
-                <span className=''>{formatDate(transaction.date)}</span>
+                <span>{formatDate(transaction.date)}</span>
               </div>
             ))
           ) : (
-            <p className='text-gray-500'>
+            <p className='py-4 text-gray-500'>
               No transactions found for this period.
             </p>
           )}
         </div>
       </section>
-      <section className=''>
-        <div className='p-4 mt-6 rounded-lg bg-gray-50'>
+      <section>
+        <div className='p-4 mt-6 bg-gray-100 border border-gray-200 rounded-lg'>
           <h3 className='mb-3 font-bold'>Income Summary</h3>
           <div className='space-y-2'>
+            <p>
+              Last 30 days:{' '}
+              <span className='font-bold'>
+                ${calculatedPeriods.last30Days.total.toLocaleString()}
+              </span>
+            </p>
             <p>
               Last 60 days:{' '}
               <span className='font-bold'>
@@ -280,23 +327,14 @@ const Income = () => {
               </span>
             </p>
             <p>
-              Last 30 days:{' '}
-              <span className='font-bold'>
-                {' '}
-                ${calculatedPeriods.last30Days.total.toLocaleString()}
-              </span>
-            </p>
-            <p>
               Last 90 days:{' '}
               <span className='font-bold'>
-                {' '}
                 ${calculatedPeriods.last90Days.total.toLocaleString()}
               </span>
             </p>
             <p>
               Last 180 days:{' '}
               <span className='font-bold'>
-                {' '}
                 ${calculatedPeriods.last180Days.total.toLocaleString()}
               </span>
             </p>
