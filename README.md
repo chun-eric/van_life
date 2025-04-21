@@ -335,8 +335,9 @@ What a doozy of a day. Probably the hardest day of not knowing half the time wha
 1. Need to get the host income. Currently it isnt rendering the data on the initial render. That means its not fetching it
 2. keep the password and username in the login page so that people can login 
 3. *Bug* HostDeatils when clicked keeps logging out. I think root cause is the component isnt checking whether the user has already logged in or not.
+4. When clicking on Book now it should smoothly g to the Explore our Vans section. Need to set the useRef on the Vans component and pass in the scrollToVans function into the Hero component where the Book now button lives. Solution was the button1OnClick onClick needed to be passed as prop. 
 
-4. Finalize functionality for calendar function
-5. Add book route
-6. Design and make booking page
-7. Add a favorited collection. I think this should be able to be saved in the users favorited collection. 
+5. Finalize functionality for calendar function
+6. Add book route
+7. Design and make booking page
+8. Add a favorited collection. I think this should be able to be saved in the users favorited collection. 

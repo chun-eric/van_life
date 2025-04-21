@@ -1,15 +1,27 @@
-import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
-import logo from "../assets/logo.png";
-import { UserCircle } from "lucide-react";
-import { useAuth } from "../context/useAuth.jsx";
-import ButtonSet from "./ButtonSet.jsx";
-import SideNavBar from "./SideNavBar.jsx";
-import { Menu } from "lucide-react";
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { useState } from 'react'
+import logo from '../assets/logo.png'
+import { UserCircle } from 'lucide-react'
+import { useAuth } from '../context/useAuth.jsx'
+import ButtonSet from './ButtonSet.jsx'
+import SideNavBar from './SideNavBar.jsx'
+import { Menu } from 'lucide-react'
 
 const Navbar = () => {
-  const { isLoggedIn, logout } = useAuth();
-  const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+  const { isLoggedIn, logout } = useAuth()
+  const [isSideNavOpen, setIsSideNavOpen] = useState(false)
+  const location = useLocation()
+
+  // function to handle Book now button click
+  const handleBookNowClick = e => {
+    if (location.pathname === '/') {
+      e.preventDefault()
+      // Use a custom event to communicate with the Home component
+      const scrollEvent = new CustomEvent('scrollToVans')
+      window.dispatchEvent(scrollEvent)
+    }
+    // Otherwise, let the link navigate to /book
+  }
 
   return (
     <header className='bg-[#FFF7ED] w-full border-b border-black  '>
@@ -27,8 +39,8 @@ const Navbar = () => {
                     to='/host'
                     className={({ isActive }) =>
                       isActive
-                        ? "font-bold text-gray-800 underline"
-                        : "font-semibold text-black hover:underline hover:text-gray-600"
+                        ? 'font-bold text-gray-800 underline'
+                        : 'font-semibold text-black hover:underline hover:text-gray-600'
                     }
                   >
                     Host
@@ -39,8 +51,8 @@ const Navbar = () => {
                     to='/about'
                     className={({ isActive }) =>
                       isActive
-                        ? "font-bold text-gray-800 underline hover:text-gray-600"
-                        : "font-semibold text-gray-800 hover:text-gray-600 hover:underline"
+                        ? 'font-bold text-gray-800 underline hover:text-gray-600'
+                        : 'font-semibold text-gray-800 hover:text-gray-600 hover:underline'
                     }
                   >
                     About
@@ -51,8 +63,8 @@ const Navbar = () => {
                     to='/vans'
                     className={({ isActive }) =>
                       isActive
-                        ? "font-bold text-gray-800 underline"
-                        : "font-semibold text-gray-800 hover:underline hover:text-gray-600"
+                        ? 'font-bold text-gray-800 underline'
+                        : 'font-semibold text-gray-800 hover:underline hover:text-gray-600'
                     }
                   >
                     Vans
@@ -65,10 +77,11 @@ const Navbar = () => {
           <div className='items-center hidden md:flex'>
             <ButtonSet
               button1Text='Book Now'
-              button1Link='/book'
+              button1Link='/'
+              button1OnClick={handleBookNowClick}
               button2OnClick={isLoggedIn ? logout : null}
-              button2Text={isLoggedIn ? "Sign Out" : "Sign in"}
-              button2Link={isLoggedIn ? "/" : "/login"}
+              button2Text={isLoggedIn ? 'Sign Out' : 'Sign in'}
+              button2Link={isLoggedIn ? '/' : '/login'}
             />
           </div>
 
@@ -91,7 +104,7 @@ const Navbar = () => {
         />
       )}
     </header>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
