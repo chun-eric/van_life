@@ -19,6 +19,8 @@ import HostVanPhotos from './pages/Host/HostVanPhotos.jsx'
 import NotFound from './pages/NotFound.jsx'
 import Login from './pages/Login.jsx'
 import { AuthProvider } from './context/AuthProvider'
+import Booking from './pages/Vans/Booking.jsx'
+import BookingConfirmation from './pages/Vans/BookingConfirmation.jsx'
 
 function App () {
   return (
@@ -44,12 +46,21 @@ function App () {
                 <Route path='income' element={<Income />} />
                 <Route path='reviews' element={<Reviews />} />
                 <Route path='vans' element={<HostVans />} />
-                <Route path='vans/:id' element={<HostVanDetail />}>
+                <Route path='vans/:id/' element={<HostVanDetail />}>
                   <Route index element={<HostVanInfo />} />
                   <Route path='pricing' element={<HostVanPricing />} />
                   <Route path='photos' element={<HostVanPhotos />} />
                 </Route>
               </Route>
+            </Route>
+
+            {/* Booking Routes */}
+            <Route element={<AuthRequired />}>
+              <Route path='/vans/:id/book' element={<Booking />} />
+              <Route
+                path='/vans/:id/book/confirmation'
+                element={<BookingConfirmation />}
+              />
             </Route>
 
             {/* A catch all route - 404 page */}
