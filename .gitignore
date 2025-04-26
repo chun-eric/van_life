@@ -71,6 +71,7 @@ desktop.ini
 seedFirestore.js
 *seed*.js
 
+
 # config file
 firebaseConfig.js
 src/firebaseConfig.js
