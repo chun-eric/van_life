@@ -6,9 +6,13 @@ import { getVan } from '../../api'
 const Booking = () => {
   const { id } = useParams() // get van id from url
   const navigate = useNavigate()
-  const [vanDetails, setVanDetails] = useState(null)
+  const [vanDetails, setVanDetails] = useState(null) // the van Details object
   const [loading, setLoading] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
+  const [basePrice, setBasePrice] = useState(0)
+  const [taxAmount, setTaxAmount] = useState(0)
+  const [numDays, setNumDays] = useState(0)
+  const [totalPrice, setTotalPrice] = useState(0)
 
   // initialize react hook form
   const {
@@ -18,7 +22,7 @@ const Booking = () => {
     formState: { errors }
   } = useForm()
 
-  // Useeffect to fetch van details
+  // Useeffect to fetch initial van details
   useEffect(() => {
     const fetchVanDetails = async () => {
       try {
@@ -34,8 +38,37 @@ const Booking = () => {
 
     fetchVanDetails()
   }, [id])
-
   console.log('single van details:', vanDetails)
+
+  // watch for date changes
+  const pickupDate = watch('pickupDate')
+  const dropoffDate = watch('dropoffDate')
+
+  // Calculate total price whenever dates or van details change
+  useEffect(() => {
+    if (vanDetails && pickupDate && dropoffDate) {
+      const pickup = new Date(pickupDate)
+      const dropoff = new Date(dropoffDate)
+      const taxRate = 0.1 // 10% tax rate
+
+      // calculate difference in time
+      const diffInTime = dropoff.getTime() - pickup.getTime() // calculate in ms
+      const diffInDays = diffInTime / (1000 * 60 * 60 * 24) // convert to days
+
+      if (diffInDays > 0) {
+        const calculatedBasePrice = diffInDays * vanDetails.price
+        const calculatedTax = calculatedBasePrice * taxRate
+        const calculatedTotal = calculatedBasePrice + calculatedTax
+
+        // Update all state values
+        setNumDays(Math.floor(diffInDays))
+        setBasePrice(calculatedBasePrice.toFixed(2))
+        setTaxAmount(calculatedTax.toFixed(2))
+        setTotalPrice(calculatedTotal.toFixed(2))
+        console.log('Total Price is:', totalPrice)
+      }
+    }
+  }, [pickupDate, dropoffDate, vanDetails])
 
   if (loading) {
     return <p className=''>Loading Van...</p>
@@ -54,11 +87,11 @@ const Booking = () => {
     ' px-6 py-3 font-semibold text-black transition-all border border-black shadow-inner cursor-pointer hover:-translate-y-0.5 hover:shadow-md duration-300 ease-in-out'
 
   return (
-    <div className='min-h-screen'>
-      <div className='flex flex-col justify-center max-w-4xl gap-6 p-6 mx-auto item-center md:flex-row  h-[700px]'>
+    <div className='flex items-center justify-center min-h-screen overflow-auto'>
+      <div className='flex flex-col justify-between flex-grow w-full max-w-4xl gap-6 p-6 mx-auto my-6 item-stretch md:flex-row'>
         {/* Van Details Section */}
-        <div className='h-full p-4 rounded-lg shadow bg-gray-50 md:w-1/2 '>
-          <div className='flex flex-col '>
+        <div className='flex flex-col h-full p-4 rounded-lg shadow bg-gray-50 md:w-1/2 '>
+          <div className=''>
             {/* Main Image */}
             <img
               src={vanDetails.imageUrl[selectedImage]}
@@ -84,7 +117,8 @@ const Booking = () => {
               ))}
             </div>
           </div>
-          <div className='flex flex-col w-full gap-3'>
+          {/* Van Details */}
+          <div className='flex flex-col w-full gap-3 mt-4'>
             <h3 className='mt-3 text-2xl font-bold'>{vanDetails.name}</h3>
             <p className='mb-4 text-sm leading-relaxed text-slate-600'>
               {vanDetails.description}
@@ -94,7 +128,7 @@ const Booking = () => {
         </div>
 
         {/* Booking Form Section */}
-        <div className='h-full p-6 bg-white border border-black rounded-lg shadow md:w-1/2'>
+        <div className='flex flex-col h-full p-6 bg-white border border-black rounded-lg shadow md:w-1/2'>
           <h1 className='mb-4 text-xl font-bold'>Booking Request</h1>
 
           <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
@@ -205,12 +239,43 @@ const Booking = () => {
               )}
             </div>
 
+            {/* Price Summary */}
+            <div className='p-4 mb-4 space-y-3 bg-gray-100 rounded-lg'>
+              <h3 className='mb-3 text-lg font-bold'>Total Price</h3>
+              {pickupDate && dropoffDate && (
+                <>
+                  {/* Daily Rate */}
+                  <div className='flex justify-between text-sm'>
+                    <span className=''>Daily Rate</span>
+                    <span className=''>${vanDetails.price} /day</span>
+                  </div>
+                  {/* Number of days */}
+                  <div className='flex justify-between text-sm'>
+                    <span className=''>Total Days Booked:</span>
+                    <span className=''>{numDays}</span>
+                  </div>
+                  <div className='flex justify-between text-sm'>
+                    <span className=''>Base Price:</span>
+                    <span>${basePrice}</span>
+                  </div>
+                  <div className='flex justify-between text-sm'>
+                    <span className=''>Consumer Tax (10%):</span>
+                    <span className=''>${taxAmount}</span>
+                  </div>
+                  <div className='flex justify-between pt-3 font-bold border-t text-md border-t-black'>
+                    <span className=''>Total Price:</span>
+                    <span className=''>${totalPrice}</span>
+                  </div>
+                </>
+              )}
+            </div>
+
             {/* Submit Button */}
             <button
               type='submit'
               className={`${buttonBaseClasses} bg-[#FDBA74] hover:bg-orange-50 font-bold `}
             >
-              Booking Confirmation
+              Book Van
             </button>
           </form>
         </div>
