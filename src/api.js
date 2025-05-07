@@ -507,10 +507,8 @@ export async function getBooking (bookingId) {
 
     if (!bookingDoc.exists()) {
       throw {
-        throw {
-          message: 'Booking not found',
-          status: 404
-        }
+        message: 'Booking not found',
+        status: 404
       }
     }
 
