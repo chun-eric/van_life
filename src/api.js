@@ -422,3 +422,107 @@ export async function loginUser (credentials) {
     }
   }
 }
+
+/// --------------------- Booking API Functions ---------------------
+
+// Create a new booking
+export async function createBooking (bookingData) {
+  const currentUser = auth.currentUser
+
+  if (!currentUser) {
+    throw {
+      message: 'You must be logged in to create a booking',
+      statusText: 'Unauthorized',
+      status: 401
+    }
+  }
+
+  try {
+    const bookingRef = await addDoc(collection(db, 'booking'), {
+      ...bookingData,
+      userId: currentUser.uid,
+      createdAt: new Date().toISOString(),
+      status: 'pending'
+    })
+
+    return {
+      id: bookingRef.id,
+      ...bookingData
+    }
+  } catch (error) {
+    throw {
+      message: 'Failed to create booking',
+      statusText: error.message,
+      status: error.code || 500
+    }
+  }
+}
+
+// Update booking status
+export async function updateBookingStatus (bookingId, status) {
+  const currentUser = auth.currentUser
+
+  if (!currentUser) {
+    throw {
+      message: 'You must be logged in to update a booking',
+      statusText: 'Unauthorized',
+      status: 401
+    }
+  }
+
+  try {
+    const bookingRef = doc(db, 'bookings', bookingId)
+    await updateDoc(bookingRef, {
+      status,
+      updatedAt: new Date().toISOString()
+    })
+
+    return {
+      success: true,
+      bookingId
+    }
+  } catch (error) {
+    throw {
+      message: 'Failed to update booking status',
+      statusText: error.message,
+      status: error.code || 500
+    }
+  }
+}
+
+// Get booking by ID
+export async function getBooking (bookingId) {
+  const currentUser = auth.currentUser
+
+  if (!currentUser) {
+    throw {
+      message: 'You must be logged in to view booking details',
+      statusText: 'Unauthorized',
+      status: 401
+    }
+  }
+
+  try {
+    const bookingDoc = await getDoc(doc(db, 'bookings', bookingId))
+
+    if (!bookingDoc.exists()) {
+      throw {
+        throw {
+          message: 'Booking not found',
+          status: 404
+        }
+      }
+    }
+
+    return {
+      id: bookingDoc.id,
+      ...bookingDoc.data()
+    }
+  } catch (error) {
+    throw {
+      message: 'Failed to fetch booking details',
+      statusText: error.message,
+      status: error.code || 500
+    }
+  }
+}

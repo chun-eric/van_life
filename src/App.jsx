@@ -21,6 +21,8 @@ import Login from './pages/Login.jsx'
 import { AuthProvider } from './context/AuthProvider'
 import Booking from './pages/Vans/Booking.jsx'
 import BookingConfirmation from './pages/Vans/BookingConfirmation.jsx'
+import BookingSuccess from './pages/Vans/BookingSuccess.jsx'
+import BookingCancel from './pages/Vans/BookingCancel.jsx'
 
 function App () {
   return (
@@ -60,6 +62,14 @@ function App () {
               <Route
                 path='/vans/:id/book/confirmation'
                 element={<BookingConfirmation />}
+              />
+              <Route
+                path='/vans/:id/booking/success/:sessionId'
+                element={<BookingSuccess />}
+              />
+              <Route
+                path='/vans/:id/booking/cancel'
+                element={<BookingCancel />}
               />
             </Route>
 

@@ -273,9 +273,9 @@ const Booking = () => {
             {/* Submit Button */}
             <button
               type='submit'
-              className={`${buttonBaseClasses} bg-[#FDBA74] hover:bg-orange-50 font-bold `}
+              className={`${buttonBaseClasses} bg-[#FDBA74] hover:bg-orange-50 font-bold w-full`}
             >
-              Book Van
+              Book This Van
             </button>
           </form>
         </div>

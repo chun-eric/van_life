@@ -341,8 +341,12 @@ What a doozy of a day. Probably the hardest day of not knowing half the time wha
 1. Adding a booking route for a van. needs user to be authenticated in order to book the van.
 2. Moving the rentaldatepicker to the booking route
 3. Add a booking confirmation - . Also needs error check and handling for booking confirmation. 
-4. 
-5. Add a stripe checkout 
+
+#32
+
+1. Complete booking form
+2.  Add booking confirmation page 
+6. Add a stripe checkout 
 
 
 5. Add a favorited collection. I think this should be able to be saved in the users favorited collection. 
