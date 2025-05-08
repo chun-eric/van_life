@@ -5,10 +5,12 @@ import { getVan } from '../../api'
 
 const Booking = () => {
   const { id } = useParams() // get van id from url
-  const navigate = useNavigate()
+  const navigate = useNavigate() // need to navigate to confirmation page
   const [vanDetails, setVanDetails] = useState(null) // the van Details object
   const [loading, setLoading] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
+
+  // Price calculation states
   const [basePrice, setBasePrice] = useState(0)
   const [taxAmount, setTaxAmount] = useState(0)
   const [numDays, setNumDays] = useState(0)
@@ -22,7 +24,11 @@ const Booking = () => {
     formState: { errors }
   } = useForm()
 
-  // Useeffect to fetch initial van details
+  // watch for date changes
+  const pickupDate = watch('pickupDate')
+  const dropoffDate = watch('dropoffDate')
+
+  // Useeffect to fetch van details on initial mount
   useEffect(() => {
     const fetchVanDetails = async () => {
       try {
@@ -36,15 +42,10 @@ const Booking = () => {
       }
     }
 
-    fetchVanDetails()
-  }, [id])
-  console.log('single van details:', vanDetails)
+    fetchVanDetails() // call the function
+  }, [id]) // dependent on van id change
 
-  // watch for date changes
-  const pickupDate = watch('pickupDate')
-  const dropoffDate = watch('dropoffDate')
-
-  // Calculate total price whenever dates or van details change
+  // Calculate prices whenever dates or van details change
   useEffect(() => {
     if (vanDetails && pickupDate && dropoffDate) {
       const pickup = new Date(pickupDate)
@@ -65,22 +66,31 @@ const Booking = () => {
         setBasePrice(calculatedBasePrice.toFixed(2))
         setTaxAmount(calculatedTax.toFixed(2))
         setTotalPrice(calculatedTotal.toFixed(2))
-        console.log('Total Price is:', totalPrice)
       }
     }
   }, [pickupDate, dropoffDate, vanDetails])
 
+  // Handle form submission - pass booking data to confirmation page
+  const onSubmit = data => {
+    const bookingData = {
+      ...data,
+      vanDetails,
+      numDays,
+      basePrice,
+      taxAmount,
+      totalPrice
+    }
+    navigate(`/vans/${id}/book/confirmation`, { state: { bookingData } })
+  }
+
+  // loading state
   if (loading) {
     return <p className=''>Loading Van...</p>
   }
 
+  // Cannot find van state
   if (!vanDetails) {
     return <p className='bg-red-500'>Van not found</p>
-  }
-
-  // handle form Submission
-  const onSubmit = data => {
-    console.log('Form data: ', data)
   }
 
   const buttonBaseClasses =

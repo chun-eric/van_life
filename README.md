@@ -343,10 +343,12 @@ What a doozy of a day. Probably the hardest day of not knowing half the time wha
 3. Add a booking confirmation - . Also needs error check and handling for booking confirmation. 
 
 #32
-
 1. Complete booking form
 2.  Add booking confirmation page 
-6. Add a stripe checkout 
+3. Add a stripe checkout 
 
+#33
+1. Fixed booking form button submit and navigate to confirmation page. 
+2. 
 
-5. Add a favorited collection. I think this should be able to be saved in the users favorited collection. 
+3. Add a favorited collection. I think this should be able to be saved in the users favorited collection. 

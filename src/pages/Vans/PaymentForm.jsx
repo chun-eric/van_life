@@ -46,7 +46,7 @@ const PaymentForm = ({ bookingData }) => {
         <div className='text-sm text-red-500'>{errorMessage}</div>
       )}
       <button
-        className={`w-full bg-[#FDBA74] hover:bg-orange-50 text-black font-bold py-3 px-6 rounded-lg transition-colors ${
+        className={`w-full bg-[#FDBA74] hover:bg-black hover:text-white text-black font-bold py-3 px-6 rounded-lg transition-colors ${
           (!stripe || isProcessing) && 'opacity-50 cursor-not-allowed'
         }`}
         type='submit'
