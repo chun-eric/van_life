@@ -64,7 +64,7 @@ function App () {
                 element={<BookingConfirmation />}
               />
               <Route
-                path='/vans/:id/booking/success/:sessionId'
+                path='/vans/:id/booking/success/:bookingId'
                 element={<BookingSuccess />}
               />
               <Route

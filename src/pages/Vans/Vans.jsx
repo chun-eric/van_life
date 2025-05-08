@@ -160,28 +160,12 @@ const Vans = () => {
         </p>
         <div className='flex flex-col mb-6 '>
           {/* Container for all three components with responsive layouts */}
-          <div className='flex flex-col space-y-1 lg:space-y-0 lg:flex-row lg:items-stretch '>
+          <div className='flex flex-col justify-between w-full gap-3 lg:flex-row rounded-xl'>
             {/* Search Bar - Full width on all screens */}
-            <div className='flex-1 w-full lg:max-w-[400px]'>
+            <div className='flex-1 w-full lg:max-w-[85%] '>
               <SearchBar onSearch={handleSearch} />
-              {console.log('Current search query:', searchQuery)}
             </div>
-
-            {/* Container for DateRange and Sort - Stack on mobile, row on tablet, inline on desktop */}
-            <div className='flex-1 w-full '>
-              {/* <DateRangePicker /> */}
-              <RentalDatePicker
-                pickupDate={pickupDate}
-                pickupTime={pickupTime}
-                returnDate={returnDate}
-                returnTime={returnTime}
-                onPickupDateChange={setPickupDate}
-                onPickupTimeChange={setPickupTime}
-                onReturnDateChange={setReturnDate}
-                onReturnTimeChange={setReturnTime}
-              />
-            </div>
-            <div className='w-full flex-1 max-w-[130px] '>
+            <div className='w-full flex-1 lg:max-w-[10%] '>
               <SortSelect value={sort} onSort={handleSort} />
             </div>
           </div>

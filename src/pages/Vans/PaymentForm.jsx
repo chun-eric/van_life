@@ -8,6 +8,7 @@ const PaymentForm = ({ bookingData }) => {
   const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState(null)
   const [isProcessing, setIsProcessing] = useState(false)
+  const [name, setName] = useState('')
 
   // handle form submit function
   const handleSubmit = async event => {
@@ -24,7 +25,9 @@ const PaymentForm = ({ bookingData }) => {
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${window.location.origin}/booking/success/${bookingData.id}`
+          return_url: `${window.location.origin}/vans/${
+            bookingData.vanDetails.id
+          }/booking/success/${bookingData.id || 'new'}`
         }
       })
 
@@ -40,8 +43,15 @@ const PaymentForm = ({ bookingData }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className='space-y-4'>
-      <PaymentElement />
+    <form onSubmit={handleSubmit} className='space-y-6'>
+      <PaymentElement
+        options={{
+          layout: {
+            type: 'accordion',
+            defaultCollapsed: false
+          }
+        }}
+      />
       {errorMessage && (
         <div className='text-sm text-red-500'>{errorMessage}</div>
       )}
